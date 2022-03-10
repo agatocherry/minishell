@@ -1,0 +1,11 @@
+1° Initialiser l'env, la structure shell (et le signal ?)
+
+2° Ecrire le prompt
+
+3° Récuperer la ligne avec get_next_line
+
+4° Réaliser un parsing de la ligne dans une liste chainée et lui donner un type
+
+5° Envoyer vers la bonne fonction suivant le type de la commande
+
+6° Répéter dans une boucle infini jusqu'à SIGINT
