@@ -30,9 +30,13 @@
 # define STDERR 3
 
 # define EMPTY 0
-# define PIPE 1
-# define CMD 2
-# define OPT 3
+# define CMD 1
+# define OPT 2
+# define PIPE 3
+# define FD_IN 4
+# define FD_OUT 5
+# define APPEND 6
+# define LIMIT 7
 
 # define ERROR 1
 # define SUCCESS 0
@@ -59,9 +63,11 @@ typedef struct s_shell
 	int			in;
 	int			out;
 	int			last_ret;
-	int			fd;
+	int			fd_in;
+	int			fd_out;
 	int			pipe_in;
 	int			pipe_out;
+	int			exit;
 }	t_shell;
 
 typedef struct s_sig
