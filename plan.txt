@@ -9,3 +9,9 @@
 5° Envoyer vers la bonne fonction suivant le type de la commande
 
 6° Répéter dans une boucle infini jusqu'à SIGINT
+
+
+Parsing des commandes -->
+
+1° Protéger les mallocs
+2° Gérer quand il n'y a pas d'espaces avec < > et |
