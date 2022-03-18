@@ -145,6 +145,8 @@ int	count_line(char *line)
 			count++;
 			i++;
 		}
+		if (line[i] == '>' || line[i] == '<' || line[i] == '|')
+            		count++;
 	}
 	return (count);
 }
@@ -170,6 +172,8 @@ void	parse_line(char **new_line, char *line)
 			(*new_line)[j++] = line[i];
 			i++;
 		}
+		if (line[i] == '>' || line[i] == '<' || line[i] == '|')
+            		(*new_line)[j++] = ' ';
 	}
 }
 
