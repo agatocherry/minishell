@@ -6,12 +6,11 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/03/18 00:26:19 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/03/20 20:33:27 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "libft/libft.h"
+#include "../include/minishell.h"
 
 int	quotes(char *line)
 {
@@ -70,24 +69,57 @@ int	check_line(t_shell *shell, char **line)
 	return (0);
 }
 
-t_command	*get_command(char *line)
+t_command	*next_cmd(char *line, t_command **prev)
+{
+	t_command	*next;
+
+	next = ft_calloc(1, sizeof(t_command));
+	if (next == NULL)
+		return (NULL);
+	next->str = line;
+	next->prev = *prev;
+	return (next);
+}
+
+void	clear_command(t_command **cmd)
+{
+	t_command	*tmp;
+
+	if (!cmd)
+		return ;
+	while (*cmd && (*cmd)->prev)
+		*cmd = (*cmd)->prev;
+	while (*cmd)
+	{
+		tmp = (*cmd)->next;
+		printf("%s\n", (*cmd)->str);
+		free((*cmd)->str);
+		free((*cmd)->prev);
+		free(*cmd);
+		*cmd = tmp;
+	}
+	free(*cmd);
+	*cmd = NULL;
+	return ;
+}
+
+t_command	*get_command(char **lines)
 {
 	t_command	*prev;
 	t_command	*next;
 	int			i;
-	char		**lines;
 
 	prev = NULL;
 	next = NULL;
 	i = 0;
-	lines = ft_split(line, ' ');
 	while (lines[i])
 	{
-		next = (t_command *)malloc(sizeof(t_command));
-//		if (next == NULL)
-//			return (NULL);
-		next->str = lines[i++];
-		next->prev = prev;
+		next = next_cmd(lines[i++], &prev);
+		if (next == NULL)
+		{
+			clear_command(&prev);
+			return (NULL);
+		}
 		if (prev)
 			prev->next = next;
 		prev = next;
@@ -138,7 +170,7 @@ int	count_line(char *line)
 			count++;
 			i++;
 		}
-		if (!line[i] && line[i] != ' ')
+		if (line[i] != '\0' && line[i] != ' ')
 			count++;
 		while (line[i] && line[i] != '<' && line[i] != '>' && line[i] != '|')
 		{
@@ -146,7 +178,7 @@ int	count_line(char *line)
 			i++;
 		}
 		if (line[i] == '>' || line[i] == '<' || line[i] == '|')
-            		count++;
+			count++;
 	}
 	return (count);
 }
@@ -165,7 +197,7 @@ void	parse_line(char **new_line, char *line)
 			(*new_line)[j++] = line[i];
 			i++;
 		}
-		if (line[i] != '\0' && line[i] != ' ')
+		if (i != 0 && line[i] != '\0' && line[i] != ' ')
 			(*new_line)[j++] = ' ';
 		while (line[i] && line[i] != '<' && line[i] != '>' && line[i] != '|')
 		{
@@ -173,17 +205,16 @@ void	parse_line(char **new_line, char *line)
 			i++;
 		}
 		if (line[i] == '>' || line[i] == '<' || line[i] == '|')
-            		(*new_line)[j++] = ' ';
+			(*new_line)[j++] = ' ';
 	}
+	(*new_line)[j] = '\0';
 }
 
 char	*sep_command(char *line)
 {
-	int		j;
 	char	*new_line;
 
-	j = 0;
-	new_line = (char *)malloc(sizeof(char) * count_line(line) + 1);
+	new_line = (char *)ft_calloc((count_line(line) + 1), sizeof(char));
 	if (new_line)
 		parse_line(&new_line, line);
 	free(line);
@@ -195,7 +226,8 @@ int	parse_cmd(t_shell *shell)
 	char	*line;
 
 	ft_putstr_fd("$> ", STDIN);
-	if (ft_gnl(0, &line) == 0)
+	line = NULL;
+	if (ft_gnl(STDIN, &line) == 0)
 		return (0);
 	if (check_line(shell, &line))
 		return (0);
@@ -205,7 +237,7 @@ int	parse_cmd(t_shell *shell)
 	line = sep_command(line);
 	if (line == NULL)
 		return (0);
-	shell->command = get_command(line);
+	shell->command = get_command(ft_split(line, ' '));
 	free(line);
 	while (shell->command)
 	{
@@ -213,11 +245,13 @@ int	parse_cmd(t_shell *shell)
 		shell->command = shell->command->next;
 	}
 	type_command(shell);
+	clear_command(&shell->command);
 	return (0);
 }
 
 t_env *parse_env(char **env)
 {
+	(void)env;
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 21:03:27 by shdorlin          #+#    #+#             */
-/*   Updated: 2021/11/25 11:29:54 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/03/20 19:21:53 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ char	**ft_split(char const *s, char c)
 			i++;
 		if (s[i] && s[i] != c)
 		{
-			split[j++] = ft_allocate(&s[i], c);
+			split[j] = ft_allocate(&s[i], c);
+			j++;
 			while (s[i] && s[i] != c)
 				i++;
 		}

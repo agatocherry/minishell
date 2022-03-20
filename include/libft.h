@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 23:36:12 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/03/18 15:48:11 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/03/17 22:26:37 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4096
+#  define BUFFER_SIZE 64
 # endif
 
 typedef struct s_list

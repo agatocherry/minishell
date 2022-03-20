@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 03:31:41 by shdorlin          #+#    #+#             */
-/*   Updated: 2021/11/22 01:03:20 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/02/28 12:45:27 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strdup(const char *s)
 	char	*new_s;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	while (s[i])
 		i++;
 	new_s = (char *)malloc(sizeof (char) * i + 1);

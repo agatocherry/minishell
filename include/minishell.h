@@ -6,14 +6,14 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/03/11 00:01:20 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/03/18 14:37:16 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-//# include "libft.h"
+# include "libft.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>

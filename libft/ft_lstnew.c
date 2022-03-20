@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 20:52:39 by shdorlin          #+#    #+#             */
-/*   Updated: 2021/11/24 02:00:20 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/02/14 04:55:41 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ t_list	*ft_lstnew(void *content)
 	if (new == NULL)
 		return (NULL);
 	new->content = content;
+	new->next = NULL;
 	return (new);
 }
