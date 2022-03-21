@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/03/18 14:37:16 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/03/21 23:24:16 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 
 # define ERROR 1
 # define SUCCESS 0
+# define NOT_EXEC 126
 # define UNK_CMD 127
 
 typedef struct s_env
@@ -67,11 +68,16 @@ typedef struct s_shell
 	int			fd_out;
 	int			pipe_in;
 	int			pipe_out;
+	int			pid;
+	int			parent;
 	int			exit;
 }	t_shell;
 
 typedef struct s_sig
 {
+	int		sigint;
+	int		sigquit;
+	int		exit_status;
 	pid_t	pid;
 }	t_sig;
 
