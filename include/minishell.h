@@ -81,4 +81,45 @@ typedef struct s_sig
 	pid_t	pid;
 }	t_sig;
 
+/*
+** --- src ---
+*/
+
+int			main(int argc, char **argv, char **env);
+
+int			shell_init(t_shell *shell, char **env);
+
+int			launch_shell(void);
+
+/*
+** --- cmd ---
+*/
+
+t_command	*get_command(char **lines);
+int			type_command(t_shell *shell);
+char		*sep_command(char *line);
+int			parse_cmd(t_shell *shell);
+
+t_command	*next_cmd(char *line, t_command **prev);
+void		clear_command(t_command **cmd);
+
+int			quotes(char *line);
+int			special_char(char *line);
+int			check_line(t_shell *shell, char **line);
+void		parse_line(char **new_line, char *line);
+int			count_line(char *line);
+
+/*
+** --- env ---
+*/
+
+t_env		*parse_env(char **env);
+
+/*
+** --- signal ---
+*/
+
+void		sigint(int signum);
+void		sigquit(int signum);
+
 #endif

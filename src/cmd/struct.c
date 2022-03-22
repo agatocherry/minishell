@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   struct.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,23 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-int	main(int argc, char **argv, char **env)
+t_command	*next_cmd(char *line, t_command **prev)
 {
-	t_shell	shell;
+	t_command	*next;
 
-	(void)argv;
-	(void)argc;
-	shell_init(&shell, env);
-	while (!shell.exit)
-	{
-		parse_cmd(&shell);
-		launch_shell();
-	}
-	return (shell.last_ret);
+	next = ft_calloc(1, sizeof(t_command));
+	if (next == NULL)
+		return (NULL);
+	next->str = line;
+	next->prev = *prev;
+	return (next);
 }
 
-/*
-** Ne pas oublier de free ce qu'il faut
-*/
+void	clear_command(t_command **cmd)
+{
+	t_command	*tmp;
+
+	if (!cmd)
+		return ;
+	while (*cmd && (*cmd)->prev)
+		*cmd = (*cmd)->prev;
+	while (*cmd)
+	{
+		tmp = (*cmd)->next;
+		printf("%s\n", (*cmd)->str);
+		free((*cmd)->str);
+		free((*cmd)->prev);
+		free(*cmd);
+		*cmd = tmp;
+	}
+	free(*cmd);
+	*cmd = NULL;
+	return ;
+}

@@ -20,5 +20,4 @@ void	sigint(int signum)
 
 void	sigquit(int signum)
 {
-	
 }
