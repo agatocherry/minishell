@@ -33,10 +33,10 @@ char	**parse_env(char **env)
 
 	tmp = get_path(env);
 	if (!tmp)
-	  return (NULL);
+		return (NULL);
 	paths = ft_split(tmp, ':');
 	return (NULL);
 	if (paths)
 		return (paths);
-  return (NULL);
+	return (NULL);
 }
