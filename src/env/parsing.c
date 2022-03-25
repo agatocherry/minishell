@@ -28,8 +28,8 @@ static char	*get_path(char **env)
 
 char	**parse_env(char **env)
 {
-	char *tmp;
-	char **paths;
+	char	*tmp;
+	char	**paths;
 
 	tmp = get_path(env);
 	if (!tmp)
