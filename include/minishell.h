@@ -43,12 +43,6 @@
 # define NOT_EXEC 126
 # define UNK_CMD 127
 
-typedef struct s_env
-{
-	char			*line;
-	struct s_env	*next;
-}	t_env;
-
 typedef struct s_command
 {
 	char				*str;
@@ -59,8 +53,8 @@ typedef struct s_command
 
 typedef struct s_shell
 {
-	t_env		*env;
 	t_command	*command;
+	char			**path_env;
 	int			in;
 	int			out;
 	int			last_ret;
@@ -91,6 +85,9 @@ int			shell_init(t_shell *shell, char **env);
 
 int			launch_shell(void);
 
+void  free_path_env(t_shell *shell);
+
+
 /*
 ** --- cmd ---
 */
@@ -113,7 +110,7 @@ int			count_line(char *line);
 ** --- env ---
 */
 
-t_env		*parse_env(char **env);
+char		**parse_env(char **env);
 
 /*
 ** --- signal ---

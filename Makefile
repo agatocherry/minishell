@@ -4,7 +4,7 @@ NAME	=	minishell
 CC		=	gcc
 #DONT FORGET TO USE -Werror -Wall -Wextra 
 CFLAGS	=	-g -c
-SRCS	=	src/main.c src/minishell.c src/init.c \
+SRCS	=	src/main.c src/minishell.c src/init.c src/garbage_collector.c\
 			src/cmd/parsing.c src/cmd/struct.c src/cmd/line.c \
 			src/env/parsing.c \
 			src/signal/signal.c

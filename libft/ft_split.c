@@ -1,92 +1,103 @@
-/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/20 21:03:27 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/03/20 19:21:53 by shdorlin         ###   ########.fr       */
+/*   Created: 2021/10/01 19:37:15 by agcolas          #+#    #+#             */
+/*   Updated: 2022/02/02 15:30:53 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_count(char const *s, char c)
+static size_t	words_count(char *s, char c)
 {
-	int	i;
-	int	count;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
-	count = 0;
-	while (s[i])
+	j = 0;
+	while (*s)
 	{
-		while (s[i] && s[i] == c)
+		if (*s != c)
 			i++;
-		if (s[i] && s[i] != c)
+		else if (*s == c && i != 0)
 		{
-			count++;
-			while (s[i] && s[i] != c)
-				i++;
+			j++;
+			i = 0;
 		}
+		s++;
 	}
-	return (count);
+	if (i != 0)
+		j++;
+	return (j);
 }
 
-static int	ft_incount(char const *s, char c)
+static char	*word(char *s, char c)
 {
-	int	i;
+	char	*buf;
 
-	i = 0;
-	while (s[i] != c && s[i])
-		i++;
-	return (i);
+	while (*s == c)
+		s++;
+	buf = s;
+	while (*buf && *buf != c)
+		buf++;
+	*buf = '\0';
+	return (ft_strdup(s));
 }
 
-static char	*ft_allocate(char const *s, char c)
+static char	**free_arr(char **arr, char *s)
 {
-	int		i;
-	char	*splited;
+	size_t	i;
 
-	i = ft_incount(s, c);
-	splited = (char *)malloc(sizeof (char) * (i + 1));
-	if (splited == NULL)
-		return (NULL);
 	i = 0;
-	while (s[i] && s[i] != c)
+	while (arr[i])
 	{
-		splited[i] = s[i];
+		free(arr[i]);
 		i++;
 	}
-	splited[i] = '\0';
-	return (splited);
+	free(arr);
+	free(s);
+	return (NULL);
+}
+
+static char	**worker(char **arr, char *s1, char c, size_t j)
+{
+	size_t	i;
+	char	*str;
+
+	str = s1;
+	i = 0;
+	while (i < j)
+	{
+		if (*s1 != c)
+		{
+			arr[i] = word(s1, c);
+			if (!arr[i])
+				return (free_arr(arr, s1));
+			s1 = s1 + ft_strlen(arr[i]);
+			i++;
+		}
+		s1++;
+	}
+	arr[i] = NULL;
+	free(str);
+	return (arr);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	int		i;
-	int		j;
-	char	**split;
+	char	**w_arr;
+	char	*s1;
+	size_t	j;
 
-	if (!s)
+	s1 = ft_strdup(s);
+	if (!s1)
 		return (NULL);
-	split = (char **)malloc(sizeof (char *) * (ft_count(s, c) + 1));
-	if (split == NULL)
+	j = words_count(s1, c);
+	w_arr = (char **)malloc(sizeof(char *) * (j + 1));
+	if (!w_arr)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (s[i])
-	{
-		while (s[i] && s[i] == c)
-			i++;
-		if (s[i] && s[i] != c)
-		{
-			split[j] = ft_allocate(&s[i], c);
-			j++;
-			while (s[i] && s[i] != c)
-				i++;
-		}
-	}
-	split[j] = NULL;
-	return (split);
+	return (worker(w_arr, s1, c, j));
 }
