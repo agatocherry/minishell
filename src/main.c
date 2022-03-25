@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int	main(int argc, char **argv, char **env )
+int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **env )
 	shell_init(&shell, env);
 	while (!shell.exit)
 	{
-		parse_cmd(&shell); 
+		parse_cmd(&shell);
 		launch_shell();
 	}
 	return (shell.last_ret);

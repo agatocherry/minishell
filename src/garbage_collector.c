@@ -12,15 +12,15 @@
 
 #include "../include/minishell.h"
 
-void  free_path_env(t_shell *shell)
+void	free_path_env(t_shell *shell)
 {
-  int  i;
+	int	i;
 
-  i = 0;
-  while (shell->path_env[i])
-  {
-    free(shell->path_env[i]);
-     i++;
-  }
-  free(shell->path_env);
+	i = 0;
+	while (shell->path_env[i])
+	{
+		free(shell->path_env[i]);
+		 i++;
+	}
+	free(shell->path_env);
 }
