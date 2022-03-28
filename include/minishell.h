@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/03/21 23:24:16 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/03/28 08:44:08 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ char		**parse_env(char **env);
 ** --- signal ---
 */
 
+void		sig_init(void);
 void		sigint(int signum);
 void		sigquit(int signum);
 
