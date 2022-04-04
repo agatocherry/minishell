@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/04 09:12:24 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/04 20:23:45 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,15 @@ int	special_char(char *line)
 	i = 0;
 	while (line[i])
 	{
+		if (line[i] == '\"' || line[i] == '\'')
+		{
+			while (line[i] && line[i] != '\"' && line[i] != '\'')
+				i++;
+		}
 		if (line[i] == '\\' || line[i] == ';')
 			return (1);
-		i++;
+		if (line[i])
+			i++;
 	}
 	return (0);
 }
