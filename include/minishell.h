@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/04 09:21:23 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/04 09:36:54 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,16 @@ typedef struct s_command
 	struct s_command	*next;
 }	t_command;
 
+typedef struct s_env
+{
+	char			*line;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct s_shell
 {
 	t_command	*command;
+	t_env		*env;
 	char			**path_env;
 	int			in;
 	int			out;
@@ -83,9 +90,9 @@ int			main(int argc, char **argv, char **env);
 
 int			shell_init(t_shell *shell, char **env);
 
-int			launch_shell(void);
+int			launch_shell(t_shell *shell);
 
-void  free_path_env(t_shell *shell);
+void		free_path_env(t_shell *shell);
 
 
 /*
@@ -99,6 +106,7 @@ int			parse_cmd(t_shell *shell);
 
 t_command	*next_cmd(char *line, t_command **prev);
 void		clear_command(t_command *cmd);
+int			check_cmd(t_shell *shell, t_command *cmd);
 
 int			quotes(char *line);
 int			special_char(char *line);
@@ -111,6 +119,8 @@ int			count_line(char *line);
 */
 
 char		**parse_env(char **env);
+void		clear_env(t_env *env);
+void		incr_shlvl(t_env *env);
 
 /*
 ** --- signal ---

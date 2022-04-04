@@ -6,13 +6,13 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/03/20 20:33:27 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/04 09:31:08 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	launch_shell(void)
+int	launch_shell(t_shell *shell)
 {
 	return (0);
 }
