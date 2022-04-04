@@ -11,7 +11,12 @@
 6° Répéter dans une boucle infini jusqu'à SIGINT
 
 
-Parsing des commandes -->
+Checker la command -->
 
-1° Protéger les mallocs
-2° Gérer quand il n'y a pas d'espaces avec < > et |
+1° Les signes | << >> < et > doivent être suivis de quelque chose
+2° ?
+
+-> Interpéter si \ ou ; sont entre des guillemets
+-> Gérer les expansions sauf si entre guillemets
+-> Faire l'historique
+-> Gérer la redirection vers différents fichiers
