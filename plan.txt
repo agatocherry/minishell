@@ -11,12 +11,8 @@
 6° Répéter dans une boucle infini jusqu'à SIGINT
 
 
-Checker la command -->
-
-1° Les signes | << >> < et > doivent être suivis de quelque chose
-2° ?
-
--> Interpéter si \ ou ; sont entre des guillemets
--> Gérer les expansions sauf si entre guillemets
 -> Faire l'historique
+-> Incrémenter le niveau du shell
+-> Clear la commande de puis le début
+-> Faire clear_env
 -> Gérer la redirection vers différents fichiers
