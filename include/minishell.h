@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/03/28 08:44:08 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/04 09:21:23 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char		*sep_command(char *line);
 int			parse_cmd(t_shell *shell);
 
 t_command	*next_cmd(char *line, t_command **prev);
-void		clear_command(t_command **cmd);
+void		clear_command(t_command *cmd);
 
 int			quotes(char *line);
 int			special_char(char *line);

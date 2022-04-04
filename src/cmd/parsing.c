@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/03/28 10:08:50 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/04 09:14:06 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,15 @@ int	parse_cmd(t_shell *shell)
 	char	*line;
 
 	signal(SIGINT, &sigint);
-	signal(SIGQUIT, &sigquit);
+	signal(SIGQUIT, SIG_IGN);
 	ft_putstr_fd("$> ", STDIN);
-	if (ft_gnl(STDIN, &line) == 0)
-		return (0);
+	if (ft_gnl(STDIN, &line) == -1)
+	{
+		shell->exit = 1;
+		ft_putendl_fd("exit", STDIN);
+	}
 	if (g_sig.sigint)
 		shell->last_ret = g_sig.exit_status;
-	
 	if (check_line(shell, &line))
 		return (0);
 	line = ft_one_sep(line, ' ');
@@ -98,12 +100,12 @@ int	parse_cmd(t_shell *shell)
 		return (0);
 	shell->command = get_command(ft_split(line, ' '));
 	free(line);
+	type_command(shell);
 	while (shell->command)
 	{
 		printf("%s\n", shell->command->str);
 		shell->command = shell->command->next;
 	}
-	type_command(shell);
-	clear_command(&shell->command);
+	clear_command(shell->command);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/03/20 20:33:27 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/04/04 09:25:09 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ int	shell_init(t_shell *shell, char **env)
 	shell->out = dup(STDOUT);
 	shell->path_env = parse_env(env);
 	shell->command = NULL;
+	increment_shlvl(shell->env);
 	return (0);
 }

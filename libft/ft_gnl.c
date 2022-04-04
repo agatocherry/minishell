@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 23:50:44 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/02/28 12:47:23 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/02 22:34:05 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,16 @@ static char	*ft_get_line(char **save)
 	int		index;
 
 	new_save = NULL;
-	index = ft_get_index(*save, '\n');
-	if (index == -1)
+	index = ft_get_index(*save, '\n') + 1;
+	if (index == 0)
 		line = ft_strdup(*save);
 	else
 	{
 		line = ft_substr(*save, 0, index);
-		new_save = ft_strdup(&(*save)[index + 1]);
+		new_save = ft_strdup(&(*save)[index]);
 	}
-	free(&(*save)[0]);
+	free(*save);
 	*save = new_save;
-	if ((*line) == '\0')
-	{
-		free(line);
-		line = NULL;
-	}
 	return (line);
 }
 
@@ -92,5 +87,11 @@ int	ft_gnl(int fd, char **line)
 	*line = ft_read(fd, &buf);
 	if (*line == NULL)
 		return (0);
+	if (**line == '\0')
+	{
+		free(*line);
+		*line = NULL;
+		return (-1);
+	}
 	return (1);
 }
