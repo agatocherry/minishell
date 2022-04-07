@@ -5,4 +5,5 @@ L’objectif de ce projet est de créer un shell minimaliste.Ça sera votre peti
 ### 👩‍💻 About
 
 [@agatocherry](https://github.com/agatocherry)
+
 [@shell02](https://github.com/shell02)
