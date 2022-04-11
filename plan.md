@@ -11,5 +11,7 @@
 - [ ] Faire l'historique
 - [ ] Incrémenter le niveau du shell
 - [ ] Clear la commande de puis le début
-- [ ] Faire clear_env
+- [ ] Faire clear_env (une commande qui appelle 2d arrays pour free env et path_env)
 - [ ] Gérer la redirection vers différents fichiers
+- [ ] Fonction qui redirige vers la fonction des commandes
+- [ ] Pipe -> Agathe
