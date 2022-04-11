@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/04 20:49:27 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/11 16:46:46 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,11 @@ typedef struct s_command
 	struct s_command	*next;
 }	t_command;
 
-typedef struct s_env
-{
-	char			*line;
-	struct s_env	*next;
-}	t_env;
-
 typedef struct s_shell
 {
 	t_command	*command;
-	t_env		*env;
-	char			**path_env;
+	char		**print_env;
+	char		**path_env;
 	int			in;
 	int			out;
 	int			last_ret;

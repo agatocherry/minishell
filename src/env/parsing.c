@@ -6,13 +6,13 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/03/20 20:33:27 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/04/11 16:46:38 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char	*get_path(char **env)
+static char	*search_path(char **env)
 {
 	int	i;
 
@@ -26,12 +26,12 @@ static char	*get_path(char **env)
 	return (NULL);
 }
 
-char	**parse_env(char **env)
+static char	**get_path(char **env)
 {
 	char	*tmp;
 	char	**paths;
 
-	tmp = get_path(env);
+	tmp = search_path(env);
 	if (!tmp)
 		return (NULL);
 	paths = ft_split(tmp, ':');
@@ -39,4 +39,32 @@ char	**parse_env(char **env)
 	if (paths)
 		return (paths);
 	return (NULL);
+}
+
+static char **get_print_env(char **env)
+{
+	char	**tmp;
+
+	int i = 0;
+	while (env[i])
+		i++;
+	tmp = malloc(sizeof(char *) * i + 1);
+	if (!tmp)
+		return (NULL);
+	i = 0;
+	while (env[i])
+	{
+		tmp[i] = ft_strdup(env[i]);
+		i++;
+	}
+	tmp[i] = NULL;
+	if (tmp)
+		return (tmp);
+	return (NULL);
+}
+
+void parse_env(t_shell *shell, char **env)
+{
+	shell->path_env = get_path(env);
+	shell->print_env = get_print_env(env);
 }
