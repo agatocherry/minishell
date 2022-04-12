@@ -6,18 +6,23 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 18:54:18 by shdorlin          #+#    #+#             */
-/*   Updated: 2021/11/24 03:23:22 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/03/08 11:14:11 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_count_digits(int n)
+static int	ft_count_digits(long n)
 {
 	int	count;
 
-	count = 1;
-	while (n / 10 != 0)
+	count = 0;
+	if (n < 0)
+	{
+		count++;
+		n *= -1;
+	}
+	while (n > 0)
 	{
 		count++;
 		n = n / 10;
@@ -25,76 +30,30 @@ static int	ft_count_digits(int n)
 	return (count);
 }
 
-static char	*ft_strrev(char *str)
-{
-	int		i;
-	int		j;
-	char	temp;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-		i++;
-	if (str[0] == '-')
-		j++;
-	while (j < i)
-	{
-		temp = str[j];
-		str[j] = str[--i];
-		str[i] = temp;
-		j++;
-	}
-	return (str);
-}
-
-static char	*ft_allocate(int n)
-{
-	char	*itoa;
-
-	if (n == -2147483648)
-	{
-		itoa = (char *)malloc(sizeof (char) * 12);
-		if (itoa == NULL)
-			return (NULL);
-		ft_strlcpy(itoa, "-2147483648", 12);
-		return (itoa);
-	}
-	if (n < 0)
-	{
-		n *= -1;
-		itoa = (char *)malloc(sizeof (char) * (ft_count_digits(n) + 2));
-		if (itoa == NULL)
-			return (NULL);
-		itoa[0] = '-';
-	}
-	else
-		itoa = (char *)malloc(sizeof (char) * (ft_count_digits(n) + 1));
-	if (itoa == NULL)
-		return (NULL);
-	return (itoa);
-}
-
 char	*ft_itoa(int n)
 {
 	int		i;
+	long	nb;
 	char	*itoa;
 
-	i = 0;
-	itoa = ft_allocate(n);
+	nb = n;
+	i = ft_count_digits(nb);
+	itoa = (char *)malloc(sizeof (char) * (i + 1));
 	if (itoa == NULL)
 		return (NULL);
-	if (n == -2147483648)
-		return (itoa);
-	if (itoa[0] == '-')
-		i++;
-	if (n < 0)
-		n *= -1;
-	while (n / 10 != 0)
+	itoa[i--] = '\0';
+	if (n == 0)
+		itoa[0] = '0';
+	else if (n < 0)
 	{
-		itoa[i++] = (n % 10 + '0');
-		n = n / 10;
+		itoa[0] = '-';
+		nb *= -1;
 	}
-	itoa[i] = n + '0';
-	itoa[i + 1] = '\0';
-	return (ft_strrev(itoa));
+	while (n > 0)
+	{
+		itoa[i] = '0' + (n % 10);
+		n /= 10;
+		i--;
+	}
+	return (itoa);
 }
