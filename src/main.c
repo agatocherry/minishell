@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/04 09:47:35 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/12 08:59:32 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int	main(int argc, char **argv, char **env)
 			launch_shell(&shell);
 		clear_command(shell.command);
 	}
-	clear_env(shell.env);
+//	clear_env(shell.env);
 	return (shell.last_ret);
 }

@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/11 16:46:46 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/04/12 09:36:38 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,7 @@ int			count_line(char *line);
 */
 
 char		**parse_env(char **env);
-void		clear_env(t_env *env);
-void		incr_shlvl(t_env *env);
+void		incr_shlvl(char *env);
 
 /*
 ** --- signal ---
