@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.c                                           :+:      :+:    :+:   */
+/*   cmd_struct.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/12 23:53:48 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/13 14:09:41 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 int	check_cmd(t_shell *shell, t_command *cm)
 {

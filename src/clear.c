@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:52:43 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/13 08:32:46 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/13 14:09:54 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 void	clear_command(t_command *cmd)
 {
-	t_command   *tmp;
+	t_command	*tmp;
 
 	if (!cmd)
 		return ;
@@ -41,7 +41,7 @@ void	clear_env(t_shell *shell)
 
 void	free_array(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (array[i])

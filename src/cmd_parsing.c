@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   cmd_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/13 08:20:50 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/13 14:09:44 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 t_command	*get_command(char **lines)
 {
@@ -88,8 +88,8 @@ int	parse_cmd(t_shell *shell)
 		shell->exit = 1;
 		ft_putendl_fd("exit", STDIN);
 	}
-	if (g_sig.sigint)
-		shell->last_ret = g_sig.exit_status;
+	// if (g_sig.sigint) error: ‘g_sig’ undeclared (first use in this function); did you mean ‘t_sig’?
+	// 	shell->last_ret = g_sig.exit_status;
 	if (check_line(shell, &line))
 		return (0);
 	line = ft_one_sep(line, ' ');

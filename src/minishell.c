@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/12 23:48:36 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/13 14:09:20 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 int	launch_shell(t_shell *shell)
 {
+	(void)*shell;
 	return (0);
 }

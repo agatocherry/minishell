@@ -6,11 +6,11 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/13 08:28:40 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/13 14:10:01 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 t_sig	g_sig;
 

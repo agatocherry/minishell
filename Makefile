@@ -5,11 +5,11 @@ HEADER	=	include/minishell.h
 CC		=	gcc
 #DONT FORGET TO USE -Werror -Wall -Wextra 
 CFLAGS	=	-g -c -Werror -Wall -Wextra
-SRCS	=	src/main/main.c src/main/minishell.c src/main/signal.c \
-			src/init/init.c \
-			src/utils/clear.c \
-			src/cmd/parsing.c src/cmd/struct.c src/cmd/line.c src/cmd/expansion.c \
-			src/env/parsing.c \
+SRCS	=	src/main.c src/minishell.c src/signal.c \
+			src/init.c \
+			src/clear.c \
+			src/cmd_parsing.c src/cmd_struct.c src/cmd_line.c src/expansion.c \
+			src/env.c
 OBJ		=	$(SRCS:.c=.o)
 
 # Rules

@@ -6,11 +6,11 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/13 08:26:03 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/13 14:09:29 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 int	shell_init(t_shell *shell, char **env)
 {
@@ -28,10 +28,10 @@ int	shell_init(t_shell *shell, char **env)
 	return (0);
 }
 
-char    *ft_join(char *str, char c)
+char	*ft_join(char *str, char c)
 {
-	char    *new;
-	int     i;
+	char	*new;
+	int		i;
 
 	new = (char *)malloc(sizeof (char) * (ft_strlen(str) + 2));
 	if (new == NULL)
@@ -47,7 +47,7 @@ char    *ft_join(char *str, char c)
 	}
 	new[i] = c;
 	new[i + 1] = '\0';
-	free(str);
+	// free(str);
 	str = NULL;
 	return (new);
 }
@@ -78,4 +78,3 @@ void	incr_shlvl(char *env)
 		i = i / 10;
 	}
 }
-

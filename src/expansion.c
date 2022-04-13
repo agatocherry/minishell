@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:27:09 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/04 20:54:56 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/13 14:09:33 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 void	expand_cmd(t_command *cmd)
 {
