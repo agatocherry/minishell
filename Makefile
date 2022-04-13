@@ -1,25 +1,27 @@
 # Variables
 
 NAME	=	minishell
+HEADER	=	include/minishell.h
 CC		=	gcc
 #DONT FORGET TO USE -Werror -Wall -Wextra 
-CFLAGS	=	-g -c
-SRCS	=	src/main.c src/minishell.c src/init.c src/garbage_collector.c\
-			src/cmd/parsing.c src/cmd/struct.c src/cmd/line.c \
+CFLAGS	=	-g -c -Werror -Wall -Wextra
+SRCS	=	src/main/main.c src/main/minishell.c src/main/signal.c \
+			src/init/init.c \
+			src/utils/clear.c \
+			src/cmd/parsing.c src/cmd/struct.c src/cmd/line.c src/cmd/expansion.c \
 			src/env/parsing.c \
-			src/signal/signal.c
 OBJ		=	$(SRCS:.c=.o)
 
 # Rules
 
 all: $(NAME)
 
-$(NAME):	$(OBJ)
+$(NAME):	$(OBJ) $(HEADER)
 	@make -C libft/
-	@$(CC) $(OBJ) -o $(NAME) libft/libft.a
+	@$(CC) $(OBJ) -o $(NAME) $(HEADER) libft/libft.a
 	@echo "Compiling $(NAME) done"
 
-%.o: %.c
+%.o: %.c $(HEADER)
 	@$(CC) $(CFLAGS) -o $@ $<
 
 clean:
@@ -33,3 +35,5 @@ fclean: clean
 	@echo "! Removed $(NAME)"
 
 re: fclean all
+
+.PHONY: all clean fclean re

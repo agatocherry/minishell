@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/12 09:36:38 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/13 08:32:19 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ typedef struct s_command
 typedef struct s_shell
 {
 	t_command	*command;
-	char		**print_env;
-	char		**path_env;
+	char		**env;
+	char		**path;
 	int			in;
 	int			out;
 	int			last_ret;
@@ -86,8 +86,13 @@ int			shell_init(t_shell *shell, char **env);
 
 int			launch_shell(t_shell *shell);
 
-void		free_path_env(t_shell *shell);
+/*
+** --- clear ---
+*/
 
+void		free_array(char **array);
+void		clear_command(t_command *cmd);
+void		clear_env(t_shell *shell);
 
 /*
 ** --- cmd ---
@@ -100,7 +105,6 @@ int			parse_cmd(t_shell *shell);
 void		expand_cmd(t_command *cmd);
 
 t_command	*next_cmd(char *line, t_command **prev);
-void		clear_command(t_command *cmd);
 int			check_cmd(t_shell *shell, t_command *cm);
 
 int			quotes(char *line);
@@ -113,7 +117,7 @@ int			count_line(char *line);
 ** --- env ---
 */
 
-char		**parse_env(char **env);
+void		parse_env(t_shell *shell, char **env);
 void		incr_shlvl(char *env);
 
 /*

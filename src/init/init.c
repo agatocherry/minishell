@@ -6,11 +6,11 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/12 09:39:28 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/13 08:26:03 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 int	shell_init(t_shell *shell, char **env)
 {
@@ -20,11 +20,11 @@ int	shell_init(t_shell *shell, char **env)
 	*shell = (t_shell){0};
 	shell->in = dup(STDIN);
 	shell->out = dup(STDOUT);
-	shell->print_env = parse_env(env);
+	parse_env(shell, env);
 	shell->command = NULL;
-	while (ft_strncmp(shell->print_env[i], "SHLVL=", 6))
+	while (ft_strncmp(shell->env[i], "SHLVL=", 6))
 		i++;
-	incr_shlvl(shell->print_env[i]);
+	incr_shlvl(shell->env[i]);
 	return (0);
 }
 

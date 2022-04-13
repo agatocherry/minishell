@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/04 20:15:40 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/12 23:53:48 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,4 @@ t_command	*next_cmd(char *line, t_command **prev)
 	next->str = line;
 	next->prev = *prev;
 	return (next);
-}
-
-void	clear_command(t_command *cmd)
-{
-	t_command	*tmp;
-
-	if (!cmd)
-		return ;
-	while (cmd)
-	{
-		tmp = cmd->next;
-		printf("%s\n", cmd->str);
-		free(cmd->str);
-		free(cmd->prev);
-		cmd = tmp;
-	}
-	free(cmd);
-	cmd = NULL;
-	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/11 16:46:38 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/04/13 08:24:40 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	**get_path(char **env)
 	return (NULL);
 }
 
-static char **get_print_env(char **env)
+static char **get_env(char **env)
 {
 	char	**tmp;
 
@@ -65,6 +65,6 @@ static char **get_print_env(char **env)
 
 void parse_env(t_shell *shell, char **env)
 {
-	shell->path_env = get_path(env);
-	shell->print_env = get_print_env(env);
+	shell->path = get_path(env);
+	shell->env = get_env(env);
 }
