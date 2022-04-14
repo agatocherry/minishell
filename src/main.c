@@ -22,13 +22,15 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	shell_init(&shell, env);
 	sig_init();
-	while (!shell.exit)
+	// while (!shell.exit)
+  while (1)
 	{
 		parse_cmd(&shell);
 		if (shell.command != NULL && check_cmd(&shell, shell.command))
 			launch_shell(&shell);
 		clear_command(shell.command);
 	}
+	rl_clear_history();
 	clear_env(&shell);
 	return (shell.last_ret);
 }

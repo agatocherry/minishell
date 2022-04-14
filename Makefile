@@ -4,7 +4,7 @@ NAME	=	minishell
 HEADER	=	include/minishell.h
 CC		=	gcc
 #DONT FORGET TO USE -Werror -Wall -Wextra 
-CFLAGS	=	-g -c -Werror -Wall -Wextra
+CFLAGS	=	lreadline -g -c -Werror -Wall -Wextra 
 SRCS	=	src/main.c src/minishell.c src/signal.c \
 			src/init.c \
 			src/clear.c \
@@ -22,7 +22,7 @@ $(NAME):	$(OBJ) $(HEADER)
 	@echo "Compiling $(NAME) done"
 
 %.o: %.c $(HEADER)
-	@$(CC) $(CFLAGS) -o $@ $<
+	@$(CC) $(CFLAGS) -o $@ $< 
 
 clean:
 	@rm -rf $(OBJ)

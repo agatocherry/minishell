@@ -24,6 +24,12 @@
 # include <limits.h>
 # include <errno.h>
 # include <signal.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <sys/types.h>
+#include <sys/file.h>
+#include <sys/stat.h>
+#include <sys/errno.h>
 
 # define STDIN 1
 # define STDOUT 2

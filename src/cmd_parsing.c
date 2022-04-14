@@ -82,31 +82,34 @@ int	parse_cmd(t_shell *shell)
 
 	signal(SIGINT, &sigint);
 	signal(SIGQUIT, SIG_IGN);
-	ft_putstr_fd("$> ", STDIN);
-	if (ft_gnl(STDIN, &line) == -1)
+	line = readline("👉");
+	if (!line)
 	{
 		shell->exit = 1;
 		ft_putendl_fd("exit", STDIN);
 	}
+  if (line && line[0] == 'q')
+    exit(0);
 	// if (g_sig.sigint) error: ‘g_sig’ undeclared (first use in this function); did you mean ‘t_sig’?
 	// 	shell->last_ret = g_sig.exit_status;
-	if (check_line(shell, &line))
-		return (0);
-	line = ft_one_sep(line, ' ');
-	if (line == NULL)
-		return (0);
-	line = sep_command(line);
-	if (line == NULL)
-		return (0);
-	shell->command = get_command(ft_split(line, ' '));
+	// if (check_line(shell, &line))
+	// 	return (0);
+	// line = ft_one_sep(line, ' ');
+	// if (line == NULL)
+	// 	return (0);
+	// line = sep_command(line);
+	// if (line == NULL)
+	// 	return (0);
+	// shell->command = get_command(ft_split(line, ' '));
+  add_history(line);
 	free(line);
-	type_command(shell);
-	while (shell->command)
-	{
-		printf("%s\n", shell->command->str);
-		printf("%d\n", shell->command->type);
-		shell->command = shell->command->next;
-	}
-	clear_command(shell->command);
+	// type_command(shell);
+	// while (shell->command)
+	// {
+	// 	printf("%s\n", shell->command->str);
+	// 	printf("%d\n", shell->command->type);
+	// 	shell->command = shell->command->next;
+	// }
+	// clear_command(shell->command);
 	return (0);
 }
