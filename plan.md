@@ -8,7 +8,7 @@
 - [x] Réaliser un parsing de la ligne dans une liste chainée et lui donner un type
 - [x] Envoyer vers la bonne fonction suivant le type de la commande
 - [x] Répéter dans une boucle infini jusqu'à SIGINT
-- [ ] Faire l'historique
+- [x] Faire l'historique
 - [ ] Incrémenter le niveau du shell
 - [ ] Clear la commande de puis le début
 - [ ] Faire clear_env (une commande qui appelle 2d arrays pour free env et path_env)
