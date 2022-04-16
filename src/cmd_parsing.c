@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/13 14:09:44 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/04/16 13:11:32 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,28 +88,28 @@ int	parse_cmd(t_shell *shell)
 		shell->exit = 1;
 		ft_putendl_fd("exit", STDIN);
 	}
-  if (line && line[0] == 'q')
-    exit(0);
-	// if (g_sig.sigint) error: ‘g_sig’ undeclared (first use in this function); did you mean ‘t_sig’?
-	// 	shell->last_ret = g_sig.exit_status;
-	// if (check_line(shell, &line))
-	// 	return (0);
-	// line = ft_one_sep(line, ' ');
-	// if (line == NULL)
-	// 	return (0);
-	// line = sep_command(line);
-	// if (line == NULL)
-	// 	return (0);
-	// shell->command = get_command(ft_split(line, ' '));
-  add_history(line);
+  //if (line && line[0] == 'q')
+    //exit(0);
+	if (g_sig.sigint)
+	 	shell->last_ret = g_sig.exit_status;
+	if (check_line(shell, &line))
+	 	return (0);
+	line = ft_one_sep(line, ' ');
+	if (line == NULL)
+	 	return (0);
+	line = sep_command(line);
+	if (line == NULL)
+	 	return (0);
+	shell->command = get_command(ft_split(line, ' '));
+	add_history(line);
 	free(line);
-	// type_command(shell);
-	// while (shell->command)
-	// {
-	// 	printf("%s\n", shell->command->str);
-	// 	printf("%d\n", shell->command->type);
-	// 	shell->command = shell->command->next;
-	// }
-	// clear_command(shell->command);
+	type_command(shell);
+	while (shell->command)
+	{
+	 	printf("%s\n", shell->command->str);
+	 	printf("%d\n", shell->command->type);
+	 	shell->command = shell->command->next;
+	}
+	clear_command(shell->command);
 	return (0);
 }

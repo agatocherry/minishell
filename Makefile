@@ -1,10 +1,11 @@
 # Variables
 
 NAME	=	minishell
-HEADER	=	include/minishell.h
+HEADER	=	./include/minishell.h
+LIBFT	=	-L libft -lft
 CC		=	gcc
 #DONT FORGET TO USE -Werror -Wall -Wextra 
-CFLAGS	=	lreadline -g -c -Werror -Wall -Wextra 
+CFLAGS	= 	-Werror -Wall -Wextra -I include/ 
 SRCS	=	src/main.c src/minishell.c src/signal.c \
 			src/init.c \
 			src/clear.c \
@@ -18,11 +19,11 @@ all: $(NAME)
 
 $(NAME):	$(OBJ) $(HEADER)
 	@make -C libft/
-	@$(CC) $(OBJ) -o $(NAME) $(HEADER) libft/libft.a
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT) -lreadline
 	@echo "Compiling $(NAME) done"
 
 %.o: %.c $(HEADER)
-	@$(CC) $(CFLAGS) -o $@ $< 
+	@$(CC) $(CFLAGS) -o $@ -c $< -lreadline
 
 clean:
 	@rm -rf $(OBJ)

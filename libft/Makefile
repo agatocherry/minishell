@@ -6,7 +6,7 @@
 #    By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/26 21:58:51 by shdorlin          #+#    #+#              #
-#    Updated: 2022/03/17 22:24:02 by shdorlin         ###   ########.fr        #
+#    Updated: 2022/04/16 13:53:19 by shdorlin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,10 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+	@ar rcs $(NAME) $(OBJS)
 
 %.o: %.c $(HEADER)
-	$(CC) $(CFlAGS) -c $< -o $@
+	@$(CC) $(CFlAGS) -c $< -o $@
 
 clean:
 	rm -f *.o

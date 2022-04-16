@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/13 12:41:33 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/04/16 13:49:06 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@
 # include <limits.h>
 # include <errno.h>
 # include <signal.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <sys/types.h>
-#include <sys/file.h>
-#include <sys/stat.h>
-#include <sys/errno.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <sys/types.h>
+# include <sys/file.h>
+# include <sys/stat.h>
+# include <sys/errno.h>
 
 # define STDIN 1
 # define STDOUT 2
@@ -86,8 +86,6 @@ typedef struct s_sig
 ** --- src ---
 */
 
-int			main(int argc, char **argv, char **env);
-
 int			shell_init(t_shell *shell, char **env);
 
 int			launch_shell(t_shell *shell);
@@ -133,5 +131,7 @@ void		incr_shlvl(char *env);
 void		sig_init(void);
 void		sigint(int signum);
 void		sigquit(int signum);
+
+extern t_sig	g_sig;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/13 14:09:50 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/04/16 13:13:04 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ int	check_line(t_shell *shell, char **line)
 		shell->command = NULL;
 		return (1);
 	}
-	if ((*line)[ft_strlen(*line) - 1] == '\n')
-		(*line)[ft_strlen(*line) - 1] = '\0';
 	return (0);
 }
 
