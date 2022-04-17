@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/16 13:11:32 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/18 00:30:54 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	type_command(t_shell *shell)
 			cmd->type = CMD;
 		else
 			cmd->type = OPT;
+		cmd = cmd->next;
 	}
 	return (0);
 }
@@ -69,9 +70,10 @@ char	*sep_command(char *line)
 {
 	char	*new_line;
 
+	line = remove_space(line);
 	new_line = (char *)ft_calloc((count_line(line) + 1), sizeof(char));
 	if (new_line)
-		parse_line(&new_line, line);
+		parse_line(new_line, line);
 	free(line);
 	return (new_line);
 }
@@ -82,34 +84,35 @@ int	parse_cmd(t_shell *shell)
 
 	signal(SIGINT, &sigint);
 	signal(SIGQUIT, SIG_IGN);
-	line = readline("👉");
+	line = readline("👉 ");
 	if (!line)
 	{
 		shell->exit = 1;
 		ft_putendl_fd("exit", STDIN);
 	}
-  //if (line && line[0] == 'q')
-    //exit(0);
+	add_history(line);
+/*	
+**	if (line && line[0] == 'q')
+**		exit(0);
+*/
 	if (g_sig.sigint)
-	 	shell->last_ret = g_sig.exit_status;
+		shell->last_ret = g_sig.exit_status;
 	if (check_line(shell, &line))
-	 	return (0);
-	line = ft_one_sep(line, ' ');
-	if (line == NULL)
-	 	return (0);
+		return (0);
 	line = sep_command(line);
 	if (line == NULL)
-	 	return (0);
-	shell->command = get_command(ft_split(line, ' '));
-	add_history(line);
+		return (0);
+	shell->command = get_command(ft_split_cmd(line));
 	free(line);
 	type_command(shell);
-	while (shell->command)
+	while (shell->command->next)
 	{
-	 	printf("%s\n", shell->command->str);
-	 	printf("%d\n", shell->command->type);
-	 	shell->command = shell->command->next;
+		printf("%s\n", shell->command->str);
+		shell->command = shell->command->next;
 	}
-	clear_command(shell->command);
+	if (shell->command)
+		printf("%s\n", shell->command->str);
+	while (shell->command->prev)
+		shell->command = shell->command->prev;
 	return (0);
 }

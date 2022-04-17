@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/13 14:09:29 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/04/18 00:29:37 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_join(char *str, char c)
 	}
 	new[i] = c;
 	new[i + 1] = '\0';
-	// free(str);
+	free(str);
 	str = NULL;
 	return (new);
 }
@@ -61,7 +61,8 @@ void	incr_shlvl(char *env)
 	count = 0;
 	lvl = ft_atoi(&env[6]) + 1;
 	free(env);
-	env = "SHLVL=";
+	env = (char *)malloc(sizeof(char) * 7);
+	ft_strlcpy(env, "SHLVL=", 7);
 	i = lvl;
 	while (i > 0)
 	{

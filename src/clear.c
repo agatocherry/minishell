@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:52:43 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/13 14:09:54 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/04/18 00:23:37 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ void	clear_command(t_command *cmd)
 	while (cmd)
 	{
 		tmp = cmd->next;
-		printf("%s\n", cmd->str);
 		free(cmd->str);
+		cmd->str = NULL;
 		free(cmd->prev);
+		cmd->prev = NULL;
 		cmd = tmp;
 	}
 	free(cmd);

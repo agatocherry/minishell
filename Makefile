@@ -10,6 +10,7 @@ SRCS	=	src/main.c src/minishell.c src/signal.c \
 			src/init.c \
 			src/clear.c \
 			src/cmd_parsing.c src/cmd_struct.c src/cmd_line.c src/expansion.c \
+			src/cmd_line_2.c src/split_cmd.c \
 			src/env.c
 OBJ		=	$(SRCS:.c=.o)
 

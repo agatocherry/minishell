@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/16 13:13:04 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/17 22:04:01 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,28 @@
 int	quotes(char *line)
 {
 	int	i;
-	int	d_quote;
-	int	s_quote;
 
 	i = 0;
-	d_quote = 0;
-	s_quote = 0;
 	while (line[i])
 	{
 		if (line[i] == '\"')
-			d_quote++;
+		{
+			while (line[++i] != '\"')
+			{
+				if (line[i + 1] == '\0')
+					return (1);
+			}
+		}
 		if (line[i] == '\'')
-			s_quote++;
+		{
+			while (line[++i] != '\'')
+			{
+				if (line[i + 1] == '\0')
+					return (1);
+			}
+		}
 		i++;
 	}
-	if ((s_quote % 2) || (d_quote % 2))
-		return (1);
 	return (0);
 }
 
@@ -41,11 +47,12 @@ int	special_char(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == '\"' || line[i] == '\'')
-		{
-			while (line[i] && line[i] != '\"' && line[i] != '\'')
+		if (line[i] == '\"')
+			while (line[i] != '\"')
 				i++;
-		}
+		if (line[i] == '\'')
+			while (line[i] != '\'')
+				i++;
 		if (line[i] == '\\' || line[i] == ';')
 			return (1);
 		if (line[i])
@@ -77,31 +84,30 @@ int	check_line(t_shell *shell, char **line)
 	return (0);
 }
 
-void	parse_line(char **new_line, char *line)
+void	parse_line(char *new_line, char *line)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
 	while (line[i])
 	{
-		while (line[i] == '>' || line[i] == '<' || line[i] == '|')
+		if (line[i] == '\'' || line[i] == '\"')
+			fill_line(line, new_line, &i, &j);
+		while (!is_special_char(line[i]) && line[i])
+			new_line[j++] = line[i++];
+		if (line[i] && line[i] != '\'' && line[i] != '\"')
 		{
-			(*new_line)[j++] = line[i];
-			i++;
+			if (i != 0 && line[i - 1] != ' ')
+				new_line[j++] = ' ';
+			while (line[i] == '<' || line[i] == '>' || line[i] == '|')
+				new_line[j++] = line[i++];
+			if (line[i] != ' ')
+				new_line[j++] = ' ';
 		}
-		if (i != 0 && line[i] != '\0' && line[i] != ' ')
-			(*new_line)[j++] = ' ';
-		while (line[i] && line[i] != '<' && line[i] != '>' && line[i] != '|')
-		{
-			(*new_line)[j++] = line[i];
-			i++;
-		}
-		if (line[i] == '>' || line[i] == '<' || line[i] == '|')
-			(*new_line)[j++] = ' ';
 	}
-	(*new_line)[j] = '\0';
+	new_line[j] = '\0';
 }
 
 int	count_line(char *line)
@@ -113,20 +119,22 @@ int	count_line(char *line)
 	i = 0;
 	while (line[i])
 	{
-		while (line[i] == '>' || line[i] == '<' || line[i] == '|')
+		if (line[i] == '\'' || line[i] == '\"')
+			close_quotes(line, &i, &count);
+		while (!is_special_char(line[i]) && line[i++])
+			count++;
+		if (line[i] && line[i] != '\'' && line[i] != '\"')
 		{
-			count++;
-			i++;
+			if (i != 0 && line[i - 1] != ' ')
+				count++;
+			while (line[i] == '<' || line[i] == '>' || line[i] == '|')
+			{
+				i++;
+				count++;
+			}
+			if (line[i] != ' ')
+				count++;
 		}
-		if (line[i] != '\0' && line[i] != ' ')
-			count++;
-		while (line[i] && line[i] != '<' && line[i] != '>' && line[i] != '|')
-		{
-			count++;
-			i++;
-		}
-		if (line[i] == '>' || line[i] == '<' || line[i] == '|')
-			count++;
 	}
 	return (count);
 }

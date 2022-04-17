@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 21:25:04 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/16 13:06:43 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/18 00:30:14 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	sigint(int signum)
 	(void)signum;
 	if (g_sig.pid)
 	{
-	 	ft_putstr_fd("\n", STDERR);
-	 	g_sig.exit_status = 19;
+		ft_putstr_fd("\n", STDERR);
+		g_sig.exit_status = 130;
 	}
 	else
 	{
-	 	ft_putstr_fd("\n", STDERR);
-	 	ft_putstr_fd("$>", STDERR);
+		ft_putstr_fd("\n", STDERR);
+		ft_putstr_fd("👉 ", STDIN);
 		g_sig.exit_status = 1;
 	}
 	g_sig.sigint = 1;
@@ -46,7 +46,7 @@ void	sigint(int signum)
 **	{
 **		ft_putstr_fd("Quit : ", STDERR);
 **		ft_putendl_fd(sig, STDERR);
-**		g_sig.exit_status = 20;
+**		g_sig.exit_status = 131;
 **		g_sig.sigquit = 1;
 **	}
 **	free(sig);

@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/16 13:49:06 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/17 22:08:53 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,18 @@ int			check_cmd(t_shell *shell, t_command *cm);
 int			quotes(char *line);
 int			special_char(char *line);
 int			check_line(t_shell *shell, char **line);
-void		parse_line(char **new_line, char *line);
+void		parse_line(char *new_line, char *line);
 int			count_line(char *line);
+char		*remove_space(char *line);
+void		close_quotes(char *line, int *i, int *count);
+void		fill_line(char *line, char *new_line, int *i, int *j);
+
+/*
+** --- utils ---
+*/
+
+int			is_special_char(char c);
+char		**ft_split_cmd(char *line);
 
 /*
 ** --- env ---
