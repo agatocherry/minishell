@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:52:43 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/18 00:23:37 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/18 01:02:58 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	clear_command(t_command *cmd)
 
 	if (!cmd)
 		return ;
-	while (cmd->prev)
+	while (cmd && cmd->prev)
 		cmd = cmd->prev;
 	while (cmd)
 	{
@@ -45,6 +45,8 @@ void	free_array(char **array)
 	int	i;
 
 	i = 0;
+	if (!array)
+		return ;
 	while (array[i])
 	{
 		free(array[i]);

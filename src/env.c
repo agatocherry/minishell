@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/13 14:09:37 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/04/18 01:03:56 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static char	**get_path(char **env)
 	if (!tmp)
 		return (NULL);
 	paths = ft_split(tmp, ':');
-	return (NULL);
 	if (paths)
 		return (paths);
 	return (NULL);

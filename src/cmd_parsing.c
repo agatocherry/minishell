@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/18 00:30:54 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/18 00:59:16 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	parse_cmd(t_shell *shell)
 	{
 		shell->exit = 1;
 		ft_putendl_fd("exit", STDIN);
+		return (0);
 	}
 	add_history(line);
 /*	
