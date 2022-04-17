@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 21:03:27 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/18 00:22:01 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/18 00:34:50 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ char	**ft_split_cmd(char *line)
 	int		j;
 	char	**split;
 
-	printf("count_line: %d\n", ft_count(line, 0));
 	split = (char **)malloc(sizeof (char *) * (ft_count(line, 0) + 1));
 	if (split == NULL)
 		return (NULL);
