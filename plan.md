@@ -9,9 +9,13 @@
 - [x] Envoyer vers la bonne fonction suivant le type de la commande
 - [x] Répéter dans une boucle infini jusqu'à SIGINT
 - [x] Faire l'historique
-- [ ] Incrémenter le niveau du shell
-- [ ] Clear la commande de puis le début
-- [ ] Faire clear_env (une commande qui appelle 2d arrays pour free env et path_env)
-- [ ] Gérer la redirection vers différents fichiers
-- [ ] Fonction qui redirige vers la fonction des commandes
+- [ ] Incrémenter le niveau du shell -> Shellen
+- [ ] Gérer les expansions -> Shellen
+- [ ] Gérer ctrl-\ -> Shellen ou Agathe
+- [ ] Améliorer check_command -> Shellen
+- [ ] Faire un fichier de commandes utils (has pipe | has_redir | has_type | ...) -> Shellen ou Agathe
+- [x] Clear la commande depuis le début
+- [x] Faire clear_env (une commande qui appelle 2d arrays pour free env et path_env)
+- [ ] Gérer la redirection vers différents fichiers (fonction reçoit un pointeur sur t_shell et lie le fd_in et le fd_out si besoin) -> Agathe ?
+- [ ] Fonction qui redirige vers la fonction des commandes -> Shellen
 - [ ] Pipe -> Agathe
