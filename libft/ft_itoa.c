@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 18:54:18 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/03/08 11:14:11 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/18 23:34:02 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ char	*ft_itoa(int n)
 	char	*itoa;
 
 	nb = n;
-	i = ft_count_digits(nb);
-	itoa = (char *)malloc(sizeof (char) * (i + 1));
+	i = ft_count_digits(nb) + 1;
+	itoa = (char *)malloc(sizeof (char) * i);
 	if (itoa == NULL)
 		return (NULL);
 	itoa[i--] = '\0';

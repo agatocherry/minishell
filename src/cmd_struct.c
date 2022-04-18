@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/17 22:21:23 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/18 01:15:15 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	check_cmd(t_shell *shell, t_command *cm)
 		{
 			ft_putstr_fd("Syntax error near unexpected token `", STDERR);
 			ft_putstr_fd(cm->str, STDERR);
-			ft_putstr_fd("newline", STDERR);
 			ft_putendl_fd("'", STDERR);
 			shell->last_ret = 258;
 			return (0);

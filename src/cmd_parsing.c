@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/18 00:59:16 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/18 22:23:34 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,31 @@ t_command	*get_command(char **lines)
 	return (next);
 }
 
-int	type_command(t_shell *shell)
+void	type_command(t_shell *shell)
 {
 	t_command	*cmd;
 
 	cmd = shell->command;
 	while (cmd)
 	{
-		if (!(ft_strncmp(cmd->str, "|", 1)))
+		if (!(ft_strcmp(cmd->str, "|")))
 			cmd->type = PIPE;
-		else if (!(ft_strncmp(cmd->str, "<", 1)))
+		else if (!(ft_strcmp(cmd->str, "<")))
 			cmd->type = FD_IN;
-		else if (!(ft_strncmp(cmd->str, ">", 1)))
+		else if (!(ft_strcmp(cmd->str, ">")))
 			cmd->type = FD_OUT;
-		else if (!(ft_strncmp(cmd->str, ">>", 2)))
+		else if (!(ft_strcmp(cmd->str, ">>")))
 			cmd->type = APPEND;
-		else if (!(ft_strncmp(cmd->str, "<<", 2)))
+		else if (!(ft_strcmp(cmd->str, "<<")))
 			cmd->type = LIMIT;
-		else if (cmd->prev == NULL || cmd->prev->type >= PIPE)
+		else if (cmd->prev && cmd->prev->type >= FD_IN)
+			cmd->type = FIL;
+		else if (cmd->prev == NULL || cmd->prev->type == 3 || !cmd->prev->type)
 			cmd->type = CMD;
 		else
 			cmd->type = OPT;
 		cmd = cmd->next;
 	}
-	return (0);
 }
 
 char	*sep_command(char *line)
@@ -84,6 +85,7 @@ int	parse_cmd(t_shell *shell)
 
 	signal(SIGINT, &sigint);
 	signal(SIGQUIT, SIG_IGN);
+	clear_command(shell->command);
 	line = readline("👉 ");
 	if (!line)
 	{
@@ -106,13 +108,18 @@ int	parse_cmd(t_shell *shell)
 	shell->command = get_command(ft_split_cmd(line));
 	free(line);
 	type_command(shell);
+	expand_cmd(shell);
 	while (shell->command->next)
 	{
 		printf("%s\n", shell->command->str);
+		printf("%d\n", shell->command->type);
 		shell->command = shell->command->next;
 	}
 	if (shell->command)
+	{
 		printf("%s\n", shell->command->str);
+		printf("%d\n", shell->command->type);
+	}
 	while (shell->command->prev)
 		shell->command = shell->command->prev;
 	return (0);

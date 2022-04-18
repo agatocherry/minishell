@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/17 22:08:53 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/18 22:23:16 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define STDOUT 2
 # define STDERR 3
 
-# define EMPTY 0
+# define FIL 0
 # define CMD 1
 # define OPT 2
 # define PIPE 3
@@ -103,10 +103,10 @@ void		clear_env(t_shell *shell);
 */
 
 t_command	*get_command(char **lines);
-int			type_command(t_shell *shell);
+void		type_command(t_shell *shell);
 char		*sep_command(char *line);
 int			parse_cmd(t_shell *shell);
-void		expand_cmd(t_command *cmd);
+void		expand_cmd(t_shell *shell);
 
 t_command	*next_cmd(char *line, t_command **prev);
 int			check_cmd(t_shell *shell, t_command *cm);

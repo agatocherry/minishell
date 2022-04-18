@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 23:36:12 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/03/17 22:26:37 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/18 21:29:28 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int			ft_gnl(int fd, char **line);
 char		*ft_gnljoin(const char *s1, const char *s2);
 char		*ft_one_sep(char *str, char sep);
+int			ft_strcmp(const char *s1, const char *s2);
 
 #endif
