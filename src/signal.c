@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 21:25:04 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/19 01:26:12 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/19 09:44:57 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void	sigint(int signum)
 	else
 	{
 		ft_putstr_fd("\n", STDERR);
-		ft_putstr_fd("👉 ", STDIN);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 		g_sig.exit_status = 1;
 	}
 	g_sig.sigint = 1;
