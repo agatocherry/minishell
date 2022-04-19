@@ -14,6 +14,7 @@
 - [ ] Gérer ctrl-\ -> Shellen ou Agathe
 - [ ] Améliorer check_command -> Shellen
 - [ ] Faire un fichier de commandes utils (has pipe | has_redir | has_type | ...) -> Shellen ou Agathe
+- [ ] Faire un env par défaut sur l'env est effacé -> Agathe
 - [x] Clear la commande depuis le début
 - [x] Faire clear_env (une commande qui appelle 2d arrays pour free env et path_env)
 - [ ] Gérer la redirection vers différents fichiers (fonction reçoit un pointeur sur t_shell et lie le fd_in et le fd_out si besoin) -> Agathe ?
