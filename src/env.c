@@ -6,11 +6,27 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/18 01:03:56 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/19 09:15:57 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+char	*get_from_env(t_shell *shell, char *var)
+{
+	int	i;
+
+	i = 0;
+	if (var[0] == '?')
+		return (ft_itoa(shell->last_ret));
+	while (shell->env[i])
+	{
+		if (ft_strncmp(var, shell->env[i], ft_strlen(var)) == 0)
+			return (ft_strdup(&(shell->env[i])[ft_strlen(var) + 1]));
+		i++;
+	}
+	return (ft_strdup(""));
+}
 
 static	char	*search_path(char **env)
 {

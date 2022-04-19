@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/18 22:23:34 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/19 08:21:24 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	parse_cmd(t_shell *shell)
 	shell->command = get_command(ft_split_cmd(line));
 	free(line);
 	type_command(shell);
-	expand_cmd(shell);
+	expand_cmd(shell, shell->command);
 	while (shell->command->next)
 	{
 		printf("%s\n", shell->command->str);

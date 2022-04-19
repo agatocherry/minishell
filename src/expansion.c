@@ -6,13 +6,13 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:27:09 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/19 00:10:20 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/19 09:42:04 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	fill_value(char *new, char *str, char *value)
+void	fill_value(char *new, char *str, char *value, int var)
 {
 	int	i;
 	int	j;
@@ -21,51 +21,47 @@ void	fill_value(char *new, char *str, char *value)
 	i = 0;
 	j = 0;
 	n = 0;
-	while (str[i] != '$')
+	while (i != var)
 		new[j++] = str[i++];
 	while (value[n])
 		new[j++] = value[n++];
-	i++;
-	if (str[i] == '?')
-		i++;
+	if (str[i + 1] == '?')
+		i += 2;
 	else
-		while (str[i] && str[i] != ' ')
+		while (str[i] != ' ' && str[i] != '\'' && str[i] != '\"' && str[i])
 			i++;
-	printf("what");
 	while (str[i])
 		new[j++] = str[i++];
-	printf("what");
 	new[j] = '\0';
-	printf("what");
 	free(value);
 }
 
-char	*expand_value(t_shell *shell, char *str)
+char	*expand_value(t_shell *shell, char *str, int i)
 {
-	int		i;
 	char	*new_str;
 	char	*s;
-	char	*value;
+	int		j;
+	char	*var;
 
-	i = 0;
-	new_str = NULL;
-	value = ft_strdup((ft_strchr(str, '$') + 1));
-	if (!value)
+	var = ft_strdup(&str[i]);
+	if (!var)
 		return (NULL);
-	if (value[0] == '?')
-		value[1] = '\0';
-	while (value[i] != ' ' && value[i])
-		i++;
-	value[i] = '\0';
-	if (value[0] == '?')
-		s = ft_itoa(shell->last_ret);
-	else
-		s = getenv(value);
-	if (s)
-		new_str = (char *)malloc(ft_strlen(str) - ft_strlen(value) + ft_strlen(s));
+	if (var[1] == '?')
+		var[2] = '\0';
+	j = 1;
+	while (var[j] != ' ' && var[j] != '\'' && var[j] != '\"' && var[j])
+		j++;
+	var[j] = '\0';
+	s = get_from_env(shell, &var[1]);
+	if (!s)
+	{
+		free(var);
+		return (NULL);
+	}
+	new_str = (char *)malloc(ft_strlen(str) - ft_strlen(var) + ft_strlen(s));
 	if (new_str)
-		fill_value(new_str, str, s);
-	free(value);
+		fill_value(new_str, str, s, i);
+	free(var);
 	printf("%s\n", new_str);
 	return (new_str);
 }
@@ -86,19 +82,27 @@ char	*remove_quotes(char *str)
 	return (new_str);
 }
 
-void	expand_cmd(t_shell *shell)
+void	expand_cmd(t_shell *shell, t_command *cmd)
 {
+	int			i;
 	char		*tmp;
-	t_command	*cmd;
 
-	cmd = shell->command;
+	i = 0;
 	while (cmd)
 	{
-		while (ft_strchr(cmd->str, '$'))
+		while (cmd->str[i])
 		{
-			tmp = expand_value(shell, cmd->str);
-			free(cmd->str);
-			cmd->str = tmp;
+			if (cmd->str[i] == '\'')
+				while (cmd->str[++i] != '\'')
+					;
+			if (cmd->str[i] == '$' && ((ft_isalnum(cmd->str[i + 1]) &&
+					cmd->str[i + 1] != '0') || cmd->str[i + 1] == '?'))
+			{
+				tmp = expand_value(shell, cmd->str, i);
+				free(cmd->str);
+				cmd->str = tmp;
+			}
+			i++;
 		}
 		if (ft_strchr(cmd->str, '\'') || ft_strchr(cmd->str, '\"'))
 			cmd->str = remove_quotes(cmd->str);

@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/18 22:23:16 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/19 09:14:52 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_command	*get_command(char **lines);
 void		type_command(t_shell *shell);
 char		*sep_command(char *line);
 int			parse_cmd(t_shell *shell);
-void		expand_cmd(t_shell *shell);
+void		expand_cmd(t_shell *shell, t_command *cmd);
 
 t_command	*next_cmd(char *line, t_command **prev);
 int			check_cmd(t_shell *shell, t_command *cm);
@@ -133,6 +133,7 @@ char		**ft_split_cmd(char *line);
 
 void		parse_env(t_shell *shell, char **env);
 void		incr_shlvl(char *env);
+char		*get_from_env(t_shell *shell, char *var);
 
 /*
 ** --- signal ---
