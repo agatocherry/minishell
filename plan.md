@@ -9,8 +9,8 @@
 - [x] Envoyer vers la bonne fonction suivant le type de la commande
 - [x] Répéter dans une boucle infini jusqu'à SIGINT
 - [x] Faire l'historique
-- [ ] Incrémenter le niveau du shell -> Shellen
-- [ ] Gérer les expansions -> Shellen
+- [x] Incrémenter le niveau du shell -> Shellen
+- [x] Gérer les expansions -> Shellen
 - [ ] Gérer ctrl-\ -> Shellen ou Agathe
 - [ ] Améliorer check_command -> Shellen
 - [ ] Faire un fichier de commandes utils (has pipe | has_redir | has_type | ...) 👉 Agathe
