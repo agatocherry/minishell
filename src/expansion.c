@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:27:09 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/22 15:58:07 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/22 17:39:10 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ void	expand_cmd(t_shell *shell, t_command *cmd)
 			if (cmd->str[i] == '\'' && !(quote % 2))
 				while (cmd->str[++i] != '\'')
 					;
-			if (cmd->str[i] == '$' && ((ft_isalnum(cmd->str[i + 1]) &&
-					cmd->str[i + 1] != '0') || cmd->str[i + 1] == '?'))
+			if (cmd->str[i] == '$' && ((ft_isalnum(cmd->str[i + 1])
+						&& cmd->str[i + 1] != '0') || cmd->str[i + 1] == '?'))
 				cmd->str = expand_value(shell, cmd->str, i);
 		}
 		expand_quotes(cmd);
