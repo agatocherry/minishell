@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/18 00:29:37 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/19 19:29:49 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	shell_init(t_shell *shell, char **env)
 	shell->command = NULL;
 	while (ft_strncmp(shell->env[i], "SHLVL=", 6))
 		i++;
-	incr_shlvl(shell->env[i]);
+	shell->env[i] = incr_shlvl(shell->env[i]);
 	return (0);
 }
 
@@ -52,30 +52,16 @@ char	*ft_join(char *str, char c)
 	return (new);
 }
 
-void	incr_shlvl(char *env)
+char	*incr_shlvl(char *env)
 {
-	int		i;
-	int		count;
-	int		lvl;
+	int		n_lvl;
+	char	*lvl;
+	char	*shlvl;
 
-	count = 0;
-	lvl = ft_atoi(&env[6]) + 1;
+	n_lvl = ft_atoi(&env[6]) + 1;
+	lvl = ft_itoa(n_lvl);
+	shlvl = ft_strjoin("SHLVL=", lvl);
 	free(env);
-	env = (char *)malloc(sizeof(char) * 7);
-	ft_strlcpy(env, "SHLVL=", 7);
-	i = lvl;
-	while (i > 0)
-	{
-		count++;
-		i = i / 10;
-	}
-	i = 1;
-	while (--count)
-		i = i * 10;
-	while (lvl != 0)
-	{
-		env = ft_join(env, ((lvl / i) + 48));
-		lvl = lvl % i;
-		i = i / 10;
-	}
+	free(lvl);
+	return (shlvl);
 }

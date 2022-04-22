@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/19 09:14:52 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/19 19:10:14 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ char		**ft_split_cmd(char *line);
 */
 
 void		parse_env(t_shell *shell, char **env);
-void		incr_shlvl(char *env);
+char		*incr_shlvl(char *env);
 char		*get_from_env(t_shell *shell, char *var);
 
 /*

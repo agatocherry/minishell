@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:27:09 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/19 09:42:04 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/22 15:58:07 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	fill_value(char *new, char *str, char *value, int var)
 		new[j++] = str[i++];
 	new[j] = '\0';
 	free(value);
+	free(str);
 }
 
 char	*expand_value(t_shell *shell, char *str, int i)
@@ -62,50 +63,63 @@ char	*expand_value(t_shell *shell, char *str, int i)
 	if (new_str)
 		fill_value(new_str, str, s, i);
 	free(var);
-	printf("%s\n", new_str);
 	return (new_str);
 }
 
 char	*remove_quotes(char *str)
 {
-	long unsigned int		i;
-	char					*new_str;
+	int		i;
+	int		j;
+	char	quote;
+	char	*new_str;
 
 	new_str = (char *)malloc(sizeof(char) * (ft_strlen(str) - 2) + 1);
-	i = 1;
-	while (i < ft_strlen(str) - 1)
-	{
-		new_str[i - 1] = str[i];
-		i++;
-	}
-	new_str[i - 1] = '\0';
+	i = 0;
+	j = 0;
+	while (str[i] != '\'' && str[i] != '\"')
+		new_str[j++] = str[i++];
+	quote = str[i++];
+	while (str[i] != quote)
+		new_str[j++] = str[i++];
+	while (str[++i])
+		new_str[j++] = str[i];
+	new_str[j] = '\0';
 	return (new_str);
+}
+
+void	expand_quotes(t_command *cmd)
+{
+	char	*tmp;
+
+	if (ft_strchr(cmd->str, '\"') || ft_strchr(cmd->str, '\''))
+	{
+		tmp = remove_quotes(cmd->str);
+		free(cmd->str);
+		cmd->str = tmp;
+	}
 }
 
 void	expand_cmd(t_shell *shell, t_command *cmd)
 {
 	int			i;
-	char		*tmp;
+	int			quote;
 
-	i = 0;
 	while (cmd)
 	{
-		while (cmd->str[i])
+		i = -1;
+		quote = 0;
+		while (cmd->str[++i])
 		{
-			if (cmd->str[i] == '\'')
+			if (cmd->str[i] == '\"')
+				quote++;
+			if (cmd->str[i] == '\'' && !(quote % 2))
 				while (cmd->str[++i] != '\'')
 					;
 			if (cmd->str[i] == '$' && ((ft_isalnum(cmd->str[i + 1]) &&
 					cmd->str[i + 1] != '0') || cmd->str[i + 1] == '?'))
-			{
-				tmp = expand_value(shell, cmd->str, i);
-				free(cmd->str);
-				cmd->str = tmp;
-			}
-			i++;
+				cmd->str = expand_value(shell, cmd->str, i);
 		}
-		if (ft_strchr(cmd->str, '\'') || ft_strchr(cmd->str, '\"'))
-			cmd->str = remove_quotes(cmd->str);
+		expand_quotes(cmd);
 		cmd = cmd->next;
 	}
 }
