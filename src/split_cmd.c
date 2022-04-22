@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 21:03:27 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/18 00:34:50 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/22 21:54:57 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,15 @@ static int	ft_incount(char *line)
 	char	quote;
 
 	i = 0;
-	if (line[i] == '\'' || line[i] == '\"')
+	while (line[i] == '\'' || line[i] == '\"')
 	{
 		quote = line[i];
 		i++;
 		while (line[i] && line[i] != quote)
 			i++;
 	}
-	else
-	{
-		while (line[i] != ' ' && line[i])
-			i++;
-	}
+	while (line[i] != ' ' && line[i])
+		i++;
 	return (i);
 }
 
@@ -79,7 +76,7 @@ static char	*ft_allocate(char *line, int *i)
 	if (splited == NULL)
 		return (NULL);
 	n = 0;
-	if (line[*i] == '\'' || line[*i] == '\"')
+	while (line[*i] == '\'' || line[*i] == '\"')
 	{
 		quote = line[*i];
 		splited[n++] = line[(*i)++];
@@ -87,11 +84,8 @@ static char	*ft_allocate(char *line, int *i)
 			splited[n++] = line[(*i)++];
 		splited[n++] = line[(*i)++];
 	}
-	else
-	{
-		while (line[*i] && line[*i] != ' ')
-			splited[n++] = line[(*i)++];
-	}
+	while (line[*i] && line[*i] != ' ')
+		splited[n++] = line[(*i)++];
 	splited[n] = '\0';
 	return (splited);
 }
