@@ -6,31 +6,42 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/18 01:15:15 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/22 17:33:49 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+int	invalid_cmd(t_command *cm)
+{
+	if (cm->type > PIPE && (!cm->next || cm->next->type >= PIPE))
+		return (1);
+	if (cm->type == 3 && (!cm->prev || !cm->next || cm->prev->type == 3))
+		return (2);
+	if (!ft_strncmp(cm->str, "<<", 2) || !ft_strncmp(cm->str, ">>", 2))
+		if (cm->str[2] != '\0')
+			return (2);
+	if (cm->str[0] == '|' && cm->str[1] != '\0')
+		return (2);
+	return (0);
+}
+
 int	check_cmd(t_shell *shell, t_command *cm)
 {
 	while (cm)
 	{
-		if (cm->type > PIPE && (!cm->next || cm->next->type > PIPE))
+		if (invalid_cmd(cm))
 		{
 			ft_putstr_fd("Syntax error near unexpected token `", STDERR);
-			if (cm->next)
-				ft_putstr_fd(cm->next->str, STDERR);
+			if (invalid_cmd(cm) == 1)
+			{
+				if (cm->next)
+					ft_putstr_fd(cm->next->str, STDERR);
+				else
+					ft_putstr_fd("newline", STDERR);
+			}
 			else
-				ft_putstr_fd("newline", STDERR);
-			ft_putendl_fd("'", STDERR);
-			shell->last_ret = 258;
-			return (0);
-		}
-		if (cm->type == 3 && (!cm->prev || !cm->next || cm->next->type == 3))
-		{
-			ft_putstr_fd("Syntax error near unexpected token `", STDERR);
-			ft_putstr_fd(cm->str, STDERR);
+				ft_putchar_fd(cm->str[0], STDERR);
 			ft_putendl_fd("'", STDERR);
 			shell->last_ret = 258;
 			return (0);
