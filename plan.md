@@ -12,7 +12,7 @@
 - [x] Incrémenter le niveau du shell -> Shellen
 - [x] Gérer les expansions -> Shellen
 - [ ] Gérer ctrl-\ -> Shellen ou Agathe
-- [ ] Améliorer check_command -> Shellen
+- [x] Améliorer check_command -> Shellen
 - [ ] Faire un fichier de commandes utils (has pipe | has_redir | has_type | ...) 👉 Agathe
 - [ ] Faire un env par défaut sur l'env est effacé -> Agathe
 - [x] Clear la commande depuis le début
