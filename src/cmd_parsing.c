@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/23 19:34:59 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/23 20:17:07 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,6 @@ int	parse_cmd(t_shell *shell)
 		return (0);
 	}
 	add_history(line);
-/*	
-**	if (line && line[0] == 'q')
-**		exit(0);
-*/
 	if (g_sig.sigint)
 		shell->last_ret = g_sig.exit_status;
 	if (check_line(shell, &line))

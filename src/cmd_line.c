@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/23 18:05:57 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/23 20:21:31 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ int	check_line(t_shell *shell, char **line)
 {
 	if (!line)
 		return (2);
+	if (!ft_strlen(*line))
+	{
+		free(*line);
+		return (2);
+	}
 	if (quotes(*line))
 	{
 		ft_putendl_fd("Syntax error: non-closed quotes", STDERR);
