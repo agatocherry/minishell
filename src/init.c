@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/19 19:29:49 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/23 22:32:13 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	shell_init(t_shell *shell, char **env)
 
 	i = 0;
 	*shell = (t_shell){0};
+	shell->exec = 1;
 	shell->in = dup(STDIN);
 	shell->out = dup(STDOUT);
 	parse_env(shell, env);
@@ -25,6 +26,7 @@ int	shell_init(t_shell *shell, char **env)
 	while (ft_strncmp(shell->env[i], "SHLVL=", 6))
 		i++;
 	shell->env[i] = incr_shlvl(shell->env[i]);
+	shell->cmd_env[i] = incr_shlvl(shell->cmd_env[i]);
 	return (0);
 }
 

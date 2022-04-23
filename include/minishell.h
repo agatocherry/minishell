@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/23 19:21:54 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/23 22:09:41 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_shell
 {
 	t_command	*command;
 	char		**env;
+	char		**cmd_env;
 	char		**path;
 	int			in;
 	int			out;
@@ -70,6 +71,7 @@ typedef struct s_shell
 	int			pipe_in;
 	int			pipe_out;
 	int			pid;
+	int			exec;
 	int			parent;
 	int			exit;
 }	t_shell;
@@ -87,8 +89,8 @@ typedef struct s_sig
 */
 
 int			shell_init(t_shell *shell, char **env);
-
 int			launch_shell(t_shell *shell);
+void		prep_cmd(t_shell *shell, t_command *cmd);
 
 /*
 ** --- clear ---
@@ -121,11 +123,21 @@ void		close_quotes(char *line, int *i, int *count);
 void		fill_line(char *line, char *new_line, int *i, int *j);
 
 /*
+** --- execution ---
+*/
+
+void	redir_fd(t_shell *shell, t_command *cmd, int type);
+int		pipe_shell(t_shell *shell);
+void	exec_cmd(t_shell *shell, t_command *cmd);
+
+/*
 ** --- utils ---
 */
 
 int			is_special_char(char c);
 char		**ft_split_cmd(char *line);
+void		reset_shell(t_shell *shell);
+int			is_type(t_command *cmd, int type);
 
 /*
 ** --- env ---
