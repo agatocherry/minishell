@@ -6,32 +6,29 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:52:43 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/18 01:02:58 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/23 19:36:54 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	clear_command(t_command *cmd)
+void	clear_command(t_command **cmd)
 {
-	t_command	*tmp;
-
 	if (!cmd)
 		return ;
-	while (cmd && cmd->prev)
-		cmd = cmd->prev;
-	while (cmd)
+	while (*cmd && (*cmd)->prev)
+		*cmd = (*cmd)->prev;
+	while (*cmd && (*cmd)->next)
 	{
-		tmp = cmd->next;
-		free(cmd->str);
-		cmd->str = NULL;
-		free(cmd->prev);
-		cmd->prev = NULL;
-		cmd = tmp;
+		ft_memdel((void **)&(*cmd)->str);
+		*cmd = (*cmd)->next;
+		ft_memdel((void **)&(*cmd)->prev);
 	}
-	free(cmd);
-	cmd = NULL;
-	return ;
+	if (*cmd)
+	{
+		ft_memdel((void **)&(*cmd)->str);
+		ft_memdel((void **)&(*cmd));
+	}
 }
 
 void	clear_env(t_shell *shell)

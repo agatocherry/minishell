@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/19 19:10:14 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/23 19:21:54 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int			launch_shell(t_shell *shell);
 */
 
 void		free_array(char **array);
-void		clear_command(t_command *cmd);
+void		clear_command(t_command **cmd);
 void		clear_env(t_shell *shell);
 
 /*

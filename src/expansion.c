@@ -6,13 +6,13 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:27:09 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/22 23:26:37 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/23 20:08:43 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	fill_value(char *new, char *str, char *value, int var)
+void	fill_value(char *new, char *str, char *value, int *var)
 {
 	int	i;
 	int	j;
@@ -21,10 +21,11 @@ void	fill_value(char *new, char *str, char *value, int var)
 	i = 0;
 	j = 0;
 	n = 0;
-	while (i != var)
+	while (i != *var)
 		new[j++] = str[i++];
 	while (value[n])
 		new[j++] = value[n++];
+	*var = j - 1;
 	if (str[i + 1] == '?')
 		i += 2;
 	else
@@ -35,16 +36,17 @@ void	fill_value(char *new, char *str, char *value, int var)
 	new[j] = '\0';
 	free(value);
 	free(str);
+	str = NULL;
 }
 
-char	*expand_value(t_shell *shell, char *str, int i)
+char	*expand_value(t_shell *shell, char *str, int *i)
 {
-	char	*new_str;
+	char	*n_str;
 	char	*s;
 	int		j;
 	char	*var;
 
-	var = ft_strdup(&str[i]);
+	var = ft_strdup(&str[*i]);
 	if (!var)
 		return (NULL);
 	if (var[1] == '?')
@@ -59,11 +61,11 @@ char	*expand_value(t_shell *shell, char *str, int i)
 		free(var);
 		return (NULL);
 	}
-	new_str = (char *)malloc(ft_strlen(str) - ft_strlen(var) + ft_strlen(s));
-	if (new_str)
-		fill_value(new_str, str, s, i);
+	n_str = (char *)malloc(ft_strlen(str) - ft_strlen(var) + ft_strlen(s) + 1);
+	if (n_str)
+		fill_value(n_str, str, s, i);
 	free(var);
-	return (new_str);
+	return (n_str);
 }
 
 char	*remove_quotes(char *str, int *i)
@@ -103,8 +105,7 @@ void	expand_quotes(t_command *cmd)
 			free(cmd->str);
 			cmd->str = tmp;
 		}
-		if (cmd->str[i])
-			i++;
+		i++;
 	}
 }
 
@@ -126,7 +127,7 @@ void	expand_cmd(t_shell *shell, t_command *cmd)
 					;
 			if (cmd->str[i] == '$' && ((ft_isalnum(cmd->str[i + 1])
 						&& cmd->str[i + 1] != '0') || cmd->str[i + 1] == '?'))
-				cmd->str = expand_value(shell, cmd->str, i);
+				cmd->str = expand_value(shell, cmd->str, &i);
 		}
 		expand_quotes(cmd);
 		cmd = cmd->next;

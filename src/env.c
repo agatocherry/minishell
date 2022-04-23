@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/22 14:38:07 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/23 19:57:52 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ char	*get_from_env(t_shell *shell, char *var)
 	while (shell->env[i])
 	{
 		if (ft_strncmp(tmp, shell->env[i], ft_strlen(tmp)) == 0)
+		{
+			free(tmp);
 			return (ft_strdup(&(shell->env[i])[ft_strlen(var) + 1]));
+		}
 		i++;
 	}
 	free(tmp);

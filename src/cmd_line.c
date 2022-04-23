@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/22 21:26:05 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/23 18:05:57 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,24 @@
 
 int	quotes(char *line)
 {
-	int	i;
+	char	quote;
+	int		i;
 
-	i = 0;
-	while (line[i])
+	i = -1;
+	while (line[++i])
 	{
-		if (line[i] == '\"')
+		if (line[i] == '\"' || line[i] == '\'')
 		{
-			while (line[++i] != '\"')
+			quote = line[i++];
+			if (!line[i])
+				return (1);
+			while (line[i] != quote)
 			{
 				if (line[i + 1] == '\0')
 					return (1);
+				i++;
 			}
 		}
-		if (line[i] == '\'')
-		{
-			while (line[++i] != '\'')
-			{
-				if (line[i + 1] == '\0')
-					return (1);
-			}
-		}
-		i++;
 	}
 	return (0);
 }
@@ -127,7 +123,7 @@ int	count_line(char *line)
 	{
 		if (line[i] == '\'' || line[i] == '\"')
 			close_quotes(line, &i, &count);
-		while (!is_special_char(line[i]) && line[i++])
+		while (!is_special_char(line[i]) && line[i] && line[i++])
 			count++;
 		if (line[i] && line[i] != '\'' && line[i] != '\"')
 		{
