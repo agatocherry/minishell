@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/23 22:32:13 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/24 14:40:44 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ int	shell_init(t_shell *shell, char **env)
 
 	i = 0;
 	*shell = (t_shell){0};
+	shell->fd_in = -1;
+	shell->fd_out = -1;
+	shell->pipe_in = -1;
+	shell->pipe_out = -1;
+	shell->pid = -1;
 	shell->exec = 1;
 	shell->in = dup(STDIN);
 	shell->out = dup(STDOUT);

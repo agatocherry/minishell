@@ -11,8 +11,8 @@ SRCS	=	src/main.c src/signal.c \
 			src/clear.c \
 			src/cmd_parsing.c src/cmd_struct.c src/cmd_line.c src/expansion.c \
 			src/cmd_line_2.c src/split_cmd.c \
-			src/env.c
-			# src/minishell.c src/redir.c
+			src/env.c \
+			src/minishell.c src/exec.c src/redir.c src/utils.c
 OBJ		=	$(SRCS:.c=.o)
 
 # Rules

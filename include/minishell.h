@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/23 22:09:41 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/24 21:29:01 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_shell
 	int			pipe_in;
 	int			pipe_out;
 	int			pid;
+	int			last;
+	int			first;
 	int			exec;
 	int			parent;
 	int			exit;
@@ -138,6 +140,7 @@ int			is_special_char(char c);
 char		**ft_split_cmd(char *line);
 void		reset_shell(t_shell *shell);
 int			is_type(t_command *cmd, int type);
+void		ft_close(int fd);
 
 /*
 ** --- env ---

@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:52:43 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/23 19:36:54 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/24 20:59:30 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	clear_command(t_command **cmd)
 {
 	if (!cmd)
 		return ;
-	while (*cmd && (*cmd)->prev)
-		*cmd = (*cmd)->prev;
 	while (*cmd && (*cmd)->next)
 	{
 		ft_memdel((void **)&(*cmd)->str);
