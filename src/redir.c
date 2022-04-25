@@ -6,17 +6,11 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 22:15:11 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/25 01:11:38 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/25 18:09:43 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	ft_close(int fd)
-{
-	if (fd > 0)
-		close(fd);
-}
 
 void	redir_fd(t_shell *shell, t_command *cmd, int type)
 {
@@ -44,32 +38,4 @@ void	redir_fd(t_shell *shell, t_command *cmd, int type)
 		dup2(shell->fd_in, STDIN);
 	else
 		dup2(shell->fd_out, STDOUT);
-}
-
-int	pipe_shell(t_shell *shell)
-{
-	pid_t	pid;
-	int		fd[2];
-
-	pipe(fd);
-	pid = fork();
-	if (pid == 0)
-	{
-		dup2(fd[0], STDIN);
-		shell->pipe_in = fd[0];
-		shell->parent = 0;
-		shell->exec = 1;
-		shell->pid = -1;
-		ft_close(fd[1]);
-		return (2);
-	}
-	else
-	{
-		dup2(fd[1], STDOUT);
-		shell->pipe_out = fd[1];
-		shell->pid = pid;
-		shell->last = 0;
-		ft_close(fd[0]);
-		return (1);
-	}
 }

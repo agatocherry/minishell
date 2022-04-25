@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/25 00:59:50 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/25 18:12:44 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ void	prep_cmd(t_shell *shell, t_command *cmd)
 	pipe = 0;
 	i++;
 	if (prev)
-		printf("%d prev: %s\n", i, prev->str);
+		printf("%d prev : %s\n", i, prev->str);
 	if (cmd)
-		printf("%d cmd: %s\n", i, cmd->str);
+		printf("%d cmd : %s\n", i, cmd->str);
 	if (next)
-		printf("%d next: %s\n", i, next->str);
+		printf("%d next : %s\n", i, next->str);
 	if (is_type(prev, FD_OUT))
 		redir_fd(shell, prev->next, FD_OUT);
 	else if (is_type(prev, APPEND))
