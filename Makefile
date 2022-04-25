@@ -6,13 +6,15 @@ LIBFT	=	-L libft -lft
 CC		=	gcc
 #DONT FORGET TO USE -Werror -Wall -Wextra 
 CFLAGS	= 	-Werror -Wall -Wextra -I include/ 
-SRCS	=	src/main.c src/signal.c \
+SRCS	=	src/main.c src/minishell.c src/signal.c \
 			src/init.c \
 			src/clear.c \
 			src/cmd_parsing.c src/cmd_struct.c src/cmd_line.c src/expansion.c \
 			src/cmd_line_2.c src/split_cmd.c \
 			src/env.c \
-			src/minishell.c src/exec.c src/redir.c src/utils.c src/pipe.c
+			src/exec.c src/redir.c src/utils.c src/pipe.c \
+			src/ft_cd.c src/ft_pwd.c src/ft_echo.c src/ft_env.c src/ft_unset.c \
+			src/ft_exit.c src/ft_export.c
 OBJ		=	$(SRCS:.c=.o)
 
 # Rules

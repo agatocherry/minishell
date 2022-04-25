@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/24 21:29:01 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/25 23:23:57 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct s_shell
 	int			pipe_out;
 	int			pid;
 	int			last;
-	int			first;
+	int			status;
 	int			exec;
 	int			parent;
 	int			exit;
@@ -128,9 +128,22 @@ void		fill_line(char *line, char *new_line, int *i, int *j);
 ** --- execution ---
 */
 
-void	redir_fd(t_shell *shell, t_command *cmd, int type);
-int		pipe_shell(t_shell *shell);
-void	exec_cmd(t_shell *shell, t_command *cmd);
+void		redir_fd(t_shell *shell, t_command **cmd);
+void		input_fd(t_shell *shell, t_command **cmd);
+int			pipe_shell(t_shell *shell);
+void		exec_cmd(t_shell *shell, t_command *cmd);
+
+/*
+** --- built_in ---
+*/
+
+int			ft_echo(char **argv);
+int			ft_cd(char **argv);
+int			ft_pwd(char **argv);
+int			ft_export(char **env, char **argv);
+int			ft_unset(char **env, char **argv);
+int			ft_env(char **env);
+int			ft_exit(t_shell *shell, char **argv);
 
 /*
 ** --- utils ---
@@ -140,6 +153,7 @@ int			is_special_char(char c);
 char		**ft_split_cmd(char *line);
 void		reset_shell(t_shell *shell);
 int			is_type(t_command *cmd, int type);
+int			has_type(t_command *cmd, int type);
 void		ft_close(int fd);
 
 /*

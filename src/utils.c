@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 13:43:59 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/24 19:08:10 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/25 21:44:13 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,19 @@ int	is_type(t_command *cmd, int type)
 	return (0);
 }
 
-int	has_pipe(t_command *cmd)
+int	has_type(t_command *cmd, int type)
 {
 	t_command	*tmp;
 
 	tmp = cmd;
-	while (tmp && tmp->prev)
+	while (tmp->prev && tmp->prev->type != PIPE)
 		tmp = tmp->prev;
 	while (tmp)
 	{
-		if (tmp->type == PIPE)
+		if (tmp->type == type)
 			return (1);
+		if (tmp->type == PIPE)
+			return (0);
 		tmp = tmp->next;
 	}
 	return (0);

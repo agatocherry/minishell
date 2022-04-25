@@ -6,17 +6,15 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/25 18:12:44 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/25 23:30:03 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include <stdlib.h>
 
-t_command	*next_sep(t_command *cmd, int skip)
+t_command	*next_sep(t_command *cmd)
 {
-	if (cmd && skip)
-		cmd = cmd->next;
 	while (cmd && cmd->type < PIPE)
 		cmd = cmd->next;
 	return (cmd);
@@ -40,46 +38,27 @@ t_command	*next_run(t_command *cmd)
 
 void	prep_cmd(t_shell *shell, t_command *cmd)
 {
-	t_command	*prev;
 	t_command	*next;
 	int			pipe;
-	static int	i = 0;
 
-	prev = prev_sep(cmd, 0);
-	next = next_sep(cmd, 0);
 	pipe = 0;
-	i++;
-	if (prev)
-		printf("%d prev : %s\n", i, prev->str);
-	if (cmd)
-		printf("%d cmd : %s\n", i, cmd->str);
-	if (next)
-		printf("%d next : %s\n", i, next->str);
-	if (is_type(prev, FD_OUT))
-		redir_fd(shell, prev->next, FD_OUT);
-	else if (is_type(prev, APPEND))
-		redir_fd(shell, prev->next, APPEND);
-	else if (is_type(prev, FD_IN))
-		redir_fd(shell, prev->next, FD_IN);
-//	else if (is_type(prev, LIMIT))
-//		here_doc(shell, prev->next);
-	else if (is_type(prev, PIPE))
+	while ((has_type(cmd, FD_OUT) || has_type(cmd, APPEND)) && shell->exec)
+		redir_fd(shell, &cmd);
+	while ((has_type(cmd, FD_IN) || has_type(cmd, LIMIT)) && shell->exec)
+		input_fd(shell, &cmd);
+	next = next_sep(cmd);
+	if (is_type(next, PIPE) && shell->exec)
 		pipe = pipe_shell(shell);
-	printf("what\n");
-	if (next && pipe != 1)
+	if ((is_type(next, PIPE) && pipe == 2) && shell->exec)
 		prep_cmd(shell, next->next);
-	printf("exec: %d pipe: %d\n", shell->exec, pipe);
-	if (pipe != 1 && shell->exec)
-	{
-		printf("cmd exec: %s\n", cmd->str);
+	if (shell->exec)
 		exec_cmd(shell, cmd);
-	}
 }
 
 int	launch_shell(t_shell *shell)
 {
 	t_command	*cmd;
-	int			stat;
+	int			status;
 
 	cmd = next_run(shell->command);
 	if (cmd)
@@ -89,10 +68,9 @@ int	launch_shell(t_shell *shell)
 		shell->last = 1;
 		prep_cmd(shell, cmd);
 		reset_shell(shell);
-		waitpid(-1, &stat, 0);
-		stat = WEXITSTATUS(stat);
+		status = WEXITSTATUS(shell->status);
 		if (!shell->last)
-			shell->last_ret = stat;
+			shell->last_ret = status;
 		if (!shell->parent)
 		{
 			clear_command(&shell->command);

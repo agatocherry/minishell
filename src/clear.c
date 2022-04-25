@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:52:43 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/24 20:59:30 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/25 23:42:34 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void	free_array(char **array)
 		return ;
 	while (array[i])
 	{
-		free(array[i]);
-		array[i] = NULL;
+		if(array[i])
+			ft_memdel((void **)&array[i]);
 		i++;
 	}
-	free(array);
-	array = NULL;
+	if (array)
+		ft_memdel((void **)array);
 }
