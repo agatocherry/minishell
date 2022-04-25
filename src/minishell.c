@@ -50,11 +50,11 @@ void	prep_cmd(t_shell *shell, t_command *cmd)
 	pipe = 0;
 	i++;
 	if (prev)
-		printf("%d prev: %s\n", i, prev->str);
+		printf("%d prev : %s\n", i, prev->str);
 	if (cmd)
-		printf("%d cmd: %s\n", i, cmd->str);
+		printf("%d cmd : %s\n", i, cmd->str);
 	if (next)
-		printf("%d next: %s\n", i, next->str);
+		printf("%d next : %s\n", i, next->str);
 	if (is_type(prev, FD_OUT))
 		redir_fd(shell, prev->next, FD_OUT);
 	else if (is_type(prev, APPEND))
@@ -78,7 +78,7 @@ int	launch_shell(t_shell *shell)
 
 	cmd = next_run(shell->command);
 	if (cmd)
-		printf("next_run: %s\n", cmd->str);
+		printf("next_run : %s\n", cmd->str);
 	shell->parent = 1;
 	shell->last = 1;
 	prep_cmd(shell, cmd);

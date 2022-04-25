@@ -12,7 +12,7 @@ SRCS	=	src/main.c src/signal.c \
 			src/cmd_parsing.c src/cmd_struct.c src/cmd_line.c src/expansion.c \
 			src/cmd_line_2.c src/split_cmd.c \
 			src/env.c \
-			src/minishell.c src/exec.c src/redir.c src/utils.c
+			src/minishell.c src/exec.c src/redir.c src/utils.c src/pipe.c
 OBJ		=	$(SRCS:.c=.o)
 
 # Rules

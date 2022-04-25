@@ -4,9 +4,9 @@
 
 Agathe :
 
-- [ ] Recherche sur ctrl-\
+- [x] Recherche sur ctrl-\
 - [ ] Fonction env par défaut (quand char **env == NULL)
-- [ ] Vérifier shell_pipe() ou améliorer si faux
+- [x] Vérifier shell_pipe() ou améliorer si faux
 - [ ] Commencer les builtins (qui recevront un char **argv) -> ex: ft_echo(char **argv)
 
 Shellen :
