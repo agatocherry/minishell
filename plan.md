@@ -6,10 +6,11 @@ Agathe :
 
 - [ ] Recherche sur ctrl-\
 - [ ] Fonction env par défaut (quand char **env == NULL)
-- [ ] Fonction shell_pipe()
+- [ ] Vérifier shell_pipe() ou améliorer si faux
+- [ ] Commencer les builtins (qui recevront un char **argv) -> ex: ft_echo(char **argv)
 
 Shellen :
-- [ ] Fichier utils.c
+- [x] Fichier utils.c
 - [ ] Fonction heredoc (<<)
-- [ ] Fonction reset_shell()
+- [x] Fonction reset_shell()
 - [ ] Terminer fonction qui dirige vers les différentes fonctions exec
