@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/25 00:36:53 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/25 00:59:50 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,15 @@ void	prep_cmd(t_shell *shell, t_command *cmd)
 //		here_doc(shell, prev->next);
 	else if (is_type(prev, PIPE))
 		pipe = pipe_shell(shell);
+	printf("what\n");
 	if (next && pipe != 1)
 		prep_cmd(shell, next->next);
+	printf("exec: %d pipe: %d\n", shell->exec, pipe);
 	if (pipe != 1 && shell->exec)
+	{
+		printf("cmd exec: %s\n", cmd->str);
 		exec_cmd(shell, cmd);
+	}
 }
 
 int	launch_shell(t_shell *shell)
@@ -78,20 +83,22 @@ int	launch_shell(t_shell *shell)
 
 	cmd = next_run(shell->command);
 	if (cmd)
-		printf("next_run: %s\n", cmd->str);
-	shell->parent = 1;
-	shell->last = 1;
-	prep_cmd(shell, cmd);
-	reset_shell(shell);
-	waitpid(-1, &stat, 0);
-	stat = WEXITSTATUS(stat);
-	if (!shell->last)
-		shell->last_ret = stat;
-	if (!shell->parent)
 	{
-		clear_command(&shell->command);
-		exit(shell->last_ret);
+		printf("next_run: %s\n", cmd->str);
+		shell->parent = 1;
+		shell->last = 1;
+		prep_cmd(shell, cmd);
+		reset_shell(shell);
+		waitpid(-1, &stat, 0);
+		stat = WEXITSTATUS(stat);
+		if (!shell->last)
+			shell->last_ret = stat;
+		if (!shell->parent)
+		{
+			clear_command(&shell->command);
+			exit(shell->last_ret);
+		}
+		shell->exec = 1;
 	}
-	shell->exec = 1;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 22:15:11 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/24 20:31:04 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/25 01:11:38 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	redir_fd(t_shell *shell, t_command *cmd, int type)
 	if (type == FD_OUT || type == APPEND)
 		ft_close(shell->fd_out);
 	if (type == FD_IN)
-		ft_close (shell->fd_in);
+		ft_close(shell->fd_in);
 	if (type == FD_OUT)
 		shell->fd_out = open(cmd->str, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	else if (type == APPEND)
@@ -60,7 +60,7 @@ int	pipe_shell(t_shell *shell)
 		shell->parent = 0;
 		shell->exec = 1;
 		shell->pid = -1;
-		ft_close(fd[0]);
+		ft_close(fd[1]);
 		return (2);
 	}
 	else
