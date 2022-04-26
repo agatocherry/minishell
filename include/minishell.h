@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/25 23:23:57 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/26 08:59:22 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@
 # include <sys/stat.h>
 # include <sys/errno.h>
 
-# define STDIN 1
-# define STDOUT 2
-# define STDERR 3
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
 
 # define FIL 0
 # define CMD 1

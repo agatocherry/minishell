@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 22:15:11 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/25 23:02:21 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/26 09:44:16 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	remove_redir(t_command **cmd, int type)
 {
+	t_command	*prev;
+	t_command	*next;
 	t_command	*tmp;
 
 	tmp = *cmd;
@@ -21,43 +23,60 @@ void	remove_redir(t_command **cmd, int type)
 		tmp = tmp->prev;
 	while (tmp->type != type)
 		tmp = tmp->next;
-	tmp->prev->next = tmp->next->next;
-	tmp->next->next->prev = tmp->prev;
-	ft_memdel((void **)&tmp->str);
-	ft_memdel((void **)&tmp->prev);
-	tmp = tmp->next;
-	ft_memdel((void **)&tmp->str);
-	ft_memdel((void **)&tmp->prev);
-	ft_memdel((void **)&tmp);
+	prev = tmp->prev;
+	next = tmp->next->next;
+	if (prev)
+		prev->next = next;
+	if (next)
+		next->prev = prev;
 }
 
-void	here_doc(t_shell *shell, t_command **cmd, t_command *tmp)
+void	here_prompt(t_command *cmd, char *stop, int fd, int count)
+{
+	char	*line;
+
+	while (ft_gnl(STDIN, &line))
+	{
+		if (!line)
+		{
+			ft_putstr_fd("-minishell: warning: here_document at line ", STDERR);
+			ft_putnbr_fd(count, STDERR);
+			ft_putstr_fd(" delimited by end-of-file (wanted `", STDERR);
+			ft_putstr_fd(cmd->str, STDERR);
+			ft_putendl_fd("')", STDERR);
+		}
+		if (!line || ft_strcmp(line, stop) == 0)
+			break ;
+		else
+		{
+			write(fd, line, ft_strlen(line));
+			free(line);
+			line = NULL;
+			ft_putstr_fd("> ", STDIN);
+			count++;
+		}
+	}
+	free(line);
+}
+
+void	here_doc(t_shell *shell, t_command *tmp)
 {
 	int		fd[2];
-	char	*line;
+	char	*stop;
 
 	if (pipe(fd) == -1)
 	{
 		shell->fd_in = -1;
 		shell->exec = 0;
+		shell->last_ret = 1;
 		return ;
 	}
+	stop = ft_strjoin(tmp->str, "\n");
 	ft_putstr_fd("> ", STDIN);
-	while (ft_gnl(STDIN, &line))
-	{
-		if (ft_strcmp(line, tmp->str) == 0)
-		{
-			free(line);
-			break ;
-		}
-		write(fd[1], line, ft_strlen(line));
-		free(line);
-		line = NULL;
-		ft_putstr_fd("> ", STDIN);
-	}
+	here_prompt(tmp, stop, fd[1], 1);
+	free(stop);
 	ft_close(fd[1]);
 	shell->fd_in = fd[0];
-	remove_redir(cmd, LIMIT);
 }
 
 void	input_fd(t_shell *shell, t_command **cmd)
@@ -66,15 +85,15 @@ void	input_fd(t_shell *shell, t_command **cmd)
 
 	ft_close(shell->fd_in);
 	tmp = *cmd;
-	while (tmp->prev && tmp->prev->type != PIPE)
+	while (tmp && tmp->prev && tmp->prev->type != PIPE)
 		tmp = tmp->prev;
-	while (tmp->type != FD_IN || tmp->type != LIMIT)
+	while (tmp->type != FD_IN && tmp->type != LIMIT)
 		tmp = tmp->next;
 	tmp = tmp->next;
 	if (tmp->prev->type == FD_IN)
 		shell->fd_in = open(tmp->str, O_RDONLY, S_IRWXU);
 	else
-		here_doc(shell, cmd, tmp);
+		here_doc(shell, tmp);
 	if (tmp->prev->type == FD_IN && shell->fd_in == -1)
 	{
 		ft_putstr_fd("minishell: ", STDERR);
@@ -86,6 +105,7 @@ void	input_fd(t_shell *shell, t_command **cmd)
 	}
 	if (shell->fd_in == -1)
 		return ;
+	printf("file opened: %s\n", tmp->str);
 	dup2(shell->fd_in, STDIN);
 	remove_redir(cmd, tmp->prev->type);
 }
@@ -98,7 +118,7 @@ void	redir_fd(t_shell *shell, t_command **cmd)
 	tmp = *cmd;
 	while (tmp->prev && tmp->prev->type != PIPE)
 		tmp = tmp->prev;
-	while (tmp->type != FD_OUT || tmp->type != APPEND)
+	while (tmp->type != FD_OUT && tmp->type != APPEND)
 		tmp = tmp->next;
 	tmp = tmp->next;
 	if (tmp->prev->type == FD_OUT)
@@ -114,6 +134,7 @@ void	redir_fd(t_shell *shell, t_command **cmd)
 		shell->exec = 0;
 		return ;
 	}
+	printf("file opened: %s\n", tmp->str);
 	dup2(shell->fd_out, STDOUT);
 	remove_redir(cmd, tmp->prev->type);
 }

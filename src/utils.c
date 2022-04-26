@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 13:43:59 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/25 21:44:13 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/26 09:03:04 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	has_type(t_command *cmd, int type)
 	t_command	*tmp;
 
 	tmp = cmd;
-	while (tmp->prev && tmp->prev->type != PIPE)
+	while (tmp && tmp->prev && tmp->prev->type != PIPE)
 		tmp = tmp->prev;
 	while (tmp)
 	{
