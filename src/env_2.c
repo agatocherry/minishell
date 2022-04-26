@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 22:01:06 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/26 22:21:44 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/27 00:53:27 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,5 @@ char	**default_env(void)
 	env[2] = ft_strdup("SHLVL=1");
 	env[3] = ft_strjoin("PWD=", pwd);
 	env[4] = NULL;
-	free(pwd);
 	return (env);
 }

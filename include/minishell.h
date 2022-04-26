@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/27 00:34:02 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/27 00:59:50 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct s_shell
 {
 	t_command	*command;
 	char		**env;
-	char		**cmd_env;
 	char		**path;
 	int			in;
 	int			out;

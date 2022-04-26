@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/26 23:50:59 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/27 00:59:31 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,14 @@ static char	**get_env(char **env)
 
 void	parse_env(t_shell *shell, char **env)
 {
-	if (env)
+	if (env[0])
 	{
 		shell->path = get_path(env);
 		shell->env = get_env(env);
-		shell->cmd_env = get_env(env);
 	}
 	else
 	{
 		shell->env = default_env();
 		shell->path = get_path(shell->env);
-		shell->cmd_env = default_env();
 	}
 }
