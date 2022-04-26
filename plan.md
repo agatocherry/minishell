@@ -9,6 +9,7 @@ Agathe :
 
 Shellen :
 - [ ] Mettre en place ctrl-\
-- [ ] Fonction heredoc (<<)
+- [x] Fonction heredoc (<<)
+- [ ] Mettre en place SIGINT pour heredoc
 - [ ] Gérer les redirections et le pipe
 - [ ] Terminer fonction qui dirige vers les différentes fonctions exec
