@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/26 08:29:17 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/26 09:48:38 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	prep_cmd(t_shell *shell, t_command *cmd)
 	int			pipe;
 
 	pipe = 0;
-	printf("ok here\n");
 	while ((has_type(cmd, FD_OUT) || has_type(cmd, APPEND)) && shell->exec)
 		redir_fd(shell, &cmd);
 	while ((has_type(cmd, FD_IN) || has_type(cmd, LIMIT)) && shell->exec)
