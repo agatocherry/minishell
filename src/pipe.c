@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:15:11 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/25 21:08:34 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/26 20:55:16 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	pipe_shell(t_shell *shell)
 		shell->pipe_out = fd[1];
 		shell->pid = pid;
 		shell->last = 0;
-		waitpid(-1, &shell->status, 0);
 		return (1);
 	}
 }

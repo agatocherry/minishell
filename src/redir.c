@@ -6,36 +6,17 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 22:15:11 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/26 09:44:16 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/26 23:11:38 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	remove_redir(t_command **cmd, int type)
-{
-	t_command	*prev;
-	t_command	*next;
-	t_command	*tmp;
-
-	tmp = *cmd;
-	while (tmp->prev && tmp->prev->type != PIPE)
-		tmp = tmp->prev;
-	while (tmp->type != type)
-		tmp = tmp->next;
-	prev = tmp->prev;
-	next = tmp->next->next;
-	if (prev)
-		prev->next = next;
-	if (next)
-		next->prev = prev;
-}
-
 void	here_prompt(t_command *cmd, char *stop, int fd, int count)
 {
 	char	*line;
 
-	while (ft_gnl(STDIN, &line))
+	while (ft_gnl(STDIN, &line) && !g_sig.heredoc)
 	{
 		if (!line)
 		{
@@ -64,6 +45,7 @@ void	here_doc(t_shell *shell, t_command *tmp)
 	int		fd[2];
 	char	*stop;
 
+	signal(SIGINT, &heredoc_sigint);
 	if (pipe(fd) == -1)
 	{
 		shell->fd_in = -1;
@@ -76,7 +58,14 @@ void	here_doc(t_shell *shell, t_command *tmp)
 	here_prompt(tmp, stop, fd[1], 1);
 	free(stop);
 	ft_close(fd[1]);
-	shell->fd_in = fd[0];
+	if (!g_sig.heredoc)
+		shell->fd_in = fd[0];
+	else
+	{
+		ft_close(fd[0]);
+		shell->fd_in = -1;
+	}
+	signal(SIGINT, &sigint);
 }
 
 void	input_fd(t_shell *shell, t_command **cmd)
@@ -105,7 +94,6 @@ void	input_fd(t_shell *shell, t_command **cmd)
 	}
 	if (shell->fd_in == -1)
 		return ;
-	printf("file opened: %s\n", tmp->str);
 	dup2(shell->fd_in, STDIN);
 	remove_redir(cmd, tmp->prev->type);
 }
@@ -134,7 +122,6 @@ void	redir_fd(t_shell *shell, t_command **cmd)
 		shell->exec = 0;
 		return ;
 	}
-	printf("file opened: %s\n", tmp->str);
 	dup2(shell->fd_out, STDOUT);
 	remove_redir(cmd, tmp->prev->type);
 }

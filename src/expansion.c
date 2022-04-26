@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:27:09 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/23 20:08:43 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/27 00:30:20 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ void	fill_value(char *new, char *str, char *value, int *var)
 	while (value[n])
 		new[j++] = value[n++];
 	*var = j - 1;
-	if (str[i + 1] == '?')
-		i += 2;
+	if (str[++i] == '?')
+		i += 1;
 	else
-		while (str[i] != ' ' && str[i] != '\'' && str[i] != '\"' && str[i])
+	{
+		while (break_exp(str[i]) == 0)
 			i++;
+	}
 	while (str[i])
 		new[j++] = str[i++];
 	new[j] = '\0';
@@ -52,7 +54,7 @@ char	*expand_value(t_shell *shell, char *str, int *i)
 	if (var[1] == '?')
 		var[2] = '\0';
 	j = 1;
-	while (var[j] != ' ' && var[j] != '\'' && var[j] != '\"' && var[j])
+	while (var[1] != '?' && break_exp(var[j]) == 0)
 		j++;
 	var[j] = '\0';
 	s = get_from_env(shell, &var[1]);
@@ -97,6 +99,8 @@ void	expand_quotes(t_command *cmd)
 	char	*tmp;
 
 	i = 0;
+	if (!cmd)
+		return ;
 	while (cmd->str[i])
 	{
 		if (cmd->str[i] == '\'' || cmd->str[i] == '\"')
@@ -118,7 +122,7 @@ void	expand_cmd(t_shell *shell, t_command *cmd)
 	{
 		i = -1;
 		quote = 0;
-		while (cmd->str[++i])
+		while (cmd && cmd->str[++i])
 		{
 			if (cmd->str[i] == '\"')
 				quote++;

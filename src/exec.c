@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 14:49:18 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/26 16:07:51 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/04/27 00:34:18 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	builtin(t_shell *shell, char **argv)
 	if (ft_strcmp(argv[0], "echo") == 0)
 		return (ft_echo(argv));
 	if (ft_strcmp(argv[0], "cd") == 0)
-		return (ft_cd(argv));
+		return (ft_cd(argv, shell->env));
 	if (ft_strcmp(argv[0], "pwd") == 0)
-		return (ft_pwd(argv));
+		return (ft_pwd());
 	if (ft_strcmp(argv[0], "export") == 0)
 		return (ft_export(shell->env, argv));
 	if (ft_strcmp(argv[0], "unset") == 0)
@@ -87,7 +87,7 @@ void	exec_cmd(t_shell *shell, t_command *cmd)
 
 	argv = cmd_to_argv(cmd);
 	if (argv[0] && !ft_strcmp(argv[0], "exit") && !has_type(cmd, PIPE))
-		ft_exit(shell, argv);
+		ft_exit(shell);
 	else if (argv && is_builtin(argv))
 		shell->last_ret = builtin(shell, argv);
 	else if (argv)

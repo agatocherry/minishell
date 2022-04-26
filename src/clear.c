@@ -6,11 +6,30 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:52:43 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/26 16:07:38 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/04/26 22:26:02 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	remove_redir(t_command **cmd, int type)
+{
+	t_command	*prev;
+	t_command	*next;
+	t_command	*tmp;
+
+	tmp = *cmd;
+	while (tmp->prev && tmp->prev->type != PIPE)
+		tmp = tmp->prev;
+	while (tmp->type != type)
+		tmp = tmp->next;
+	prev = tmp->prev;
+	next = tmp->next->next;
+	if (prev)
+		prev->next = next;
+	if (next)
+		next->prev = prev;
+}
 
 void	clear_command(t_command **cmd)
 {

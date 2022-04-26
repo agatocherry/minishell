@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/26 08:59:22 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/27 00:34:02 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@
 # define APPEND 6
 # define LIMIT 7
 
+# define PATH_LEN 4096
 # define ERROR 1
 # define SUCCESS 0
-# define NOT_EXEC 126
+# define IS_DIRECTORY 126
 # define UNK_CMD 127
 
 typedef struct s_command
@@ -83,6 +84,7 @@ typedef struct s_sig
 	int		sigint;
 	int		sigquit;
 	int		exit_status;
+	int		heredoc;
 	pid_t	pid;
 }	t_sig;
 
@@ -101,6 +103,7 @@ void		prep_cmd(t_shell *shell, t_command *cmd);
 void		free_array(char **array);
 void		clear_command(t_command **cmd);
 void		clear_env(t_shell *shell);
+void		remove_redir(t_command **cmd, int type);
 
 /*
 ** --- cmd ---
@@ -138,18 +141,19 @@ void		exec_cmd(t_shell *shell, t_command *cmd);
 */
 
 int			ft_echo(char **argv);
-int			ft_cd(char **argv);
-int			ft_pwd(char **argv);
+int			ft_cd(char **argv, char **env);
+int			ft_pwd(void);
 int			ft_export(char **env, char **argv);
 int			ft_unset(char **env, char **argv);
 int			ft_env(char **env);
-int			ft_exit(t_shell *shell, char **argv);
+int			ft_exit(t_shell *shell);
 
 /*
 ** --- utils ---
 */
 
 int			is_special_char(char c);
+int			break_exp(int c);
 char		**ft_split_cmd(char *line);
 void		reset_shell(t_shell *shell);
 int			is_type(t_command *cmd, int type);
@@ -162,6 +166,8 @@ void		ft_close(int fd);
 
 void		parse_env(t_shell *shell, char **env);
 char		*incr_shlvl(char *env);
+char		**default_env(void);
+void		add_in_env(char *to_add, char **env);
 char		*get_from_env(t_shell *shell, char *var);
 
 /*
@@ -171,6 +177,7 @@ char		*get_from_env(t_shell *shell, char *var);
 void		sig_init(void);
 void		sigint(int signum);
 void		sigquit(int signum);
+void		heredoc_sigint(int signum);
 
 extern t_sig	g_sig;
 

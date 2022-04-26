@@ -6,15 +6,15 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 23:11:08 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/26 15:26:49 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/04/26 21:03:02 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_exit(t_shell *shell, char **argv)
+int	ft_exit(t_shell *shell)
 {
 	shell->exit = 1;
-	printf("Depuis exit: %s\n", argv[0]);
+	ft_putendl_fd("exit", STDERR);
 	return (0);
 }
