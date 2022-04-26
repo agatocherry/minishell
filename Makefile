@@ -5,7 +5,7 @@ HEADER	=	./include/minishell.h
 LIBFT	=	-L libft -lft
 CC		=	gcc
 #DONT FORGET TO USE -Werror -Wall -Wextra 
-CFLAGS	= 	-Werror -Wall -Wextra -I include/ 
+CFLAGS	= 	-Werror -Wall -Wextra -g -I include/ 
 SRCS	=	src/main.c src/minishell.c src/signal.c \
 			src/init.c \
 			src/clear.c \
@@ -13,8 +13,8 @@ SRCS	=	src/main.c src/minishell.c src/signal.c \
 			src/cmd_line_2.c src/split_cmd.c \
 			src/env.c \
 			src/exec.c src/redir.c src/utils.c src/pipe.c \
-			src/ft_cd.c src/ft_pwd.c src/ft_echo.c src/ft_env.c src/ft_unset.c \
-			src/ft_exit.c src/ft_export.c
+			src/builtins/ft_cd.c src/builtins/ft_pwd.c src/builtins/ft_echo.c src/builtins/ft_env.c src/builtins/ft_unset.c \
+			src/builtins/ft_exit.c src/builtins/ft_export.c
 OBJ		=	$(SRCS:.c=.o)
 
 # Rules

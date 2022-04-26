@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 14:49:18 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/25 23:42:13 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/26 16:07:51 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	builtin(t_shell *shell, char **argv)
 	if (ft_strcmp(argv[0], "env") == 0)
 		return (ft_env(shell->env));
 	return (0);
-	
 }
 
 char	**cmd_to_argv(t_command *cmd)

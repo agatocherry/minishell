@@ -4,12 +4,11 @@
 
 Agathe :
 
-- [ ] Fonction env par défaut (quand char **env == NULL)
-- [ ] Commencer les builtins (qui recevront un char **argv) -> ex: ft_echo(char **argv)
+- Builtins : ft_echo (gerer le \?)
+- Fonction env par défaut (quand char **env == NULL)
 
 Shellen :
-- [ ] Mettre en place ctrl-\
-- [x] Fonction heredoc (<<)
-- [ ] Mettre en place SIGINT pour heredoc
-- [ ] Gérer les redirections et le pipe
-- [ ] Terminer fonction qui dirige vers les différentes fonctions exec
+- Mettre en place ctrl-\
+- Mettre en place SIGINT pour heredoc
+- Gérer les redirections et le pipe
+- Terminer fonction qui dirige vers les différentes fonctions exec
