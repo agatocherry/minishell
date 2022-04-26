@@ -5,10 +5,13 @@
 Agathe :
 
 - Builtins : ft_echo (gerer le \?)
-- Fonction env par défaut (quand char **env == NULL)
+- Regarder les pipes
 
 Shellen :
 - Mettre en place ctrl-\
 - Mettre en place SIGINT pour heredoc
-- Gérer les redirections et le pipe
-- Terminer fonction qui dirige vers les différentes fonctions exec
+- Créer le fichier quand >> ou > sans commande
+- S'occuper des fonctions non_builtins
+
+
+Vérifier les retours pour chaque cas d'erreurs (unknown command; no such file or directory etc...)
