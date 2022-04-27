@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/26 22:45:21 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/27 09:58:02 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ t_command	*next_run(t_command *cmd)
 	return (cmd);
 }
 
+/*
+**	Pipe à partir d'ici de la ligne 50
+*/
+
 void	prep_cmd(t_shell *shell, t_command *cmd)
 {
 	t_command	*next;
@@ -47,14 +51,11 @@ void	prep_cmd(t_shell *shell, t_command *cmd)
 	if (g_sig.heredoc)
 		shell->exec = 0;
 	next = next_sep(cmd);
-/*
-**	Pipe à partir d'ici ->
-*/
 	if (is_type(next, PIPE) && shell->exec)
 		pipe = pipe_shell(shell);
 	if (is_type(next, PIPE) && pipe == 2 && shell->exec)
 		prep_cmd(shell, next->next);
-	if (pipe!= 1 && shell->exec)
+	if (pipe != 1 && shell->exec)
 		exec_cmd(shell, cmd);
 }
 

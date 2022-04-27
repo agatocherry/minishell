@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 22:15:11 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/26 23:11:38 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/27 09:55:45 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,15 @@ void	here_doc(t_shell *shell, t_command *tmp)
 	signal(SIGINT, &sigint);
 }
 
+void	if_shell_fd_out(t_shell *shell, t_command	*tmp)
+{
+	ft_putstr_fd("minishell: ", STDERR);
+	ft_putstr_fd(tmp->str, STDERR);
+	ft_putendl_fd(": No such file or directory", STDERR);
+	shell->last_ret = 1;
+	shell->exec = 0;
+}
+
 void	input_fd(t_shell *shell, t_command **cmd)
 {
 	t_command	*tmp;
@@ -85,11 +94,7 @@ void	input_fd(t_shell *shell, t_command **cmd)
 		here_doc(shell, tmp);
 	if (tmp->prev->type == FD_IN && shell->fd_in == -1)
 	{
-		ft_putstr_fd("minishell: ", STDERR);
-		ft_putstr_fd(tmp->str, STDERR);
-		ft_putendl_fd(": No such file or directory", STDERR);
-		shell->last_ret = 1;
-		shell->exec = 0;
+		if_shell_fd_out(shell, tmp);
 		return ;
 	}
 	if (shell->fd_in == -1)
@@ -115,11 +120,7 @@ void	redir_fd(t_shell *shell, t_command **cmd)
 		shell->fd_out = open(tmp->str, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
 	if (shell->fd_out == -1)
 	{
-		ft_putstr_fd("minishell: ", STDERR);
-		ft_putstr_fd(tmp->str, STDERR);
-		ft_putendl_fd(": No such file or directory", STDERR);
-		shell->last_ret = 1;
-		shell->exec = 0;
+		if_shell_fd_out(shell, tmp);
 		return ;
 	}
 	dup2(shell->fd_out, STDOUT);
