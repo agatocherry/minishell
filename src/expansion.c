@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:27:09 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/27 00:30:20 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/30 18:03:11 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,12 @@ char	*expand_value(t_shell *shell, char *str, int *i)
 {
 	char	*n_str;
 	char	*s;
-	int		j;
 	char	*var;
 
 	var = ft_strdup(&str[*i]);
 	if (!var)
 		return (NULL);
-	if (var[1] == '?')
-		var[2] = '\0';
-	j = 1;
-	while (var[1] != '?' && break_exp(var[j]) == 0)
-		j++;
-	var[j] = '\0';
+	clean_var(var);
 	s = get_from_env(shell, &var[1]);
 	if (!s)
 	{
@@ -70,58 +64,71 @@ char	*expand_value(t_shell *shell, char *str, int *i)
 	return (n_str);
 }
 
-char	*remove_quotes(char *str, int *i)
+char	*remove_quotes(t_shell *shell, char *str, char *og, int *i, int *j)
 {
-	int		n;
-	int		j;
 	char	quote;
 	char	*new_str;
+	char	*tmp;
 
-	new_str = (char *)malloc(sizeof(char) * (ft_strlen(str) - 2) + 1);
-	n = 0;
-	j = 0;
-	while (n != *i)
-		new_str[j++] = str[n++];
+	new_str = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	ft_strlcpy(new_str, str, (*i + 1));
+	tmp = ft_strjoin(new_str, &str[(*i) + 1]);
 	quote = str[(*i)++];
-	while (str[*i] != quote)
-		new_str[j++] = str[(*i)++];
-	n = *i - 2;
-	while (str[++(*i)])
-		new_str[j++] = str[*i];
-	new_str[j] = '\0';
-	*i = n;
+	(*j)++;
+	while (str[*i])
+	{
+		while (og[(*j)] == '$')
+			skip_value(shell, og, i, j);
+		if (str[(*i)++] == quote)
+		{
+			tmp[(*i) - 2] = '\0';
+			new_str = ft_strjoin(tmp, &str[*i]);
+			free(tmp);
+			break ;
+		}
+		(*j)++;
+	}
 	return (new_str);
 }
 
-void	expand_quotes(t_command *cmd)
+void	expand_quotes(t_shell *shell, t_command *cmd, char *og)
 {
 	int		i;
+	int		j;
 	char	*tmp;
 
 	i = 0;
+	j = 0;
 	if (!cmd)
 		return ;
 	while (cmd->str[i])
 	{
+		while (og[j] == '$')
+			skip_value(shell, og, &i, &j);
 		if (cmd->str[i] == '\'' || cmd->str[i] == '\"')
 		{
-			tmp = remove_quotes(cmd->str, &i);
+			tmp = remove_quotes(shell, cmd->str, og, &i, &j);
 			free(cmd->str);
 			cmd->str = tmp;
 		}
-		i++;
+		if (cmd->str[i])
+			i++;
+		if (og[j])
+			j++;
 	}
 }
 
 void	expand_cmd(t_shell *shell, t_command *cmd)
 {
-	int			i;
-	int			quote;
+	int		i;
+	int		quote;
+	char	*tmp;
 
 	while (cmd)
 	{
 		i = -1;
 		quote = 0;
+		tmp = ft_strdup(cmd->str);
 		while (cmd && cmd->str[++i])
 		{
 			if (cmd->str[i] == '\"')
@@ -133,7 +140,8 @@ void	expand_cmd(t_shell *shell, t_command *cmd)
 						&& cmd->str[i + 1] != '0') || cmd->str[i + 1] == '?'))
 				cmd->str = expand_value(shell, cmd->str, &i);
 		}
-		expand_quotes(cmd);
+		expand_quotes(shell, cmd, tmp);
+		free(tmp);
 		cmd = cmd->next;
 	}
 }

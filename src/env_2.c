@@ -6,11 +6,29 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 22:01:06 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/27 00:53:27 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/30 17:01:06 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	clean_var(char *var)
+{
+	int	i;
+
+	i = 1;
+	if (!var)
+		return ;
+	if (var[1] == '?')
+	{
+		var[2] = '\0';
+		return ;
+	}
+	while (var[1] != '?' && break_exp(var[i]) == 0)
+		i++;
+	var[i] = '\0';
+	return ;
+}
 
 void	add_in_env(char *to_add, char **env)
 {

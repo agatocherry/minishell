@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/27 00:59:50 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/30 16:56:29 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ void		reset_shell(t_shell *shell);
 int			is_type(t_command *cmd, int type);
 int			has_type(t_command *cmd, int type);
 void		ft_close(int fd);
+void		skip_value(t_shell *shell, char *og, int *i, int *j);
 
 /*
 ** --- env ---
@@ -168,6 +169,7 @@ char		*incr_shlvl(char *env);
 char		**default_env(void);
 void		add_in_env(char *to_add, char **env);
 char		*get_from_env(t_shell *shell, char *var);
+void		clean_var(char *var);
 
 /*
 ** --- signal ---
