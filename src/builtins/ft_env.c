@@ -14,6 +14,13 @@
 
 int	ft_env(char **env)
 {
-	printf("Depuis env: %s\n", env[0]);
+  int i;
+  
+  i = 0;
+  while (env[i])
+    {
+      printf("%s\n", env[i]);
+      i++;
+    }
 	return (0);
 }
