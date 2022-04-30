@@ -14,7 +14,7 @@
 
 int	ft_env(char **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env[i])
