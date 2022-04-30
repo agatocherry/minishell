@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/30 16:56:29 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 00:27:16 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@
 # define PATH_LEN 4096
 # define ERROR 1
 # define SUCCESS 0
-# define IS_DIRECTORY 126
+# define IS_DIR 126
+# define ACC_DENIED 125
 # define UNK_CMD 127
 
 typedef struct s_command
@@ -131,9 +132,12 @@ void		fill_line(char *line, char *new_line, int *i, int *j);
 */
 
 void		redir_fd(t_shell *shell, t_command **cmd);
+void		check_redir(t_shell *shell, t_command *cmd);
 void		input_fd(t_shell *shell, t_command **cmd);
 int			pipe_shell(t_shell *shell);
 void		exec_cmd(t_shell *shell, t_command *cmd);
+char		*join_path_cmd(char *cmd, char **path, int *ret);
+int			exec_error(char *cmd, int ret);
 
 /*
 ** --- built_in ---
@@ -155,6 +159,7 @@ int			is_special_char(char c);
 int			break_exp(int c);
 char		**ft_split_cmd(char *line);
 void		reset_shell(t_shell *shell);
+void		if_shell_fd_out(t_shell *shell, t_command *tmp);
 int			is_type(t_command *cmd, int type);
 int			has_type(t_command *cmd, int type);
 void		ft_close(int fd);

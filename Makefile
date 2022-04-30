@@ -12,7 +12,7 @@ SRCS	=	src/main.c src/minishell.c src/signal.c \
 			src/cmd_parsing.c src/cmd_struct.c src/cmd_line.c src/expansion.c \
 			src/cmd_line_2.c src/split_cmd.c \
 			src/env.c src/env_2.c \
-			src/exec.c src/redir.c src/utils.c src/pipe.c \
+			src/exec.c src/exec_all.c src/redir.c src/redir_2.c src/utils.c src/pipe.c \
 			src/builtins/ft_cd.c src/builtins/ft_pwd.c src/builtins/ft_echo.c src/builtins/ft_env.c src/builtins/ft_unset.c \
 			src/builtins/ft_exit.c src/builtins/ft_export.c
 OBJ		=	$(SRCS:.c=.o)

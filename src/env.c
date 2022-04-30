@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/27 00:59:31 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 00:57:22 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,25 @@ static	char	*search_path(char **env)
 
 static char	**get_path(char **env)
 {
+	int		i;
 	char	*tmp;
 	char	**paths;
 
+	i = 0;
 	tmp = search_path(env);
 	if (!tmp)
 		return (NULL);
 	paths = ft_split(tmp, ':');
 	if (paths)
+	{
+		while (paths[i])
+		{
+			tmp = ft_strjoin(paths[i], "/");
+			free(paths[i]);
+			paths[i++] = tmp;
+		}
 		return (paths);
+	}
 	return (NULL);
 }
 

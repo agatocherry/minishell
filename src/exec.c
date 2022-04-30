@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 14:49:18 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/27 00:34:18 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 00:49:48 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,30 @@ int	is_builtin(char **argv)
 
 int	exec(t_shell *shell, char **env, char **argv)
 {
-	(void)shell;
-	(void)env;
-	printf("cmd executé: %s\n", argv[0]);
-	return (0);
+	int		ret;
+	char	*cmd;
+
+	ret = SUCCESS;
+	cmd = join_path_cmd(argv[0], shell->path, &ret);
+	if (cmd == NULL)
+	{
+		ret = exec_error(argv[0], ret);
+		return (ret);
+	}
+	g_sig.pid = fork();
+	if (g_sig.pid == 0)
+	{
+		if (execve(cmd, argv, env) == -1)
+			ret = exec_error(cmd, ret);
+		free(cmd);
+		exit(ret);
+	}
+	else
+		waitpid(g_sig.pid, &ret, 0);
+	if (g_sig.sigint == 1 || g_sig.sigquit == 1)
+		return (g_sig.exit_status);
+	free(cmd);
+	return (ret);
 }
 
 int	builtin(t_shell *shell, char **argv)

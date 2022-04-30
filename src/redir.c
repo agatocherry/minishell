@@ -6,35 +6,36 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 22:15:11 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/27 09:55:45 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/04/30 19:56:21 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	here_prompt(t_command *cmd, char *stop, int fd, int count)
+void	here_prompt(t_command *cmd, char *line, int fd)
 {
-	char	*line;
+	int	over;
 
-	while (ft_gnl(STDIN, &line) && !g_sig.heredoc)
+	over = 1;
+	while (over && !g_sig.sigint)
 	{
+		printf("sig: %d\n", g_sig.sigint);
 		if (!line)
 		{
-			ft_putstr_fd("-minishell: warning: here_document at line ", STDERR);
-			ft_putnbr_fd(count, STDERR);
+			ft_putstr_fd("-minishell: warning: here_document", STDERR);
 			ft_putstr_fd(" delimited by end-of-file (wanted `", STDERR);
 			ft_putstr_fd(cmd->str, STDERR);
 			ft_putendl_fd("')", STDERR);
+			over = 0;
 		}
-		if (!line || ft_strcmp(line, stop) == 0)
+		else if (ft_strcmp(line, cmd->str) == 0)
 			break ;
 		else
 		{
 			write(fd, line, ft_strlen(line));
+			write(fd, "\n", 1);
 			free(line);
-			line = NULL;
-			ft_putstr_fd("> ", STDIN);
-			count++;
+			line = readline("> ");
 		}
 	}
 	free(line);
@@ -42,30 +43,29 @@ void	here_prompt(t_command *cmd, char *stop, int fd, int count)
 
 void	here_doc(t_shell *shell, t_command *tmp)
 {
+	pid_t	pid;
 	int		fd[2];
-	char	*stop;
+	char	*line;
 
-	signal(SIGINT, &heredoc_sigint);
-	if (pipe(fd) == -1)
-	{
-		shell->fd_in = -1;
-		shell->exec = 0;
-		shell->last_ret = 1;
+	if (STDOUT != 1)
 		return ;
-	}
-	stop = ft_strjoin(tmp->str, "\n");
-	ft_putstr_fd("> ", STDIN);
-	here_prompt(tmp, stop, fd[1], 1);
-	free(stop);
-	ft_close(fd[1]);
-	if (!g_sig.heredoc)
-		shell->fd_in = fd[0];
-	else
+	pipe(fd);
+	pid = fork();
+	if (pid == 0)
 	{
 		ft_close(fd[0]);
-		shell->fd_in = -1;
+		line = readline("> ");
+		here_prompt(tmp, line, fd[1]);
+		ft_close(fd[1]);
+		exit(SUCCESS);
 	}
-	signal(SIGINT, &sigint);
+	else
+	{
+		ft_close(fd[1]);
+		shell->fd_in = fd[0];
+		wait(0);
+		printf("what");
+	}
 }
 
 void	if_shell_fd_out(t_shell *shell, t_command	*tmp)

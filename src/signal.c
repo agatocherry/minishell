@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 21:25:04 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/26 22:45:10 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/04/30 20:34:55 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,6 @@ void	sigint(int signum)
 		g_sig.exit_status = 1;
 	}
 	g_sig.sigint = 1;
-}
-
-void	heredoc_sigint(int signum)
-{
-	(void)signum;
-	g_sig.heredoc = 1;
-	write(0, "\0", 1);
-	ft_putstr_fd("\n", STDERR);
-	g_sig.exit_status = 130;
 }
 
 /*void	sigquit(int signum)

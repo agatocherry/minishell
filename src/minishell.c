@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/27 09:58:02 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/04/30 19:04:01 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,7 @@ int	launch_shell(t_shell *shell)
 		}
 		shell->exec = 1;
 	}
+	else
+		check_redir(shell, shell->command);
 	return (0);
 }
