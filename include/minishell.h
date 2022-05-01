@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 23:00:43 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 23:52:57 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int			count_line(char *line);
 char		*remove_space(char *line);
 void		close_quotes(char *line, int *i, int *count);
 void		fill_line(char *line, char *new_line, int *i, int *j);
-void		expand_line(t_shell *shell, char *line);
+char		*expand_line(t_shell *shell, char *line);
 char		*expand_value(t_shell *shell, char *str, int *i);
 
 /*

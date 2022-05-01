@@ -6,18 +6,19 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 22:51:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 23:40:39 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 23:55:18 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	expand_line(t_shell *shell, char *line)
+char	*expand_line(t_shell *shell, char *line)
 {
 	int		i;
+	char	*new_line;
 
 	if (!line)
-		return ;
+		return (NULL);;
 	i = 0;
 	while (line[i])
 	{
@@ -27,4 +28,7 @@ void	expand_line(t_shell *shell, char *line)
 		if (line[i])
 			i++;
 	}
+	new_line = ft_strdup(line);
+	free(line);
+	return (new_line);
 }

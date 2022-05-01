@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 21:25:04 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 23:40:54 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 23:56:32 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	sigint(int signum)
 	(void)signum;
 	if (g_sig.heredoc && !g_sig.pid)
 	{
-		ft_putstr_fd("\b\b\b", STDERR);
+		ft_putstr_fd("\b\b", STDERR);
+		ft_putstr_fd("\n", STDERR);
 		g_sig.exit_status = 1;
 		close(0);
 	}

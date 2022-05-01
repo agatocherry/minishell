@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 22:15:11 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 23:13:27 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 23:54:23 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	here_prompt(t_shell *shell, t_command *cmd, char *line, int fd)
 	over = 1;
 	while (over)
 	{
-		expand_line(shell, line);
+		line = expand_line(shell, line);
 		if (!line && g_sig.sigint == 0)
 		{
 			ft_putstr_fd("-minishell: warning: here_document", STDERR);
