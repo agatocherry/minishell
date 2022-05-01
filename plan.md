@@ -4,14 +4,13 @@
 
 Agathe :
 
-- Builtins : ft_echo (gerer le \?)
-- Regarder les pipes
+- Builtins : ft_unset, ft_cd (ajouter la gestion de "cd -" et cd "cd" en utilisant $HOME et $OLDPWD), ft_exit (regarder quand un chiffre est passé en argument)
+- Vérifier les retours pour chaque cas d'erreurs
+- Rechercher quelques commandes fourbes et les tester (sauf les pipes pas encore prêtes)
 
 Shellen :
-- Mettre en place ctrl-\
-- Mettre en place SIGINT pour heredoc
-- Créer le fichier quand >> ou > sans commande
-- S'occuper des fonctions non_builtins
+- Finaliser les pipes
+- Leaks
+- Mettre en place "./minishell -c" pour les testers
 
-
-Vérifier les retours pour chaque cas d'erreurs (unknown command; no such file or directory etc...)
+Délai : Rendre au plus tard le 6 Mai
