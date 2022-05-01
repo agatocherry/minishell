@@ -9,7 +9,7 @@ CFLAGS	= 	-Werror -Wall -Wextra -g -I include/
 SRCS	=	src/main.c src/minishell.c src/signal.c \
 			src/init.c \
 			src/clear.c \
-			src/cmd_parsing.c src/cmd_struct.c src/cmd_line.c src/expansion.c \
+			src/cmd_parsing.c src/cmd_struct.c src/cmd_line.c src/expansion.c src/expand_line.c \
 			src/cmd_line_2.c src/split_cmd.c \
 			src/env.c src/env_2.c \
 			src/exec.c src/exec_all.c src/redir.c src/redir_2.c src/utils.c src/pipe.c \

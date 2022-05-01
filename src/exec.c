@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 14:49:18 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 02:58:47 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 23:17:42 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,17 @@ void	exec_cmd(t_shell *shell, t_command *cmd)
 {
 	char	**argv;
 
-	argv = cmd_to_argv(cmd);
-	if (argv[0] && !ft_strcmp(argv[0], "exit") && !has_type(cmd, PIPE))
-		ft_exit(shell);
-	else if (argv && is_builtin(argv))
-		shell->last_ret = builtin(shell, argv);
-	else if (argv)
-		shell->last_ret = exec(shell, shell->env, argv);
-	free_array(argv);
+	if (g_sig.heredoc == 0 || (g_sig.heredoc == 1 && g_sig.sigint == 0))
+	{
+		argv = cmd_to_argv(cmd);
+		if (argv[0] && !ft_strcmp(argv[0], "exit") && !has_type(cmd, PIPE))
+			ft_exit(shell);
+		else if (argv && is_builtin(argv))
+			shell->last_ret = builtin(shell, argv);
+		else if (argv)
+			shell->last_ret = exec(shell, shell->env, argv);
+		free_array(argv);
+	}
 	ft_close(shell->pipe_in);
 	ft_close(shell->pipe_out);
 	shell->pipe_in = -1;

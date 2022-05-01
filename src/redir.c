@@ -6,21 +6,21 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 22:15:11 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/30 19:56:21 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 23:13:27 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	here_prompt(t_command *cmd, char *line, int fd)
+void	here_prompt(t_shell *shell, t_command *cmd, char *line, int fd)
 {
 	int	over;
 
 	over = 1;
-	while (over && !g_sig.sigint)
+	while (over)
 	{
-		printf("sig: %d\n", g_sig.sigint);
-		if (!line)
+		expand_line(shell, line);
+		if (!line && g_sig.sigint == 0)
 		{
 			ft_putstr_fd("-minishell: warning: here_document", STDERR);
 			ft_putstr_fd(" delimited by end-of-file (wanted `", STDERR);
@@ -49,13 +49,14 @@ void	here_doc(t_shell *shell, t_command *tmp)
 
 	if (STDOUT != 1)
 		return ;
+	g_sig.heredoc = 1;
 	pipe(fd);
 	pid = fork();
 	if (pid == 0)
 	{
 		ft_close(fd[0]);
 		line = readline("> ");
-		here_prompt(tmp, line, fd[1]);
+		here_prompt(shell, tmp, line, fd[1]);
 		ft_close(fd[1]);
 		exit(SUCCESS);
 	}
@@ -64,7 +65,6 @@ void	here_doc(t_shell *shell, t_command *tmp)
 		ft_close(fd[1]);
 		shell->fd_in = fd[0];
 		wait(0);
-		printf("what");
 	}
 }
 
