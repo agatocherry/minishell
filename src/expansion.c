@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:27:09 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 02:24:48 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 18:54:08 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,57 +64,56 @@ char	*expand_value(t_shell *shell, char *str, int *i)
 	return (n_str);
 }
 
-char	*remove_quotes(t_shell *shell, char *str, char *og, int *i, int *j)
+char	*remove_quotes(t_shell *shell, char *str, char *og, int *idx)
 {
 	char	quote;
 	char	*new_str;
 	char	*tmp;
 
 	new_str = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
-	ft_strlcpy(new_str, str, (*i + 1));
-	tmp = ft_strjoin(new_str, &str[(*i) + 1]);
-	quote = str[(*i)++];
-	(*j)++;
-	while (str[*i])
+	ft_strlcpy(new_str, str, (idx[0] + 1));
+	tmp = ft_strjoin(new_str, &str[idx[0] + 1]);
+	quote = str[idx[0]++];
+	idx[1]++;
+	while (str[idx[0]])
 	{
-		while (og[(*j)] == '$')
-			skip_value(shell, str, og, i, j);
-		if (str[(*i)++] == quote)
+		while (og[idx[1]] == '$')
+			idx[0] += skip_value(shell, &str[idx[0]], og, &idx[1]);
+		if (str[idx[0]++] == quote)
 		{
-			tmp[(*i) - 2] = '\0';
-			new_str = ft_strjoin(tmp, &str[*i]);
+			tmp[idx[0] - 2] = '\0';
+			new_str = ft_strjoin(tmp, &str[idx[0]]);
 			free(tmp);
 			break ;
 		}
-		(*j)++;
+		idx[1]++;
 	}
 	return (new_str);
 }
 
 void	expand_quotes(t_shell *shell, t_command *cmd, char *og)
 {
-	int		i;
-	int		j;
+	int		idx[2];
 	char	*tmp;
 
-	i = 0;
-	j = 0;
+	idx[0] = 0;
+	idx[1] = 0;
 	if (!cmd)
 		return ;
-	while (cmd->str[i])
+	while (cmd->str[idx[0]])
 	{
-		while (og[j] == '$')
-			skip_value(shell, cmd->str, og, &i, &j);
-		if (cmd->str[i] == '\'' || cmd->str[i] == '\"')
+		while (og[idx[1]] == '$')
+			idx[0] += skip_value(shell, &cmd->str[idx[0]], og, &idx[1]);
+		if (cmd->str[idx[0]] == '\'' || cmd->str[idx[0]] == '\"')
 		{
-			tmp = remove_quotes(shell, cmd->str, og, &i, &j);
+			tmp = remove_quotes(shell, cmd->str, og, idx);
 			free(cmd->str);
 			cmd->str = tmp;
 		}
-		if (cmd->str[i])
-			i++;
-		if (og[j])
-			j++;
+		if (cmd->str[idx[0]])
+			idx[0]++;
+		if (og[idx[1]])
+			idx[1]++;
 	}
 }
 

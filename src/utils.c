@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 13:43:59 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 02:24:04 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 18:38:29 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,29 +65,29 @@ int	break_exp(int c)
 	return (0);
 }
 
-void	skip_value(t_shell *shell, char *cmd, char *og, int *i, int *j)
+int	skip_value(t_shell *shell, char *cmd, char *og, int *j)
 {
 	int		n;
 	char	*var;
 	char	*s;
 
-	if (cmd[*i] == '$')
+	if (cmd[0] == '$')
 	{
-		(*i)++;
+		n = 1;
 		while (break_exp(og[++(*j)]) == 0)
-			(*i)++;
-		return ;
+			n++;
+		return (n);
 	}
 	var = ft_strdup(&og[*j]);
 	clean_var(var);
 	s = get_from_env(shell, &var[1]);
 	n = 0;
-	while (s[n++])
-		(*i)++;
+	while (s[n])
+		n++;
 	(*j)++;
 	while (break_exp(og[*j]) == 0)
 		(*j)++;
 	free(var);
 	free(s);
-	return ;
+	return (n);
 }

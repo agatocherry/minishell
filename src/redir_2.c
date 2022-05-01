@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 18:33:04 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/30 22:22:15 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 18:56:42 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	only_hereprompt(t_command *cmd, char *stop, int count)
 {
-	char *line;
+	char	*line;
 
 	while (ft_gnl(STDIN, &line) && !g_sig.heredoc)
 	{

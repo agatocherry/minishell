@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 02:53:16 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 18:38:53 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ void		if_shell_fd_out(t_shell *shell, t_command *tmp);
 int			is_type(t_command *cmd, int type);
 int			has_type(t_command *cmd, int type);
 void		ft_close(int fd);
-void		skip_value(t_shell *shell, char *cmd, char *og, int *i, int *j);
+int			skip_value(t_shell *shell, char *cmd, char *og, int *j);
 
 /*
 ** --- env ---
