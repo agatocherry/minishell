@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 14:49:18 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 00:49:48 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 02:58:47 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ int	builtin(t_shell *shell, char **argv)
 	if (ft_strcmp(argv[0], "echo") == 0)
 		return (ft_echo(argv));
 	if (ft_strcmp(argv[0], "cd") == 0)
-		return (ft_cd(argv, shell->env));
+		return (ft_cd(argv, shell));
 	if (ft_strcmp(argv[0], "pwd") == 0)
 		return (ft_pwd());
 	if (ft_strcmp(argv[0], "export") == 0)
-		return (ft_export(shell->env, argv));
+		return (ft_export(shell, argv));
 	if (ft_strcmp(argv[0], "unset") == 0)
-		return (ft_unset(shell->env, argv));
+		return (ft_unset(shell, argv));
 	if (ft_strcmp(argv[0], "env") == 0)
-		return (ft_env(shell->env));
+		return (ft_env(shell));
 	return (0);
 }
 

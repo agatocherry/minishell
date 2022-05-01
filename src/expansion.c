@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:27:09 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/30 18:03:11 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 02:24:48 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*remove_quotes(t_shell *shell, char *str, char *og, int *i, int *j)
 	while (str[*i])
 	{
 		while (og[(*j)] == '$')
-			skip_value(shell, og, i, j);
+			skip_value(shell, str, og, i, j);
 		if (str[(*i)++] == quote)
 		{
 			tmp[(*i) - 2] = '\0';
@@ -104,7 +104,7 @@ void	expand_quotes(t_shell *shell, t_command *cmd, char *og)
 	while (cmd->str[i])
 	{
 		while (og[j] == '$')
-			skip_value(shell, og, &i, &j);
+			skip_value(shell, cmd->str, og, &i, &j);
 		if (cmd->str[i] == '\'' || cmd->str[i] == '\"')
 		{
 			tmp = remove_quotes(shell, cmd->str, og, &i, &j);

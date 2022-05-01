@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 22:01:06 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/30 17:01:06 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 02:41:50 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,19 @@ void	clean_var(char *var)
 	return ;
 }
 
-void	add_in_env(char *to_add, char **env)
+char	**add_in_env(char *to_add, char **env)
 {
 	char	**tmp;
 	int		i;
 
 	i = 0;
+	if (!to_add)
+		return (env);
 	while (env[i])
 		i++;
 	tmp = (char **)malloc(sizeof(char *) * (i + 2));
+	if (!tmp)
+		return (env);
 	i = 0;
 	while (env[i])
 	{
@@ -51,7 +55,7 @@ void	add_in_env(char *to_add, char **env)
 	while (env[i])
 		free(env[i++]);
 	free(env);
-	env = tmp;
+	return (tmp);
 }
 
 char	**default_env(void)

@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 00:27:16 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 02:53:16 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,11 +144,11 @@ int			exec_error(char *cmd, int ret);
 */
 
 int			ft_echo(char **argv);
-int			ft_cd(char **argv, char **env);
+int			ft_cd(char **argv, t_shell *shell);
 int			ft_pwd(void);
-int			ft_export(char **env, char **argv);
-int			ft_unset(char **env, char **argv);
-int			ft_env(char **env);
+int			ft_export(t_shell *shell, char **argv);
+int			ft_unset(t_shell *shell, char **argv);
+int			ft_env(t_shell *shell);
 int			ft_exit(t_shell *shell);
 
 /*
@@ -163,7 +163,7 @@ void		if_shell_fd_out(t_shell *shell, t_command *tmp);
 int			is_type(t_command *cmd, int type);
 int			has_type(t_command *cmd, int type);
 void		ft_close(int fd);
-void		skip_value(t_shell *shell, char *og, int *i, int *j);
+void		skip_value(t_shell *shell, char *cmd, char *og, int *i, int *j);
 
 /*
 ** --- env ---
@@ -172,7 +172,7 @@ void		skip_value(t_shell *shell, char *og, int *i, int *j);
 void		parse_env(t_shell *shell, char **env);
 char		*incr_shlvl(char *env);
 char		**default_env(void);
-void		add_in_env(char *to_add, char **env);
+char		**add_in_env(char *to_add, char **env);
 char		*get_from_env(t_shell *shell, char *var);
 void		clean_var(char *var);
 

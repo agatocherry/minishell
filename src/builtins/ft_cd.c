@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 23:11:08 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/27 00:38:05 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 02:54:47 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	oldpwd(char **env)
 		i++;
 	if (!env[i])
 	{
-		add_in_env(ft_strjoin("OLDPWD=", oldpwd), env);
+		env = add_in_env(ft_strjoin("OLDPWD=", oldpwd), env);
 		return ;
 	}
 	free(env[i]);
@@ -64,14 +64,14 @@ void	pwd(char **env)
 		i++;
 	if (!env[i])
 	{
-		add_in_env(ft_strjoin("PWD=", pwd), env);
+		env = add_in_env(ft_strjoin("PWD=", pwd), env);
 		return ;
 	}
 	free(env[i]);
 	env[i] = ft_strjoin("PWD=", pwd);
 }
 
-int	ft_cd(char **argv, char **env)
+int	ft_cd(char **argv, t_shell *shell)
 {
 	int	ret;
 
@@ -82,14 +82,14 @@ int	ft_cd(char **argv, char **env)
 	}
 	else
 	{
-		oldpwd(env);
+		oldpwd(shell->env);
 		ret = chdir(argv[1]);
 		if (ret == -1)
 			ret = ERROR;
 		if (ret == ERROR)
 			error_cd(argv, 2);
 		if (ret == 0)
-			pwd(env);
+			pwd(shell->env);
 	}
 	return (ret);
 }
