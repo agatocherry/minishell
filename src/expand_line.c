@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 22:51:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 23:55:18 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/01 23:58:12 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*expand_line(t_shell *shell, char *line)
 	char	*new_line;
 
 	if (!line)
-		return (NULL);;
+		return (NULL);
 	i = 0;
 	while (line[i])
 	{

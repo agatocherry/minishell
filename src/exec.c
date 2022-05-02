@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 14:49:18 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 23:17:42 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/02 00:04:47 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ void	exec_cmd(t_shell *shell, t_command *cmd)
 {
 	char	**argv;
 
+	if (shell->first == 0)
+		return ;
 	if (g_sig.heredoc == 0 || (g_sig.heredoc == 1 && g_sig.sigint == 0))
 	{
 		argv = cmd_to_argv(cmd);
@@ -120,5 +122,6 @@ void	exec_cmd(t_shell *shell, t_command *cmd)
 	ft_close(shell->pipe_out);
 	shell->pipe_in = -1;
 	shell->pipe_out = -1;
+	shell->first = 0;
 	return ;
 }

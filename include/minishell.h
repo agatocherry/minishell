@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 23:52:57 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/02 00:03:56 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_shell
 	char		**path;
 	int			in;
 	int			out;
+	int			first;
 	int			last_ret;
 	int			fd_in;
 	int			fd_out;
