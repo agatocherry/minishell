@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/25 23:11:08 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 02:54:47 by shdorlin         ###   ########.fr       */
+/*   Created: 2022/04/25 23:11:08 by agcolas          #+#    #+#             */
+/*   Updated: 2022/05/04 18:20:47 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	already_have_pwd(t_shell *shell, char *oldpwd)
 	tmp[2] = NULL;
 	ft_unset(shell, tmp);
 	shell->env = add_in_env(ft_strjoin("OLDPWD=", oldpwd), shell->env);
+	free_array(tmp);
 }
 
 void	oldpwd(t_shell *shell)
@@ -80,23 +81,10 @@ void	pwd(char **env)
 	env[i] = ft_strjoin("PWD=", pwd);
 }
 
-char *get_oldpwd(t_shell *shell)
-{
-  int i;
-  char **tmp;
-
-  tmp = shell->env;
-
-  i = 0;
-	while (tmp[i] && ft_strncmp(tmp[i], "OLDPWD=", 7))
-		i++;
-  return (ft_strdup(&tmp[i][7]));
-}
-
 int	ft_cd(char **argv, t_shell *shell)
 {
-	int	ret;
-  char *tmp;
+	int		ret;
+	char	*tmp;
 
 	if (!argv[1])
 	{
@@ -105,18 +93,13 @@ int	ft_cd(char **argv, t_shell *shell)
 	}
 	else
 	{
-    if (argv[1][0] == '-')
-    {
-      tmp = get_oldpwd(shell);
-      oldpwd(shell);
-  		ret = chdir(tmp);
-      free (tmp);
-    }
-    else
-    {
-  		oldpwd(shell);
-  		ret = chdir(argv[1]);
-    }
+		if (argv[1][0] == '-')
+			ret = if_minus(shell);
+		else
+		{
+			oldpwd(shell);
+			ret = chdir(argv[1]);
+		}
 		if (ret == -1)
 			ret = ERROR;
 		if (ret == ERROR)

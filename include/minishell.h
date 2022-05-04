@@ -146,6 +146,8 @@ int			exec_error(char *cmd, int ret);
 */
 
 int			ft_echo(char **argv);
+void		oldpwd(t_shell *shell);
+int			if_minus(t_shell *shell);
 int			ft_cd(char **argv, t_shell *shell);
 int			ft_pwd(void);
 int			ft_export(t_shell *shell, char **argv);
