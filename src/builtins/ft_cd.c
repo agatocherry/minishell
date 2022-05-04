@@ -80,9 +80,23 @@ void	pwd(char **env)
 	env[i] = ft_strjoin("PWD=", pwd);
 }
 
+char *get_oldpwd(t_shell *shell)
+{
+  int i;
+  char **tmp;
+
+  tmp = shell->env;
+
+  i = 0;
+	while (tmp[i] && ft_strncmp(tmp[i], "OLDPWD=", 7))
+		i++;
+  return (ft_strdup(&tmp[i][7]));
+}
+
 int	ft_cd(char **argv, t_shell *shell)
 {
 	int	ret;
+  char *tmp;
 
 	if (!argv[1])
 	{
@@ -91,8 +105,18 @@ int	ft_cd(char **argv, t_shell *shell)
 	}
 	else
 	{
-		oldpwd(shell);
-		ret = chdir(argv[1]);
+    if (argv[1][0] == '-')
+    {
+      tmp = get_oldpwd(shell);
+      oldpwd(shell);
+  		ret = chdir(tmp);
+      free (tmp);
+    }
+    else
+    {
+  		oldpwd(shell);
+  		ret = chdir(argv[1]);
+    }
 		if (ret == -1)
 			ret = ERROR;
 		if (ret == ERROR)
