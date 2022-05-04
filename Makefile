@@ -5,7 +5,7 @@ HEADER	=	./include/minishell.h
 LIBFT	=	-L libft -lft
 CC		=	gcc
 #DONT FORGET TO USE -Werror -Wall -Wextra 
-CFLAGS	= 	-Werror -Wall -Wextra -g -I include/ 
+CFLAGS	= 	-g -I include/ 
 SRCS	=	src/main.c src/minishell.c src/signal.c \
 			src/init.c \
 			src/clear.c \

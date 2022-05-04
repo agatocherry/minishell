@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/02 17:09:05 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/02 19:43:19 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	launch_shell(t_shell *shell)
 	cmd = next_run(shell->command);
 	if (cmd)
 	{
-		shell->first = 1;
 		shell->parent = 1;
 		shell->last = 1;
 		prep_cmd(shell, cmd);
