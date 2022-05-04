@@ -29,7 +29,19 @@ void	error_cd(char **argv, int error)
 		ft_putendl_fd(strerror(errno), STDERR);
 }
 
-void	oldpwd(char **env)
+void	already_have_pwd(t_shell *shell, char *oldpwd)
+{
+	char	**tmp;
+
+	tmp = malloc(sizeof(char *) * 2);
+	tmp[0] = ft_strdup("unset");
+	tmp[1] = ft_strdup("OLDPWD");
+	tmp[2] = NULL;
+	ft_unset(shell, tmp);
+	shell->env = add_in_env(ft_strjoin("OLDPWD=", oldpwd), shell->env);
+}
+
+void	oldpwd(t_shell *shell)
 {
 	int		i;
 	char	buf[PATH_LEN];
@@ -39,15 +51,12 @@ void	oldpwd(char **env)
 	oldpwd = getcwd(buf, PATH_LEN);
 	if (!oldpwd)
 		return ;
-	while (env[i] && ft_strncmp(env[i], "OLDPWD=", 7))
+	while (shell->env[i] && ft_strncmp(shell->env[i], "OLDPWD=", 7))
 		i++;
-	if (!env[i])
-	{
-		env = add_in_env(ft_strjoin("OLDPWD=", oldpwd), env);
-		return ;
-	}
-	free(env[i]);
-	env[i] = ft_strjoin("OLDPWD=", oldpwd);
+	if (!shell->env[i])
+		shell->env = add_in_env(ft_strjoin("OLDPWD=", oldpwd), shell->env);
+	else
+		already_have_pwd(shell, oldpwd);
 }
 
 void	pwd(char **env)
@@ -82,7 +91,7 @@ int	ft_cd(char **argv, t_shell *shell)
 	}
 	else
 	{
-		oldpwd(shell->env);
+		oldpwd(shell);
 		ret = chdir(argv[1]);
 		if (ret == -1)
 			ret = ERROR;
