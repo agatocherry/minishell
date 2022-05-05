@@ -153,7 +153,7 @@ int			ft_pwd(void);
 int			ft_export(t_shell *shell, char **argv);
 int			ft_unset(t_shell *shell, char **argv);
 int			ft_env(t_shell *shell);
-int			ft_exit(t_shell *shell);
+int			ft_exit(t_shell *shell, char **argv);
 
 /*
 ** --- utils ---
