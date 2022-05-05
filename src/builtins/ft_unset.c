@@ -24,7 +24,7 @@ int	find_where_to_unset(t_shell *shell, char **argv)
 	{
 		len = 0;
 		while (shell->env[i][len]
-&& shell->env[i][len]    != '=')
+&& shell->env[i][len] != '=')
 			len++;
 		if (ft_strncmp(argv[1], shell->env[i], ft_strlen(argv[1])) == 0
 			&& ft_strlen(argv[1]) == len)
