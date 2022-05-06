@@ -145,7 +145,7 @@ int			exec_error(char *cmd, int ret);
 ** --- built_in ---
 */
 
-int			ft_echo(char **argv);
+int			ft_echo(char **argv, t_shell *shell);
 void		oldpwd(t_shell *shell);
 int			exception(char **argv, t_shell *shell);
 int			if_minus(t_shell *shell);

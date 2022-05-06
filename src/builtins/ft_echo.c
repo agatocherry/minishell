@@ -12,7 +12,20 @@
 
 #include "../../include/minishell.h"
 
-static void	print(int line_break, char **argv, int len)
+static void	print_var(t_shell *shell, char *str)
+{
+	int		i;
+	char	**tmp;
+
+	tmp = shell->env;
+	i = 0;
+	*str++;
+	while (tmp[i] && ft_strncmp(tmp[i], str, ft_strlen(str)))
+		i++;
+	printf("%s", &tmp[i][ft_strlen(str) + 1]);
+}
+
+static void	print(int line_break, char **argv, int len, t_shell *shell)
 {
 	int	i;
 	int	space;
@@ -23,7 +36,10 @@ static void	print(int line_break, char **argv, int len)
 		i = 2;
 	while (argv[i])
 	{
-		printf("%s", argv[i]);
+		if (argv[i][0] == '$')
+			print_var(shell, argv[i]);
+		else
+			printf("%s", argv[i]);
 		i++;
 		if (space >= 0 && space + 1 < len)
 			printf(" ");
@@ -33,7 +49,7 @@ static void	print(int line_break, char **argv, int len)
 		printf("\n");
 }
 
-int	ft_echo(char **argv)
+int	ft_echo(char **argv, t_shell *shell)
 {
 	int	len;
 	int	line_break;
@@ -48,6 +64,6 @@ int	ft_echo(char **argv)
 		line_break = 0;
 	}
 	len--;
-	print(line_break, argv, len);
+	print(line_break, argv, len, shell);
 	return (0);
 }

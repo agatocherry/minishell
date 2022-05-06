@@ -60,7 +60,7 @@ int	exec(t_shell *shell, char **env, char **argv)
 int	builtin(t_shell *shell, char **argv)
 {
 	if (ft_strcmp(argv[0], "echo") == 0)
-		return (ft_echo(argv));
+		return (ft_echo(argv, shell));
 	if (ft_strcmp(argv[0], "cd") == 0)
 		return (ft_cd(argv, shell));
 	if (ft_strcmp(argv[0], "pwd") == 0)

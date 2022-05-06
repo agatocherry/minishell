@@ -5,11 +5,10 @@
 Agathe :
 - Vérifier les retours pour chaque cas d'erreurs
 - Rechercher quelques commandes fourbes et les tester (sauf les pipes pas encore prêtes)
-  - "echo &@agathe" ne fonctionne pas (les caracteres speciaux)
-  - "exit 123 123" dois etre une erruer (exit
-bash: exit: too many arguments)
-  - "cd cd" est censer revenir a $HOME
   - "unset PATH" n'unset pas reellement $PATH
+  - "echo $REPL_OWNER" ne fonctionne pas
+  - "cd cd" quand le dossier s'appelle cd ne dois pas aller a $HOME
+- Leaks 
 
 Shellen :
 - Finaliser les pipes
