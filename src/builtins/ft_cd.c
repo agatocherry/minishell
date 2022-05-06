@@ -93,9 +93,8 @@ int	ft_cd(char **argv, t_shell *shell)
 	}
 	else
 	{
-		if (argv[1][0] == '-')
-			ret = if_minus(shell);
-		else
+		ret = exception(argv, shell);
+		if (ret == -2)
 		{
 			oldpwd(shell);
 			ret = chdir(argv[1]);
