@@ -7,7 +7,6 @@ Agathe :
 - Rechercher quelques commandes fourbes et les tester (sauf les pipes pas encore prêtes)
   - "unset PATH" n'unset pas reellement $PATH
   - "echo $REPL_OWNER" ne fonctionne pas
-  - "cd cd" quand le dossier s'appelle cd ne dois pas aller a $HOME
 - Leaks 
 
 Shellen :

@@ -55,7 +55,19 @@ int	exception(char **argv, t_shell *shell)
 	ret = -2;
 	if (ft_strcmp("-", argv[1]) == 0)
 		ret = if_minus(shell);
-	if (ft_strcmp("cd", argv[1]) == 0)
-		ret = if_home(shell);
+	return (ret);
+}
+
+int	check_errors_cd(int ret, char **argv, t_shell *shell)
+{
+	if (ret == -1)
+	{
+		if (ft_strcmp("cd", argv[1]) == 0)
+			ret = if_home(shell);
+		if (ret == -1)
+			error_cd(argv, 2);
+	}
+	if (ret == 0)
+		pwd(shell->env);
 	return (ret);
 }

@@ -99,12 +99,7 @@ int	ft_cd(char **argv, t_shell *shell)
 			oldpwd(shell);
 			ret = chdir(argv[1]);
 		}
-		if (ret == -1)
-			ret = ERROR;
-		if (ret == ERROR)
-			error_cd(argv, 2);
-		if (ret == 0)
-			pwd(shell->env);
+		ret = check_errors_cd(ret, argv, shell);
 	}
 	return (ret);
 }
