@@ -14,11 +14,16 @@
 
 int	ft_exit(t_shell *shell, char **argv)
 {
-	shell->exit = 1;
-	if (!argv[1])
-		shell->last_ret = 0;
-	else
-		shell->last_ret = ft_atoi(argv[1]);
+	if (!argv[2])
+	{
+		shell->exit = 1;
+		if (!argv[1])
+			shell->last_ret = 0;
+		else
+			shell->last_ret = ft_atoi(argv[1]);
+	}
 	ft_putendl_fd("exit", STDERR);
+	if (argv[2])
+		ft_putendl_fd("minishell: exit: too many arguments", STDERR);
 	return (0);
 }
