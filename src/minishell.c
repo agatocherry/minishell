@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/02 19:43:19 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/07 16:27:41 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	prep_cmd(t_shell *shell, t_command *cmd)
 
 	pipe = 0;
 	next = next_pipe(cmd);
-	if (next && is_type(next, PIPE) && shell->exec)
+	if (next)
 		pipe = pipe_shell(shell);
-	if (next && is_type(next, PIPE) && pipe == 2 && shell->exec)
+	if (next && pipe == 2)
 		prep_cmd(shell, next->next);
 	while ((has_type(cmd, FD_OUT) || has_type(cmd, APPEND)) && shell->exec)
 		redir_fd(shell, &cmd);
@@ -67,6 +67,7 @@ int	launch_shell(t_shell *shell)
 	{
 		shell->parent = 1;
 		shell->last = 1;
+		shell->first = 1;
 		prep_cmd(shell, cmd);
 		reset_shell(shell);
 		waitpid(-1, &shell->status, 0);

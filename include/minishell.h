@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/02 19:45:31 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/07 16:24:50 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_shell
 	int			in;
 	int			out;
 	int			last_ret;
+	int			first;
 	int			fd_in;
 	int			fd_out;
 	int			pipe_in;
