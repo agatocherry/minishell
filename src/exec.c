@@ -34,11 +34,11 @@ int	exec(t_shell *shell, char **env, char **argv)
 	int		ret;
 	char	*cmd;
 
-	ret = SUCCESS;
-	cmd = join_path_cmd(argv[0], shell->path, &ret);
-	if (cmd == NULL)
+	ret = exec2(shell, env, argv, &cmd);
+	if (ret != SUCCESS)
 	{
-		ret = exec_error(argv[0], ret);
+		if (cmd == NULL)
+			ret = exec_error(argv[0], ret);
 		return (ret);
 	}
 	g_sig.pid = fork();

@@ -14,7 +14,7 @@ SRCS	=	src/main.c src/minishell.c src/signal.c \
 			src/env.c src/env_2.c \
 			src/exec.c src/exec_all.c src/redir.c src/redir_2.c src/utils.c src/pipe.c \
 			src/builtins/ft_cd.c src/builtins/ft_cd_utils.c src/builtins/ft_pwd.c src/builtins/ft_echo.c src/builtins/ft_env.c src/builtins/ft_unset.c \
-			src/builtins/ft_exit.c src/builtins/ft_export.c
+			src/builtins/ft_exit.c src/builtins/ft_export.c src/exec_utils.c
 OBJ		=	$(SRCS:.c=.o)
 
 # Rules

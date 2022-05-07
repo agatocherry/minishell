@@ -141,6 +141,7 @@ int			pipe_shell(t_shell *shell);
 void		exec_cmd(t_shell *shell, t_command *cmd);
 char		*join_path_cmd(char *cmd, char **path, int *ret);
 int			exec_error(char *cmd, int ret);
+int			exec2(t_shell *shell, char **env, char **argv, char **cmd);
 
 /*
 ** --- built_in ---
