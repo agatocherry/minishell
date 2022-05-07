@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/07 22:16:42 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/08 00:48:18 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	prep_cmd(t_shell *shell, t_command *cmd)
 		redir_fd(shell, &cmd);
 	while ((has_type(cmd, FD_IN) || has_type(cmd, LIMIT)) && shell->exec)
 		input_fd(shell, &cmd);
-	if (pipe != 1 && shell->exec)
+	if (shell->exec)
 		exec_cmd(shell, cmd);
 }
 
