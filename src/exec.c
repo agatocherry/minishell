@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 14:49:18 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/07 16:26:47 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/07 19:03:11 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	exec_cmd(t_shell *shell, t_command *cmd)
 		else if (argv)
 			shell->last_ret = exec(shell, shell->env, argv);
 		free_array(argv);
+		free(argv);
 	}
 	ft_close(shell->pipe_in);
 	ft_close(shell->pipe_out);

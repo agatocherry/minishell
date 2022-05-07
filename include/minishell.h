@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/07 16:24:50 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/07 19:40:35 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,11 +147,11 @@ int			exec_error(char *cmd, int ret);
 */
 
 int			ft_echo(char **argv, t_shell *shell);
-void		oldpwd(t_shell *shell);
+void		oldpwd(t_shell *shell, char *oldpwd);
 int			exception(char **argv, t_shell *shell);
 int			if_minus(t_shell *shell);
 int			if_home(t_shell *shell);
-void		error_cd(char **argv, int error);
+void		error_cd(char **argv);
 void		pwd(char **env);
 int			check_errors_cd(int ret, char **argv, t_shell *shell);
 int			ft_cd(char **argv, t_shell *shell);

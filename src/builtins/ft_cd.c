@@ -6,50 +6,47 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 23:11:08 by agcolas          #+#    #+#             */
-/*   Updated: 2022/05/04 18:20:47 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/07 20:00:07 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	error_cd(char **argv, int error)
+void	error_cd(char **argv)
 {
-	ft_putstr_fd("minishell: cd: ", STDERR);
-	if (argv[1])
-	{
-		ft_putstr_fd(argv[1], STDERR);
-		ft_putstr_fd(": ", STDERR);
-	}
-	if (error == 1)
-	{
-		ft_putendl_fd("Use absolute or relative path", STDERR);
-		return ;
-	}
+	if (argv[1] && argv[2])
+		ft_putstr_fd("minishell: cd: too many arguments\n", STDERR);
 	else
+	{
+		ft_putstr_fd("minishell: cd: ", STDERR);
+		if (argv[1])
+		{
+			ft_putstr_fd(argv[1], STDERR);
+			ft_putstr_fd(": ", STDERR);
+		}
 		ft_putendl_fd(strerror(errno), STDERR);
+	}
 }
 
 void	already_have_pwd(t_shell *shell, char *oldpwd)
 {
 	char	**tmp;
 
-	tmp = malloc(sizeof(char *) * 2);
+	tmp = malloc(sizeof(char *) * 3);
 	tmp[0] = ft_strdup("unset");
 	tmp[1] = ft_strdup("OLDPWD");
 	tmp[2] = NULL;
 	ft_unset(shell, tmp);
 	shell->env = add_in_env(ft_strjoin("OLDPWD=", oldpwd), shell->env);
 	free_array(tmp);
+	free(tmp);
 }
 
-void	oldpwd(t_shell *shell)
+void	oldpwd(t_shell *shell, char *oldpwd)
 {
 	int		i;
-	char	buf[PATH_LEN];
-	char	*oldpwd;
 
 	i = 0;
-	oldpwd = getcwd(buf, PATH_LEN);
 	if (!oldpwd)
 		return ;
 	while (shell->env[i] && ft_strncmp(shell->env[i], "OLDPWD=", 7))
@@ -84,22 +81,27 @@ void	pwd(char **env)
 int	ft_cd(char **argv, t_shell *shell)
 {
 	int		ret;
-	char	*tmp;
+	char	buf[PATH_LEN];
+	char	*n_oldpwd;
 
-	if (!argv[1])
-	{
-		error_cd(argv, 1);
-		ret = ERROR;
-	}
+	ret = 1;
+	if (argv[1] && argv[2])
+		error_cd(argv);
 	else
-	{
 		ret = exception(argv, shell);
-		if (ret == -2)
+	if (ret == -2)
+	{
+		n_oldpwd = getcwd(buf, PATH_LEN);
+		ret = chdir(argv[1]);
+		if (ret == -1)
+			ret *= -1;
+		if (ret == 1)
+			error_cd(argv);
+		if (ret == 0)
 		{
-			oldpwd(shell);
-			ret = chdir(argv[1]);
+			pwd(shell->env);
+			oldpwd(shell, n_oldpwd);
 		}
-		ret = check_errors_cd(ret, argv, shell);
 	}
 	return (ret);
 }

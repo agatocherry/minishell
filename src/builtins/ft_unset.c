@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 23:11:08 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/04 10:38:10 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/05/07 18:33:35 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int	find_where_to_unset(t_shell *shell, char **argv)
 	while (shell->env[i])
 	{
 		len = 0;
-		while (shell->env[i][len]
-	&& shell->env[i][len] != '=')
+		while (shell->env[i][len] && shell->env[i][len] != '=')
 			len++;
 		if (ft_strncmp(argv[1], shell->env[i], ft_strlen(argv[1])) == 0
 			&& ft_strlen(argv[1]) == len)
@@ -52,7 +51,9 @@ void	the_end(t_shell *shell, int where_unset)
 	char	**tmp;
 	int		i;
 
-	tmp = malloc(sizeof(char *) * where_unset + 1);
+	tmp = (char **)malloc(sizeof(char *) * (where_unset + 1));
+	if (!tmp)
+		return ;
 	i = 0;
 	while (where_unset > 0 && shell->env[i])
 	{
@@ -62,6 +63,7 @@ void	the_end(t_shell *shell, int where_unset)
 	}
 	tmp[i] = NULL;
 	free_array(shell->env);
+	free(shell->env);
 	shell->env = tmp;
 }
 
@@ -73,7 +75,7 @@ void	with_rest(t_shell *shell, int len, int where_unset)
 	int		j;
 
 	rest = len - 1 - where_unset;
-	tmp = malloc(sizeof(char *) * len - 1);
+	tmp = malloc(sizeof(char *) * len);
 	i = 0;
 	while (where_unset > 0 && shell->env[i])
 	{
@@ -90,6 +92,7 @@ void	with_rest(t_shell *shell, int len, int where_unset)
 	}
 	tmp[i] = NULL;
 	free_array(shell->env);
+	free(shell->env);
 	shell->env = tmp;
 }
 

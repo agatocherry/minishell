@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:27:09 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 23:16:53 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/07 18:53:37 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,22 +71,24 @@ char	*remove_quotes(t_shell *shell, char *str, char *og, int *idx)
 	char	*tmp;
 
 	new_str = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!new_str)
+		return (NULL);
 	ft_strlcpy(new_str, str, (idx[0] + 1));
 	tmp = ft_strjoin(new_str, &str[idx[0] + 1]);
 	quote = str[idx[0]++];
-	idx[1]++;
 	while (str[idx[0]])
 	{
+		idx[1]++;
 		while (og[idx[1]] == '$')
 			idx[0] += skip_value(shell, &str[idx[0]], og, &idx[1]);
 		if (str[idx[0]++] == quote)
 		{
 			tmp[idx[0] - 2] = '\0';
+			free(new_str);
 			new_str = ft_strjoin(tmp, &str[idx[0]]);
-			free(tmp);
+			ft_memdel((void **)&tmp);
 			break ;
 		}
-		idx[1]++;
 	}
 	return (new_str);
 }
@@ -98,8 +100,6 @@ void	expand_quotes(t_shell *shell, t_command *cmd, char *og)
 
 	idx[0] = 0;
 	idx[1] = 0;
-	if (!cmd)
-		return ;
 	while (cmd->str[idx[0]])
 	{
 		while (og[idx[1]] == '$')
@@ -109,6 +109,7 @@ void	expand_quotes(t_shell *shell, t_command *cmd, char *og)
 			tmp = remove_quotes(shell, cmd->str, og, idx);
 			free(cmd->str);
 			cmd->str = tmp;
+			idx[0] -= 2;
 		}
 		if (cmd->str[idx[0]])
 			idx[0]++;

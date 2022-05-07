@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 22:54:40 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 00:59:25 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/07 19:04:46 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,15 @@ char	*join_path_cmd(char	*cmd, char **path, int *ret)
 	int		i;
 	char	*full_cmd;
 
-	i = 0;
 	if (ft_strchr(cmd, '/'))
 		return (ft_strdup(cmd));
+	if (ft_strlen(cmd) == 0)
+		return (ft_strdup("\0"));
+	i = 0;
 	full_cmd = NULL;
 	while (path[i])
 	{
-		full_cmd = ft_strjoin(path[i], cmd);
+		full_cmd = ft_strjoin(path[i++], cmd);
 		if (access(full_cmd, F_OK) == -1)
 			*ret = UNK_CMD;
 		else if (access(full_cmd, X_OK) == -1)
@@ -57,7 +59,6 @@ char	*join_path_cmd(char	*cmd, char **path, int *ret)
 			*ret = SUCCESS;
 			break ;
 		}
-		i++;
 		free(full_cmd);
 		full_cmd = NULL;
 	}

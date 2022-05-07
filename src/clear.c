@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:52:43 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/26 22:26:02 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/07 20:34:41 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ void	remove_redir(t_command **cmd, int type)
 		prev->next = next;
 	if (next)
 		next->prev = prev;
+	ft_memdel((void **)&tmp->str);
+	tmp = tmp->next;
+	ft_memdel((void **)&tmp->prev);
+	ft_memdel((void **)&tmp->str);
+	ft_memdel((void **)&tmp);
 }
 
 void	clear_command(t_command **cmd)
@@ -51,7 +56,9 @@ void	clear_command(t_command **cmd)
 void	clear_env(t_shell *shell)
 {
 	free_array(shell->path);
+	free(shell->path);
 	free_array(shell->env);
+	free(shell->env);
 }
 
 void	free_array(char **array)
@@ -59,14 +66,11 @@ void	free_array(char **array)
 	int	i;
 
 	i = 0;
-	if (!array)
-		return ;
 	while (array[i])
 	{
-		if (array[i])
-			ft_memdel((void **)&array[i]);
+		ft_memdel((void **)&array[i]);
 		i++;
 	}
-	if (array)
-		ft_memdel((void **)array);
+	ft_memdel((void **)&(array[i]));
+	ft_memdel((void **)array);
 }
