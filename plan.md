@@ -9,9 +9,9 @@ Agathe :
   - "echo $REPL_OWNER" ne fonctionne pas
 - Leaks 
 
-Shellen :
-- Finaliser les pipes
-- Leaks
-- Mettre en place "./minishell -c" pour les testers
+Problèmes non réglés :
+- < Makefile cat (leaks)
+- echo "hello" >> test | ls ("hello" n'est pas dans le fichier test)
+- retour d'erreur quand sigint dans heredoc
 
 Délai : Rendre au plus tard le 6 Mai
