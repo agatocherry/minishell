@@ -6,34 +6,24 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 23:11:08 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/02 16:12:51 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/05/07 23:48:18 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	print_error_export(char *str)
-{
-	ft_putstr_fd("minishell: export: `", STDERR);
-	ft_putstr_fd(str, STDERR);
-	ft_putendl_fd("':not a valid identifier", STDERR);
-}
-
-static int	error_export(char *str)
+int	print_error_export(char *str)
 {
 	int	i;
 
 	i = 0;
-	if (!str)
-	{
-		print_error_export(str);
-		return (1);
-	}
 	while (str[i])
 	{
-		if (break_exp(str[i]) == 1 && str[i] != '=')
+		if (ft_isalpha(str[i]) == 0 && str[i] != '_')
 		{
-			print_error_export(str);
+			ft_putstr_fd("minishell: export: `", STDERR);
+			ft_putstr_fd(str, STDERR);
+			ft_putendl_fd("': not a valid identifier", STDERR);
 			return (1);
 		}
 		i++;
@@ -41,20 +31,43 @@ static int	error_export(char *str)
 	return (0);
 }
 
-int	ft_export(t_shell *shell, char **argv)
+void	declare_x(char **env)
 {
-	int		i;
-	char	**tmp;
+	int	i;
 
 	i = 0;
-	if (error_export(argv[1]) == 1)
-		return (1);
-	while (shell->env[i])
+	while (env[i])
 	{
-		if (ft_strcmp(argv[1], shell->env[i]) == 0)
-			return (0);
+		ft_putstr_fd("declare -x ", STDOUT);
+		ft_putendl_fd(env[i], STDOUT);
 		i++;
 	}
-	shell->env = add_in_env(ft_strdup(argv[1]), shell->env);
-	return (0);
+}
+
+int	ft_export(t_shell *shell, char **argv)
+{
+	int	i;
+	int	j;
+	int	ret;
+
+	i = 1;
+	ret = 0;
+	if (!argv[1])
+	{
+		declare_x(shell->env);
+		return (0);
+	}
+	while (argv[i])
+	{
+		while (ft_strchr(argv[i], '=') == NULL)
+			ret = print_error_export(argv[i++]);
+		j = 0;
+		while (shell->env[j])
+		{
+			if (ft_strcmp(argv[i], shell->env[j++]) == 0)
+				break ;
+		}
+		shell->env = add_in_env(ft_strdup(argv[i++]), shell->env);
+	}
+	return (ret);
 }

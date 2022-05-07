@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/27 00:59:24 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/08 00:21:48 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	shell_init(t_shell *shell, char **env)
 	shell->command = NULL;
 	while (shell->env[i] && ft_strncmp(shell->env[i], "SHLVL=", 6))
 		i++;
+	if (!shell->env[i])
+		shell->env = add_in_env(ft_strdup("SHLVL=0"), shell->env);
 	shell->env[i] = incr_shlvl(shell->env[i]);
 	return (0);
 }

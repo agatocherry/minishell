@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 18:33:04 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 23:40:00 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/07 21:32:41 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	only_hereprompt(t_command *cmd, char *line)
 			ft_putendl_fd("')", STDERR);
 			over = 0;
 		}
-		else if (ft_strcmp(line, cmd->str) == 0)
+		else if (!line || ft_strcmp(line, cmd->str) == 0)
 			break ;
 		else
 		{

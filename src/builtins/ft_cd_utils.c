@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 18:11:08 by agcolas          #+#    #+#             */
-/*   Updated: 2022/05/07 20:07:05 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/07 22:24:34 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	if_minus(t_shell *shell)
 	i = 0;
 	while (tmp[i] && ft_strncmp(tmp[i], "OLDPWD=", 7))
 		i++;
-	if (!tmp)
+	if (!tmp[i])
 	{
 		ft_putstr_fd("minishell: cd: $OLDPWD not set\n", STDERR);
 		return (1);
@@ -50,7 +50,7 @@ int	if_home(t_shell *shell)
 	i = 0;
 	while (tmp[i] && ft_strncmp(tmp[i], "HOME=", 5))
 		i++;
-	if (!tmp)
+	if (!tmp[i])
 	{
 		ft_putstr_fd("minishell: cd: $HOME not set\n", STDERR);
 		return (1);

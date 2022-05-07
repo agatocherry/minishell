@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:52:43 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/07 20:34:41 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/07 21:28:19 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,22 @@ void	remove_redir(t_command **cmd, int type)
 		prev->next = next;
 	if (next)
 		next->prev = prev;
-	ft_memdel((void **)&tmp->str);
-	tmp = tmp->next;
-	ft_memdel((void **)&tmp->prev);
-	ft_memdel((void **)&tmp->str);
-	ft_memdel((void **)&tmp);
+	if (prev)
+	{
+		ft_memdel((void **)&tmp->str);
+		tmp = tmp->next;
+		ft_memdel((void **)&tmp->prev);
+		ft_memdel((void **)&tmp->str);
+		ft_memdel((void **)&tmp);
+	}
 }
 
 void	clear_command(t_command **cmd)
 {
 	if (!cmd)
 		return ;
+	while (*cmd && (*cmd)->prev)
+		*cmd = (*cmd)->prev;
 	while (*cmd && (*cmd)->next)
 	{
 		ft_memdel((void **)&(*cmd)->str);

@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 14:49:18 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/07 19:03:11 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/07 22:21:58 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ int	exec(t_shell *shell, char **env, char **argv)
 	int		ret;
 	char	*cmd;
 
+	cmd = NULL;
 	ret = exec2(shell, env, argv, &cmd);
-	if (ret != SUCCESS)
+	if (cmd == NULL)
 	{
-		if (cmd == NULL)
-			ret = exec_error(argv[0], ret);
+		ret = exec_error(argv[0], ret);
 		return (ret);
 	}
 	g_sig.pid = fork();
@@ -118,6 +118,8 @@ void	exec_cmd(t_shell *shell, t_command *cmd)
 			shell->last_ret = exec(shell, shell->env, argv);
 		free_array(argv);
 		free(argv);
+		if (shell->last_ret == 32256 || shell->last_ret == 32512)
+			shell->last_ret = shell->last_ret / 256;
 	}
 	ft_close(shell->pipe_in);
 	ft_close(shell->pipe_out);

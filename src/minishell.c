@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/07 16:27:41 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/07 22:16:42 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,6 @@ t_command	*next_run(t_command *cmd)
 		cmd = cmd->next;
 	return (cmd);
 }
-
-/*
-**	Pipe à partir d'ici de la ligne 50
-*/
 
 void	prep_cmd(t_shell *shell, t_command *cmd)
 {

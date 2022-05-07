@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 14:49:18 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/07 16:26:47 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/07 20:57:07 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	search_ppath(t_shell *shell, char *str)
 			return (0);
 		i++;
 	}
-	if (str && str[0] && str[0] == '/')
+	if (str && ft_strchr(str, '/'))
 		return (0);
 	return (1);
 }
@@ -34,16 +34,9 @@ int	exec2(t_shell *shell, char **env, char **argv, char **cmd)
 
 	ret = SUCCESS;
 	if (search_ppath(shell, argv[0]) == 1)
-	{
-		ret = exec_error(argv[0], ret);
 		return (ret);
-	}
 	*cmd = join_path_cmd(argv[0], shell->path, &ret);
 	if (cmd == NULL)
-	{
-		ret = UNK_CMD;
-		ret = exec_error(argv[0], ret);
 		return (ret);
-	}
 	return (ret);
 }

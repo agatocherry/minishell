@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 22:54:40 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/07 19:04:46 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/07 22:00:17 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,28 @@
 
 int	exec_error(char *cmd, int ret)
 {
+	int		fd;
 	DIR		*dir;
 
+	fd = open(cmd, O_WRONLY);
 	dir = opendir(cmd);
 	ft_putstr_fd("minishell: ", STDERR);
 	ft_putstr_fd(cmd, STDERR);
-	if (ret == ACC_DENIED)
-		ft_putendl_fd(": Permission denied", STDERR);
-	else if (ret == UNK_CMD)
-		ft_putendl_fd(": Command not found", STDERR);
-	else if (ret == SUCCESS && dir)
-		ft_putendl_fd(": Is a directory", STDERR);
-	else
+	if (ft_strchr(cmd, '/') == NULL)
+		ft_putendl_fd(": command not found", STDERR);
+	else if (fd == -1 && !dir)
 		ft_putendl_fd(": No such file or directory", STDERR);
-	if (ret == ACC_DENIED || (ret == SUCCESS && dir))
-		ret = IS_DIR;
-	else
+	else if (fd == -1 && dir)
+		ft_putendl_fd(": Is a directory", STDERR);
+	else if (fd != -1 && !dir)
+		ft_putendl_fd(": Permission denied", STDERR);
+	if (ft_strchr(cmd, '/') == NULL || (fd == -1 && !dir))
 		ret = UNK_CMD;
+	else
+		ret = IS_DIR;
 	if (dir)
 		closedir(dir);
+	ft_close(fd);
 	return (ret);
 }
 

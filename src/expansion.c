@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:27:09 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/07 18:53:37 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/07 22:06:13 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	expand_quotes(t_shell *shell, t_command *cmd, char *og)
 			tmp = remove_quotes(shell, cmd->str, og, idx);
 			free(cmd->str);
 			cmd->str = tmp;
-			idx[0] -= 2;
+			idx[0] -= 3;
 		}
 		if (cmd->str[idx[0]])
 			idx[0]++;

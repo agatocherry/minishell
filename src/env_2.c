@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 22:01:06 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 02:41:50 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/08 00:14:25 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,73 @@ void	clean_var(char *var)
 	return ;
 }
 
+char	**replace_env(char *to_add, char **env)
+{
+	char	**tmp;
+	int		j;
+	int		i;
+
+	i = 0;
+	j = 0;
+	while (env[i])
+		i++;
+	tmp = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!tmp)
+		return (env);
+	while (to_add[j] != '=')
+		j++;
+	i = -1;
+	while (env[++i])
+	{
+		if (ft_strncmp(env[i], to_add, j + 1) == 0)
+			tmp[i] = to_add;
+		else
+			tmp[i] = ft_strdup(env[i]);
+	}
+	tmp[i] = NULL;
+	free_array(env);
+	free(env);
+	return (tmp);
+}
+
+int	is_in_env(char *to_add, char **env)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (to_add[j] != '=')
+		j++;
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], to_add, j + 1) == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 char	**add_in_env(char *to_add, char **env)
 {
 	char	**tmp;
 	int		i;
 
 	i = 0;
-	if (!to_add)
-		return (env);
 	while (env[i])
 		i++;
+	if (is_in_env(to_add, env))
+		return (replace_env(to_add, env));
 	tmp = (char **)malloc(sizeof(char *) * (i + 2));
 	if (!tmp)
 		return (env);
-	i = 0;
-	while (env[i])
-	{
+	i = -1;
+	while (env[++i])
 		tmp[i] = ft_strdup(env[i]);
-		i++;
-	}
 	tmp[i++] = to_add;
 	tmp[i] = NULL;
 	i = 0;
-	while (env[i])
-		free(env[i++]);
+	free_array(env);
 	free(env);
 	return (tmp);
 }
@@ -66,6 +109,8 @@ char	**default_env(void)
 
 	pwd = getcwd(buf, PATH_LEN);
 	env = (char **)malloc(sizeof(char *) * 5);
+	if (!env)
+		return (NULL);
 	env[0] = ft_strdup("SHELL=/bin/bash");
 	env[1] = ft_strjoin("PATH=:/usr/local/sbin:/usr/local/bin",
 			":/usr/sbin:/usr/bin:/sbin:/bin");
