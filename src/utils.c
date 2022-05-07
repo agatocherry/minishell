@@ -54,13 +54,15 @@ void	reset_shell(t_shell *shell)
 
 int	break_exp(int c)
 {
+	if (c == 95)
+		return (0);
 	if (c == 0)
 		return (1);
 	if (c >= 32 && c <= 47)
 		return (1);
 	if (c == 58 || c == 59 || c == 61 || c == 63 || c == 64 || c == 91)
 		return (1);
-	if ((c >= 93 && c <= 96) || c == 123 || c == 125 || c == 126)
+	if ((c >= 93 && c <= 94) || c == 95 || c == 123 || c == 125 || c == 126)
 		return (1);
 	return (0);
 }
@@ -85,7 +87,7 @@ int	skip_value(t_shell *shell, char *cmd, char *og, int *j)
 	while (s[n])
 		n++;
 	(*j)++;
-	while (break_exp(og[*j]) == 0)
+	while (og[*j] && break_exp(og[*j]) == 0)
 		(*j)++;
 	free(var);
 	free(s);

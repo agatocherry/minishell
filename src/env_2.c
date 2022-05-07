@@ -19,12 +19,12 @@ void	clean_var(char *var)
 	i = 1;
 	if (!var)
 		return ;
-	if (var[1] == '?')
+	if (var[i] && var[1] == '?')
 	{
 		var[2] = '\0';
 		return ;
 	}
-	while (var[1] != '?' && break_exp(var[i]) == 0)
+	while (var[i] && var[1] != '?' && break_exp(var[i]) == 0)
 		i++;
 	var[i] = '\0';
 	return ;

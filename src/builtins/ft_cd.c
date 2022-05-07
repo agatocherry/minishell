@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/25 23:11:08 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 02:54:47 by shdorlin         ###   ########.fr       */
+/*   Created: 2022/04/25 23:11:08 by agcolas          #+#    #+#             */
+/*   Updated: 2022/05/04 18:20:47 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,20 @@ void	error_cd(char **argv, int error)
 		ft_putendl_fd(strerror(errno), STDERR);
 }
 
-void	oldpwd(char **env)
+void	already_have_pwd(t_shell *shell, char *oldpwd)
+{
+	char	**tmp;
+
+	tmp = malloc(sizeof(char *) * 2);
+	tmp[0] = ft_strdup("unset");
+	tmp[1] = ft_strdup("OLDPWD");
+	tmp[2] = NULL;
+	ft_unset(shell, tmp);
+	shell->env = add_in_env(ft_strjoin("OLDPWD=", oldpwd), shell->env);
+	free_array(tmp);
+}
+
+void	oldpwd(t_shell *shell)
 {
 	int		i;
 	char	buf[PATH_LEN];
@@ -39,15 +52,12 @@ void	oldpwd(char **env)
 	oldpwd = getcwd(buf, PATH_LEN);
 	if (!oldpwd)
 		return ;
-	while (env[i] && ft_strncmp(env[i], "OLDPWD=", 7))
+	while (shell->env[i] && ft_strncmp(shell->env[i], "OLDPWD=", 7))
 		i++;
-	if (!env[i])
-	{
-		env = add_in_env(ft_strjoin("OLDPWD=", oldpwd), env);
-		return ;
-	}
-	free(env[i]);
-	env[i] = ft_strjoin("OLDPWD=", oldpwd);
+	if (!shell->env[i])
+		shell->env = add_in_env(ft_strjoin("OLDPWD=", oldpwd), shell->env);
+	else
+		already_have_pwd(shell, oldpwd);
 }
 
 void	pwd(char **env)
@@ -73,7 +83,8 @@ void	pwd(char **env)
 
 int	ft_cd(char **argv, t_shell *shell)
 {
-	int	ret;
+	int		ret;
+	char	*tmp;
 
 	if (!argv[1])
 	{
@@ -82,14 +93,13 @@ int	ft_cd(char **argv, t_shell *shell)
 	}
 	else
 	{
-		oldpwd(shell->env);
-		ret = chdir(argv[1]);
-		if (ret == -1)
-			ret = ERROR;
-		if (ret == ERROR)
-			error_cd(argv, 2);
-		if (ret == 0)
-			pwd(shell->env);
+		ret = exception(argv, shell);
+		if (ret == -2)
+		{
+			oldpwd(shell);
+			ret = chdir(argv[1]);
+		}
+		ret = check_errors_cd(ret, argv, shell);
 	}
 	return (ret);
 }

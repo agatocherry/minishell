@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 23:11:08 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/02 15:22:55 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/05/04 10:38:10 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,18 @@ int	find_where_to_unset(t_shell *shell, char **argv)
 {
 	int	i;
 	int	find;
+	int	len;
 
 	find = -1;
 	i = 0;
 	while (shell->env[i])
 	{
-		if (ft_strcmp(argv[1], shell->env[i]) < 0)
+		len = 0;
+		while (shell->env[i][len]
+	&& shell->env[i][len] != '=')
+			len++;
+		if (ft_strncmp(argv[1], shell->env[i], ft_strlen(argv[1])) == 0
+			&& ft_strlen(argv[1]) == len)
 		{
 			find = i;
 			break ;

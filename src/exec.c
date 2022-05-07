@@ -60,7 +60,7 @@ int	exec(t_shell *shell, char **env, char **argv)
 int	builtin(t_shell *shell, char **argv)
 {
 	if (ft_strcmp(argv[0], "echo") == 0)
-		return (ft_echo(argv));
+		return (ft_echo(argv, shell));
 	if (ft_strcmp(argv[0], "cd") == 0)
 		return (ft_cd(argv, shell));
 	if (ft_strcmp(argv[0], "pwd") == 0)
@@ -109,7 +109,7 @@ void	exec_cmd(t_shell *shell, t_command *cmd)
 	{
 		argv = cmd_to_argv(cmd);
 		if (argv[0] && !ft_strcmp(argv[0], "exit") && !has_type(cmd, PIPE))
-			ft_exit(shell);
+			ft_exit(shell, argv);
 		else if (argv && is_builtin(argv))
 			shell->last_ret = builtin(shell, argv);
 		else if (argv)

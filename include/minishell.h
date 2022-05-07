@@ -145,13 +145,20 @@ int			exec_error(char *cmd, int ret);
 ** --- built_in ---
 */
 
-int			ft_echo(char **argv);
+int			ft_echo(char **argv, t_shell *shell);
+void		oldpwd(t_shell *shell);
+int			exception(char **argv, t_shell *shell);
+int			if_minus(t_shell *shell);
+int			if_home(t_shell *shell);
+void		error_cd(char **argv, int error);
+void		pwd(char **env);
+int			check_errors_cd(int ret, char **argv, t_shell *shell);
 int			ft_cd(char **argv, t_shell *shell);
 int			ft_pwd(void);
 int			ft_export(t_shell *shell, char **argv);
 int			ft_unset(t_shell *shell, char **argv);
 int			ft_env(t_shell *shell);
-int			ft_exit(t_shell *shell);
+int			ft_exit(t_shell *shell, char **argv);
 
 /*
 ** --- utils ---

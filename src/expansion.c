@@ -30,7 +30,7 @@ void	fill_value(char *new, char *str, char *value, int *var)
 		i += 1;
 	else
 	{
-		while (break_exp(str[i]) == 0)
+		while (str[i] && break_exp(str[i]) == 0)
 			i++;
 	}
 	while (str[i])
