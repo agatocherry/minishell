@@ -11,6 +11,20 @@ Agathe :
 
 Problèmes non réglés :
 - < Makefile cat (leaks)
-- retour d'erreur quand sigint dans heredoc
+- echo -nn bonjour
+- echo -n -n -n bonjour
+- expansion ~ (à faire ?)
+- parsing ''''''''''$USER'''''''''' et """"""""$USER""""""""
+- expansion s'arrête après le premier chiffre ($12 = $1 2 mais $USER12 != $USER1 2)
+- exit -42 -24 (doit donner : too many arguments)
+- exit +0 ou -4 (doit fonctionner)
+- exit 9223372036854775808 (doit donner : numeric argument required)
+- export doit faire : declare -x SHLVL="2" (pas declare -x SHLVL=2)
+- export TEST fait segfault
+- export --TEST=123 doit faire une erreur
+- export = ou export "=""=""=" doit faire une erreur (export: ===: not a valid identifier)
+- export TEST-=100 ou export TE-ST=100 doit faire une erreur (tous les caractères spéciaux)
+- export export 1TEST= doit faire une erreur
+- unset -TEST doit faire une erreur
+- unset TES$?T ne doit pas faire d'erreur
 
-Délai : Rendre au plus tard le 6 Mai
