@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/25 00:05:02 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/08 01:37:53 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	parse_cmd(t_shell *shell)
 	char	*line;
 
 	signal(SIGINT, &sigint);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, &sigquit);
 	line = readline("👉 ");
 	if (!line)
 	{

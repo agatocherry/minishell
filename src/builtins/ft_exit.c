@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 23:11:08 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/07 22:59:30 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/08 23:45:06 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int	ft_exit(t_shell *shell, char **argv)
 	ft_putendl_fd("exit", STDERR);
 	if (argv[1])
 	{
+		if (argv[1][i] == '-' || argv[1][i] == '+')
+			i++;
 		while (argv[1][i] && digit)
-		{
-			if (ft_isdigit(argv[1][i++]) == 0)
+			if (ft_isdigit(argv[1][i++]) == 0 || ft_isint(argv[1]) == 0)
 				digit = error_exit(shell, argv[1]);
-		}
 		if (digit)
 			shell->last_ret = ft_atoi(argv[1]);
 		if (digit && argv[2] != NULL)

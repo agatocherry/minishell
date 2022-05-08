@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 18:33:04 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/07 21:32:41 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/08 01:23:30 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	only_hereprompt(t_command *cmd, char *line)
 	free(line);
 }
 
-void	only_heredoc(t_command *cmd)
+void	only_heredoc(t_shell *shell, t_command *cmd)
 {
 	pid_t	pid;
 	char	*line;
@@ -55,6 +55,8 @@ void	only_heredoc(t_command *cmd)
 	}
 	else
 		wait(0);
+	if (g_sig.sigint == 1)
+		shell->last_ret = 130;
 }
 
 void	check_redir(t_shell *shell, t_command *cmd)
@@ -76,7 +78,7 @@ void	check_redir(t_shell *shell, t_command *cmd)
 				if_shell_fd_out(shell, cmd);
 		}
 		else if (cmd && cmd->prev->type == LIMIT)
-			only_heredoc(cmd);
+			only_heredoc(shell, cmd);
 		if (cmd)
 			cmd = cmd->next;
 	}

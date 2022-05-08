@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 23:11:08 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/07 23:48:12 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/08 23:51:33 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	print_error_unset(t_shell *shell, char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (ft_isalpha(str[i]) == 0 && str[i] != '_')
+		if (ft_isalnum(str[i]) == 0 && str[i] != '_')
 		{
 			ft_putstr_fd("minishell: unset: `", STDERR);
 			ft_putstr_fd(str, STDERR);

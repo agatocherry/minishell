@@ -6,27 +6,32 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 22:01:06 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/08 00:14:25 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/08 22:57:40 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	clean_var(char *var)
+void	clean_var(char **var)
 {
 	int	i;
 
 	i = 1;
-	if (!var)
+	if (!(*var))
 		return ;
-	if (var[i] && var[1] == '?')
+	if ((*var)[1] == '?' || ft_isdigit((*var)[1]) == 1)
 	{
-		var[2] = '\0';
+		(*var)[2] = '\0';
 		return ;
 	}
-	while (var[i] && var[1] != '?' && break_exp(var[i]) == 0)
+	while ((*var)[i] && break_exp((*var)[i]) == 0)
 		i++;
-	var[i] = '\0';
+	(*var)[i] = '\0';
+	if (ft_strcmp(*var, "~") == 0)
+	{
+		free(*var);
+		*var = ft_strdup("$HOME");
+	}
 	return ;
 }
 

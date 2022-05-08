@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 21:25:04 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/02 17:24:55 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/08 01:24:15 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	sigint(int signum)
 	{
 		ft_putstr_fd("\b\b", STDERR);
 		ft_putstr_fd("\n", STDERR);
-		g_sig.exit_status = 130;
 		close(0);
 	}
 	else if (g_sig.pid)

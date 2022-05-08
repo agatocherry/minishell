@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:27:09 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/07 22:06:13 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 01:46:35 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	fill_value(char *new, char *str, char *value, int *var)
 	while (value[n])
 		new[j++] = value[n++];
 	*var = j - 1;
-	if (str[++i] == '?')
+	if (str[++i] == '?' || ft_isdigit(str[i]) == 1)
 		i += 1;
-	else
+	else if (str[i - 1] != '~')
 	{
 		while (str[i] && break_exp(str[i]) == 0)
 			i++;
@@ -46,18 +46,23 @@ char	*expand_value(t_shell *shell, char *str, int *i)
 	char	*n_str;
 	char	*s;
 	char	*var;
+	int		r;
 
 	var = ft_strdup(&str[*i]);
-	if (!var)
-		return (NULL);
-	clean_var(var);
-	s = get_from_env(shell, &var[1]);
+	r = 1;
+	clean_var(&var);
+	if (var && var[0] != '~')
+		s = get_from_env(shell, &var[1]);
+	else
+		s = ft_strdup(var);
 	if (!s)
 	{
 		free(var);
 		return (NULL);
 	}
-	n_str = (char *)malloc(ft_strlen(str) - ft_strlen(var) + ft_strlen(s) + 1);
+	if (str[*i] == '~')
+		r += 4;
+	n_str = (char *)malloc(ft_strlen(str) - ft_strlen(var) + ft_strlen(s) + r);
 	if (n_str)
 		fill_value(n_str, str, s, i);
 	free(var);
@@ -111,37 +116,40 @@ void	expand_quotes(t_shell *shell, t_command *cmd, char *og)
 			cmd->str = tmp;
 			idx[0] -= 3;
 		}
-		if (cmd->str[idx[0]])
+		if (idx[0] == -1 || cmd->str[idx[0]])
 			idx[0]++;
 		if (og[idx[1]])
 			idx[1]++;
 	}
+	free(og);
+	og = NULL;
 }
 
-void	expand_cmd(t_shell *shell, t_command *cmd)
+void	expand_cmd(t_shell *shell, t_command *c)
 {
 	int		i;
 	int		quote;
 	char	*tmp;
 
-	while (cmd)
+	while (c)
 	{
 		i = -1;
-		quote = 0;
-		tmp = ft_strdup(cmd->str);
-		while (cmd && cmd->str[++i])
+		quote = 2;
+		tmp = ft_strdup(c->str);
+		while (c && c->str[++i])
 		{
-			if (cmd->str[i] == '\"')
+			if (c->str[i] == '\"')
 				quote++;
-			if (cmd->str[i] == '\'' && !(quote % 2))
-				while (cmd->str[++i] != '\'')
+			if (c->str[i] == '\'' && !(quote % 2))
+				while (c->str[++i] != '\'')
 					;
-			if (cmd->str[i] == '$' && ((ft_isalnum(cmd->str[i + 1])
-						&& cmd->str[i + 1] != '0') || cmd->str[i + 1] == '?'))
-				cmd->str = expand_value(shell, cmd->str, &i);
+			if ((c->str[i] == '~' && (!(quote % 2) && (!i
+							&& break_exp(c->str[i - 1]))))
+				|| (c->str[i] == '$' && ((ft_isalnum(c->str[i + 1])
+							&& c->str[i + 1] != '0') || c->str[i + 1] == '?')))
+				c->str = expand_value(shell, c->str, &i);
 		}
-		expand_quotes(shell, cmd, tmp);
-		free(tmp);
-		cmd = cmd->next;
+		expand_quotes(shell, c, tmp);
+		c = c->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 13:43:59 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/01 18:38:29 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/08 22:55:34 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	skip_value(t_shell *shell, char *cmd, char *og, int *j)
 		return (n);
 	}
 	var = ft_strdup(&og[*j]);
-	clean_var(var);
+	clean_var(&var);
 	s = get_from_env(shell, &var[1]);
 	n = 0;
 	while (s[n])

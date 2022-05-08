@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 22:15:11 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/07 21:32:15 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/08 01:24:12 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	here_doc(t_shell *shell, t_command *tmp)
 		shell->fd_in = fd[0];
 		wait(0);
 	}
+	if (g_sig.sigint == 1)
+		shell->last_ret = 130;
 }
 
 void	if_shell_fd_out(t_shell *shell, t_command	*tmp)
