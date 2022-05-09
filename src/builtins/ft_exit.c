@@ -6,13 +6,13 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 23:11:08 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/08 23:45:06 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 10:57:11 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	error_exit(t_shell *shell, char *argv)
+static int	error_exit(t_shell *shell, char *argv)
 {
 	ft_putstr_fd("minishell: exit: ", STDERR);
 	ft_putstr_fd(argv, STDERR);

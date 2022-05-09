@@ -6,13 +6,13 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 23:11:08 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/08 23:51:33 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 10:58:37 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	find_where_to_unset(t_shell *shell, char *argv)
+static int	find_where_to_unset(t_shell *shell, char *argv)
 {
 	int	i;
 	int	find;
@@ -36,7 +36,7 @@ int	find_where_to_unset(t_shell *shell, char *argv)
 	return (find);
 }
 
-void	the_end(t_shell *shell, int where_unset)
+static void	the_end(t_shell *shell, int where_unset)
 {
 	char	**tmp;
 	int		i;
@@ -57,7 +57,7 @@ void	the_end(t_shell *shell, int where_unset)
 	shell->env = tmp;
 }
 
-void	with_rest(t_shell *shell, int len, int where_unset)
+static void	with_rest(t_shell *shell, int len, int where_unset)
 {
 	int		rest;
 	char	**tmp;
@@ -86,7 +86,7 @@ void	with_rest(t_shell *shell, int len, int where_unset)
 	shell->env = tmp;
 }
 
-int	print_error_unset(t_shell *shell, char *str)
+static int	print_error_unset(t_shell *shell, char *str)
 {
 	int	i;
 

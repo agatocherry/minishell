@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-void	error_cd(char **argv)
+static void	error_cd(char **argv)
 {
 	if (argv[1] && argv[2])
 		ft_putstr_fd("minishell: cd: too many arguments\n", STDERR);

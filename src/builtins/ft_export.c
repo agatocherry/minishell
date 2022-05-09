@@ -6,13 +6,13 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 23:11:08 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/09 01:29:57 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 10:58:02 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	print_error_export(char *str)
+static int	print_error_export(char *str)
 {
 	int	i;
 
@@ -31,7 +31,7 @@ int	print_error_export(char *str)
 	return (0);
 }
 
-void	declare_x(char **env)
+static void	declare_x(char **env)
 {
 	int	i;
 	int	j;
@@ -52,7 +52,7 @@ void	declare_x(char **env)
 	}
 }
 
-int	export_error(char *str)
+static int	export_error(char *str)
 {
 	int	i;
 

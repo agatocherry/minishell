@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/09 10:49:52 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/05/09 11:00:22 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,23 @@ typedef struct s_sig
 }	t_sig;
 
 /*
+** --- built_in ---
+*/
+
+int			if_minus(t_shell *shell);
+int			if_home(t_shell *shell);
+int			exception(char **argv, t_shell *shell);
+void		pwd(char **env);
+void		oldpwd(t_shell *shell, char *oldpwd);
+int			ft_cd(char **argv, t_shell *shell);
+int			ft_echo(char **argv, t_shell *shell);
+int			ft_env(t_shell *shell);
+int			ft_exit(t_shell *shell, char **argv);
+int			ft_export(t_shell *shell, char **argv);
+int			ft_pwd(void);
+int			ft_unset(t_shell *shell, char **argv);
+
+/*
 ** --- src ---
 */
 
@@ -144,25 +161,6 @@ char		*join_path_cmd(char *cmd, char **path, int *ret);
 int			exec_error(char *cmd, int ret);
 int			exec2(t_shell *shell, char **env, char **argv, char **cmd);
 void		last_ret_exec_verif(t_shell *shell);
-
-/*
-** --- built_in ---
-*/
-
-int			ft_echo(char **argv, t_shell *shell);
-void		oldpwd(t_shell *shell, char *oldpwd);
-int			exception(char **argv, t_shell *shell);
-int			if_minus(t_shell *shell);
-int			if_home(t_shell *shell);
-void		error_cd(char **argv);
-void		pwd(char **env);
-int			check_errors_cd(int ret, char **argv, t_shell *shell);
-int			ft_cd(char **argv, t_shell *shell);
-int			ft_pwd(void);
-int			ft_export(t_shell *shell, char **argv);
-int			ft_unset(t_shell *shell, char **argv);
-int			ft_env(t_shell *shell);
-int			ft_exit(t_shell *shell, char **argv);
 
 /*
 ** --- utils ---
