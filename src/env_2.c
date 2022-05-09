@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 22:01:06 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/08 22:57:40 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 11:13:27 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	clean_var(char **var)
 	return ;
 }
 
-char	**replace_env(char *to_add, char **env)
+static char	**replace_env(char *to_add, char **env)
 {
 	char	**tmp;
 	int		j;
@@ -64,7 +64,7 @@ char	**replace_env(char *to_add, char **env)
 	return (tmp);
 }
 
-int	is_in_env(char *to_add, char **env)
+static int	is_in_env(char *to_add, char **env)
 {
 	int	i;
 	int	j;

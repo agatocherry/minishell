@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:52:43 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/09 08:07:48 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 13:09:23 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	remove_redir(t_command **cmd, int type)
 	t_command	*next;
 	t_command	*tmp;
 
+	if (!*cmd || !cmd)
+		return ;
 	tmp = *cmd;
 	while (tmp->prev && tmp->prev->type != PIPE)
 		tmp = tmp->prev;
@@ -39,7 +41,7 @@ void	remove_redir(t_command **cmd, int type)
 
 void	clear_command(t_command **cmd)
 {
-	if (!cmd)
+	if (!*cmd || !cmd)
 		return ;
 	while (*cmd && (*cmd)->prev)
 		*cmd = (*cmd)->prev;

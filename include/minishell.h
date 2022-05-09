@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/09 11:10:18 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/05/09 13:18:27 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int			exception(char **argv, t_shell *shell);
 void		pwd(char **env);
 void		oldpwd(t_shell *shell, char *oldpwd);
 int			ft_cd(char **argv, t_shell *shell);
-int			ft_echo(char **argv, t_shell *shell);
+int			ft_echo(char **argv);
 int			ft_env(t_shell *shell);
 int			ft_exit(t_shell *shell, char **argv);
 int			ft_export(t_shell *shell, char **argv);
@@ -137,6 +137,17 @@ void		parse_line(char *new_line, char *line);
 int			parse_cmd(t_shell *shell);
 int			check_cmd(t_shell *shell, t_command *cm);
 t_command	*next_cmd(char *line, t_command **prev);
+void		expand_cmd(t_shell *shell, t_command *c);
+
+/*
+** --- env ---
+*/
+
+void		clean_var(char **var);
+char		**add_in_env(char *to_add, char **env);
+char		**default_env(void);
+char		*get_from_env(t_shell *shell, char *var);
+void		parse_env(t_shell *shell, char **env);
 
 /*
 ** --- execution ---
@@ -149,7 +160,7 @@ int			pipe_shell(t_shell *shell);
 void		exec_cmd(t_shell *shell, t_command *cmd);
 char		*join_path_cmd(char *cmd, char **path, int *ret);
 int			exec_error(char *cmd, int ret);
-int			exec2(t_shell *shell, char **env, char **argv, char **cmd);
+int			exec2(t_shell *shell, char **argv, char **cmd);
 void		last_ret_exec_verif(t_shell *shell);
 
 /*
@@ -164,17 +175,10 @@ int			is_type(t_command *cmd, int type);
 int			has_type(t_command *cmd, int type);
 void		ft_close(int fd);
 int			skip_value(t_shell *shell, char *cmd, char *og, int *j);
-
-/*
-** --- env ---
-*/
-
-void		parse_env(t_shell *shell, char **env);
+int			count_line(char *line);
+char		*expand_line(t_shell *shell, char *line);
+char		*expand_value(t_shell *shell, char *str, int *i);
 char		*incr_shlvl(char *env);
-char		**default_env(void);
-char		**add_in_env(char *to_add, char **env);
-char		*get_from_env(t_shell *shell, char *var);
-void		clean_var(char **var);
 
 /*
 ** --- signal ---
@@ -184,15 +188,6 @@ void		sig_init(void);
 void		sigint(int signum);
 void		sigquit(int signum);
 void		heredoc_sigint(int signum);
-
-/*
-** --- autrees ---
-*/
-
-void		expand_cmd(t_shell *shell, t_command *c);
-int			count_line(char *line);
-char		*expand_line(t_shell *shell, char *line);
-char		*expand_value(t_shell *shell, char *str, int *i);
 
 extern t_sig	g_sig;
 

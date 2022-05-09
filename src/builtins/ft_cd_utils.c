@@ -69,6 +69,8 @@ int	exception(char **argv, t_shell *shell)
 	int	ret;
 
 	ret = -2;
+	if (argv[1] && ft_strcmp("", argv[1]) == 0)
+		ret = 0;
 	if (argv[1] && ft_strcmp("-", argv[1]) == 0)
 		ret = if_minus(shell);
 	else if (!argv[1])

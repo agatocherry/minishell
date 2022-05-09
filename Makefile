@@ -4,8 +4,7 @@ NAME	=	minishell
 HEADER	=	./include/minishell.h
 LIBFT	=	-L libft -lft
 CC		=	gcc
-#DONT FORGET TO USE -Werror -Wall -Wextra 
-CFLAGS	= 	-g -I include/ 
+CFLAGS	= 	-Wall -Werror -Wextra -I include/ 
 SRCS	=	src/main.c src/minishell.c src/signal.c \
 			src/init.c \
 			src/clear.c \
@@ -42,3 +41,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+

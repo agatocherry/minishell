@@ -6,13 +6,13 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 23:11:08 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/09 00:55:58 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 12:39:52 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	print(int line_break, char **argv, t_shell *shell)
+static void	print(int line_break, char **argv)
 {
 	int	i;
 	int	j;
@@ -38,7 +38,7 @@ static void	print(int line_break, char **argv, t_shell *shell)
 		printf("\n");
 }
 
-int	ft_echo(char **argv, t_shell *shell)
+int	ft_echo(char **argv)
 {
 	int	i;
 	int	line_break;
@@ -52,6 +52,6 @@ int	ft_echo(char **argv, t_shell *shell)
 		if (argv[1][i] == '\0')
 			line_break = 1;
 	}
-	print(line_break, argv, shell);
+	print(line_break, argv);
 	return (0);
 }

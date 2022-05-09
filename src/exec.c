@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 14:49:18 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/09 10:49:05 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/05/09 13:56:30 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	exec(t_shell *shell, char **env, char **argv)
 	char	*cmd;
 
 	cmd = NULL;
-	ret = exec2(shell, env, argv, &cmd);
+	ret = exec2(shell, argv, &cmd);
 	if (cmd == NULL)
 	{
 		ret = exec_error(argv[0], ret);
@@ -61,7 +61,7 @@ int	exec(t_shell *shell, char **env, char **argv)
 int	builtin(t_shell *shell, char **argv)
 {
 	if (ft_strcmp(argv[0], "echo") == 0)
-		return (ft_echo(argv, shell));
+		return (ft_echo(argv));
 	if (ft_strcmp(argv[0], "cd") == 0)
 		return (ft_cd(argv, shell));
 	if (ft_strcmp(argv[0], "pwd") == 0)

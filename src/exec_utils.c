@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 14:49:18 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/09 10:47:13 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/05/09 12:42:10 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	search_ppath(t_shell *shell, char *str)
 	return (1);
 }
 
-int	exec2(t_shell *shell, char **env, char **argv, char **cmd)
+int	exec2(t_shell *shell, char **argv, char **cmd)
 {
 	int	ret;
 

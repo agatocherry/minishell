@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 23:11:08 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/09 10:58:37 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/05/09 12:41:00 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	find_where_to_unset(t_shell *shell, char *argv)
 		while (shell->env[i][len] && shell->env[i][len] != '=')
 			len++;
 		if (ft_strncmp(argv, shell->env[i], ft_strlen(argv)) == 0
-			&& ft_strlen(argv) == len)
+			&& (int)ft_strlen(argv) == len)
 		{
 			find = i;
 			break ;
@@ -59,12 +59,10 @@ static void	the_end(t_shell *shell, int where_unset)
 
 static void	with_rest(t_shell *shell, int len, int where_unset)
 {
-	int		rest;
 	char	**tmp;
 	int		i;
 	int		j;
 
-	rest = len - 1 - where_unset;
 	tmp = malloc(sizeof(char *) * len);
 	i = 0;
 	while (where_unset > 0 && shell->env[i])
