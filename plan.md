@@ -11,4 +11,4 @@ Agathe :
 
 Problèmes non réglés :
 - < Makefile cat (leaks)
-- >> fichier | ls (ne crée pas de fichiers)
+- '>>' fichier | ls (ne crée pas de fichiers)
