@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/05/09 01:31:14 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 07:36:47 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
 
+	(void)argv;
+	(void)argc;
 	shell_init(&shell, env);
 	while (!shell.exit)
 	{

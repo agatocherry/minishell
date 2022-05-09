@@ -6,7 +6,7 @@
 /*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 22:15:11 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/08 01:24:12 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 08:18:17 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ void	input_fd(t_shell *shell, t_command **cmd)
 	if (shell->fd_in == -1)
 		return ;
 	dup2(shell->fd_in, STDIN);
+	if (shell->command->prev == NULL)
+		shell->command = shell->command->next->next;
 	remove_redir(cmd, tmp->prev->type);
 }
 
@@ -126,5 +128,7 @@ void	redir_fd(t_shell *shell, t_command **cmd)
 		return ;
 	}
 	dup2(shell->fd_out, STDOUT);
+	if (shell->command->prev == NULL)
+		shell->command = shell->command->next->next;
 	remove_redir(cmd, tmp->prev->type);
 }

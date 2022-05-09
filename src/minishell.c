@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/08 00:48:18 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 08:21:48 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,22 @@ t_command	*prev_pipe(t_command *cmd)
 	return (cmd);
 }
 
-t_command	*next_run(t_command *cmd)
+t_command	*next_run(t_shell *shell, t_command *cmd)
 {
-	while (cmd && cmd->type != CMD)
+	while (cmd && cmd->type != CMD && cmd->type != PIPE)
 		cmd = cmd->next;
+	if (cmd && cmd->type == PIPE)
+	{
+		while (cmd && cmd->prev)
+			cmd = cmd->prev;
+		while (cmd && cmd->type != FIL)
+			cmd = cmd->next;
+	}
+	if (cmd && cmd->type == FIL)
+	{
+		check_redir(shell, cmd);
+		return (next_run(shell, cmd->next->next));
+	}
 	return (cmd);
 }
 
@@ -58,7 +70,7 @@ int	launch_shell(t_shell *shell)
 	t_command	*cmd;
 	int			status;
 
-	cmd = next_run(shell->command);
+	cmd = next_run(shell, shell->command);
 	if (cmd)
 	{
 		shell->parent = 1;
@@ -77,7 +89,5 @@ int	launch_shell(t_shell *shell)
 		}
 		shell->exec = 1;
 	}
-	else
-		check_redir(shell, shell->command);
 	return (0);
 }

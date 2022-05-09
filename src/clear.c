@@ -6,11 +6,12 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 23:52:43 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/07 21:28:19 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 08:07:48 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <readline/readline.h>
 
 void	remove_redir(t_command **cmd, int type)
 {
@@ -29,14 +30,11 @@ void	remove_redir(t_command **cmd, int type)
 		prev->next = next;
 	if (next)
 		next->prev = prev;
-	if (prev)
-	{
-		ft_memdel((void **)&tmp->str);
-		tmp = tmp->next;
-		ft_memdel((void **)&tmp->prev);
-		ft_memdel((void **)&tmp->str);
-		ft_memdel((void **)&tmp);
-	}
+	ft_memdel((void **)&tmp->str);
+	tmp = tmp->next;
+	ft_memdel((void **)&tmp->prev);
+	ft_memdel((void **)&tmp->str);
+	ft_memdel((void **)&tmp);
 }
 
 void	clear_command(t_command **cmd)
@@ -54,6 +52,7 @@ void	clear_command(t_command **cmd)
 	if (*cmd)
 	{
 		ft_memdel((void **)&(*cmd)->str);
+		ft_memdel((void **)&(*cmd)->next);
 		ft_memdel((void **)&(*cmd));
 	}
 }
@@ -78,4 +77,13 @@ void	free_array(char **array)
 	}
 	ft_memdel((void **)&(array[i]));
 	ft_memdel((void **)array);
+}
+
+void	clear_all(t_shell *shell, char **argv)
+{
+	clear_command(&shell->command);
+	free_array(argv);
+	free(argv);
+	clear_env(shell);
+	rl_clear_history();
 }

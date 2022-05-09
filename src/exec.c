@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 14:49:18 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/08 00:47:59 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 07:27:32 by shdorlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	exec(t_shell *shell, char **env, char **argv)
 		if (execve(cmd, argv, env) == -1)
 			ret = exec_error(cmd, ret);
 		free(cmd);
+		clear_all(shell, argv);
 		exit(ret);
 	}
 	else
