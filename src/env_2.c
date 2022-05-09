@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 22:01:06 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/09 11:13:27 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/05/09 16:50:41 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char	**default_env(void)
 	if (!env)
 		return (NULL);
 	env[0] = ft_strdup("SHELL=/bin/bash");
-	env[1] = ft_strjoin("PATH=:/usr/local/sbin:/usr/local/bin",
+	env[1] = ft_strjoin("PATH=/usr/local/sbin:/usr/local/bin",
 			":/usr/sbin:/usr/bin:/sbin:/bin");
 	env[2] = ft_strdup("SHLVL=1");
 	env[3] = ft_strjoin("PWD=", pwd);
