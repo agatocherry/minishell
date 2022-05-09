@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/09 11:00:22 by agcolas          ###   ########.fr       */
+/*   Updated: 2022/05/09 11:10:18 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_sig
 }	t_sig;
 
 /*
-** --- built_in ---
+** --- builtins ---
 */
 
 int			if_minus(t_shell *shell);
@@ -107,6 +107,16 @@ int			ft_pwd(void);
 int			ft_unset(t_shell *shell, char **argv);
 
 /*
+** --- clear ---
+*/
+
+void		remove_redir(t_command **cmd, int type);
+void		clear_command(t_command **cmd);
+void		clear_env(t_shell *shell);
+void		free_array(char **array);
+void		clear_all(t_shell *shell, char **argv);
+
+/*
 ** --- src ---
 */
 
@@ -115,38 +125,18 @@ int			launch_shell(t_shell *shell);
 void		prep_cmd(t_shell *shell, t_command *cmd);
 
 /*
-** --- clear ---
-*/
-
-void		free_array(char **array);
-void		clear_command(t_command **cmd);
-void		clear_env(t_shell *shell);
-void		remove_redir(t_command **cmd, int type);
-void		clear_all(t_shell *shell, char **argv);
-
-/*
 ** --- cmd ---
 */
 
-t_command	*get_command(char **lines);
-void		type_command(t_shell *shell);
-char		*sep_command(char *line);
-int			parse_cmd(t_shell *shell);
-void		expand_cmd(t_shell *shell, t_command *c);
-
-t_command	*next_cmd(char *line, t_command **prev);
-int			check_cmd(t_shell *shell, t_command *cm);
-
-int			quotes(char *line);
-int			special_char(char *line);
+char		*remove_space(char *line);
+void		fill_line(char *line, char *new_line, int *i, int *j);
+void		close_quotes(char *line, int *i, int *count);
+int			is_special_char(char c);
 int			check_line(t_shell *shell, char **line);
 void		parse_line(char *new_line, char *line);
-int			count_line(char *line);
-char		*remove_space(char *line);
-void		close_quotes(char *line, int *i, int *count);
-void		fill_line(char *line, char *new_line, int *i, int *j);
-char		*expand_line(t_shell *shell, char *line);
-char		*expand_value(t_shell *shell, char *str, int *i);
+int			parse_cmd(t_shell *shell);
+int			check_cmd(t_shell *shell, t_command *cm);
+t_command	*next_cmd(char *line, t_command **prev);
 
 /*
 ** --- execution ---
@@ -166,7 +156,6 @@ void		last_ret_exec_verif(t_shell *shell);
 ** --- utils ---
 */
 
-int			is_special_char(char c);
 int			break_exp(int c);
 char		**ft_split_cmd(char *line);
 void		reset_shell(t_shell *shell);
@@ -195,6 +184,15 @@ void		sig_init(void);
 void		sigint(int signum);
 void		sigquit(int signum);
 void		heredoc_sigint(int signum);
+
+/*
+** --- autrees ---
+*/
+
+void		expand_cmd(t_shell *shell, t_command *c);
+int			count_line(char *line);
+char		*expand_line(t_shell *shell, char *line);
+char		*expand_value(t_shell *shell, char *str, int *i);
 
 extern t_sig	g_sig;
 

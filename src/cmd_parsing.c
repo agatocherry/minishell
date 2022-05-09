@@ -6,13 +6,13 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/05/08 01:37:53 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 11:07:50 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_command	*get_command(char **lines)
+static t_command	*get_command(char **lines)
 {
 	t_command	*prev;
 	t_command	*next;
@@ -41,7 +41,7 @@ t_command	*get_command(char **lines)
 	return (next);
 }
 
-void	type_command(t_shell *shell)
+static void	type_command(t_shell *shell)
 {
 	t_command	*cmd;
 
@@ -68,7 +68,7 @@ void	type_command(t_shell *shell)
 	}
 }
 
-char	*sep_command(char *line)
+static char	*sep_command(char *line)
 {
 	char	*new_line;
 

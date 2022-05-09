@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_line_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:33:21 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/04/22 21:23:50 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 11:05:06 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	fill_line(char *line, char *new_line, int *i, int *j)
 	new_line[(*j)++] = line[(*i)++];
 }
 
-char	*ft_cpy(char *line, int count)
+static char	*ft_cpy(char *line, int count)
 {
 	int		i;
 	int		j;

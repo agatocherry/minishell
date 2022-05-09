@@ -6,13 +6,13 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/05/09 07:56:14 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 11:08:45 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	invalid_cmd(t_command *cm)
+static int	invalid_cmd(t_command *cm)
 {
 	if (cm->type > PIPE && (!cm->next || cm->next->type >= PIPE))
 		return (1);

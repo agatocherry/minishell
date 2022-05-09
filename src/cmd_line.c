@@ -6,13 +6,13 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:17:31 by agcolas           #+#    #+#             */
-/*   Updated: 2022/04/23 20:21:31 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 11:06:53 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	quotes(char *line)
+static int	quotes(char *line)
 {
 	char	quote;
 	int		i;
@@ -36,7 +36,7 @@ int	quotes(char *line)
 	return (0);
 }
 
-int	special_char(char *line)
+static int	special_char(char *line)
 {
 	int	i;
 
