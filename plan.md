@@ -21,3 +21,4 @@ A tester :
 - Suivre la correction que tu as trouvée sur Notion, tester plein de parsing avec quotes et $
 - Tester le bon fonctionnement avec env -i
 - Tester plusieurs commandes vides (entrée sans rien écrit, "" '', "'''"""'"...)
+- J'ai vu que cat wouaf renvoie 256 alors que ça devrait renvoyer 1, si jamais tu trouves d'où vient l'erreur
