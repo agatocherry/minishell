@@ -2,12 +2,7 @@
 
 [Notion](https://agatocherry.notion.site/Minishell-d9d2a462a1384b26ae9491338da6e053) 📌
 
-Agathe :
-- Vérifier les retours pour chaque cas d'erreurs
-- Rechercher quelques commandes fourbes et les tester
-  - "unset PATH" n'unset pas reellement $PATH
-  - "echo $REPL_OWNER" ne fonctionne pas
-- Leaks 
+- J'ai vu que cat wouaf renvoie 256 alors que ça devrait renvoyer 1, si jamais tu trouves d'où vient l'erreur
 
 A tester :
 - Verifier que $? est identique a bash pour chaque erreur : 
@@ -21,4 +16,3 @@ A tester :
 - Suivre la correction que tu as trouvée sur Notion, tester plein de parsing avec quotes et $
 - Tester le bon fonctionnement avec env -i
 - Tester plusieurs commandes vides (entrée sans rien écrit, "" '', "'''"""'"...)
-- J'ai vu que cat wouaf renvoie 256 alors que ça devrait renvoyer 1, si jamais tu trouves d'où vient l'erreur

@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 14:49:18 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/09 07:27:32 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 10:49:05 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,12 @@ void	exec_cmd(t_shell *shell, t_command *cmd)
 		else if (argv && is_builtin(argv))
 			shell->last_ret = builtin(shell, argv);
 		else if (argv)
+		{
 			shell->last_ret = exec(shell, shell->env, argv);
+		}
 		free_array(argv);
 		free(argv);
-		if (shell->last_ret == 32256 || shell->last_ret == 32512)
-			shell->last_ret = shell->last_ret / 256;
+		last_ret_exec_verif(shell);
 	}
 	ft_close(shell->pipe_in);
 	ft_close(shell->pipe_out);

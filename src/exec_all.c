@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shdorlin <shdorlin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 22:54:40 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/07 22:00:17 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 10:50:02 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,11 @@ char	*join_path_cmd(char	*cmd, char **path, int *ret)
 		full_cmd = NULL;
 	}
 	return (full_cmd);
+}
+
+void	last_ret_exec_verif(t_shell *shell)
+{
+	if (shell->last_ret == 32256 || shell->last_ret == 32512
+		|| shell->last_ret == 256)
+		shell->last_ret = shell->last_ret / 256;
 }

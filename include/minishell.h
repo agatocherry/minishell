@@ -6,7 +6,7 @@
 /*   By: agcolas <agcolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:58:50 by shdorlin          #+#    #+#             */
-/*   Updated: 2022/05/09 07:27:20 by shdorlin         ###   ########.fr       */
+/*   Updated: 2022/05/09 10:49:52 by agcolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ void		exec_cmd(t_shell *shell, t_command *cmd);
 char		*join_path_cmd(char *cmd, char **path, int *ret);
 int			exec_error(char *cmd, int ret);
 int			exec2(t_shell *shell, char **env, char **argv, char **cmd);
+void		last_ret_exec_verif(t_shell *shell);
 
 /*
 ** --- built_in ---
