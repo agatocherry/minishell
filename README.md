@@ -1,9 +1,36 @@
-# 📟 Minishell
+<!-- This README is create with https://readme.so/ -->
 
-L’objectif de ce projet est de créer un shell minimaliste. Ça sera votre petit bash à vous. Vous en apprendrez beaucoup sur les processus et les descripteurs de fichier.
 
-### 👩‍💻 About
+# Minishell
 
-[@agatocherry](https://github.com/agatocherry)
+Minishell is a project that consists of creating your own basic shell. It is a project from the school [42](www.42.fr).
 
-[@shell02](https://github.com/shell02)
+## Screenshots
+
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+
+## Deployment
+
+This project only work on linux.
+
+Before, you need to install theses command:
+```bash
+sudo apt-get install make gcc libreadline-dev
+```
+
+After that, you can run with:
+```bash
+  make && ./minishell
+```
+
+
+## Related
+
+You can find [the official subject here](https://github.com/matiassingers/awesome-readme).
+
+
+## Authors
+
+- [@agatocherry](https://www.github.com/agatocherry)
+- [@shell02](https://github.com/shell02)
