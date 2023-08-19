@@ -7,7 +7,7 @@ Minishell is a project that consists of creating your own basic shell. It is a p
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://cdn.discordapp.com/attachments/457167978820141067/1142563627329658951/image.png)
 
 
 ## Deployment
@@ -23,11 +23,11 @@ After that, you can run with:
 ```bash
   make && ./minishell
 ```
-
+For quiting the program, you need to use `Ctrl` + `D`.
 
 ## Related
 
-You can find [the official subject here](https://github.com/matiassingers/awesome-readme).
+You can find [the official subject here](./subject.pdf).
 
 
 ## Authors

@@ -3,6 +3,9 @@
 *.nfs*
 .replit
 
+# IDE files
+.idea
+
 # Object files
 *.o
 *.ko

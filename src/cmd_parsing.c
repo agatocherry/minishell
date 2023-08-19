@@ -86,7 +86,7 @@ int	parse_cmd(t_shell *shell)
 
 	signal(SIGINT, &sigint);
 	signal(SIGQUIT, &sigquit);
-	line = readline("👉 ");
+	line = readline("minishell> ");
 	if (!line)
 	{
 		shell->exit = 1;
