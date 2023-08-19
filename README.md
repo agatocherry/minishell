@@ -19,7 +19,7 @@ Before, you need to install theses command:
 sudo apt-get install make gcc libreadline-dev
 ```
 
-After that, you can run with:
+After that, you can run with: 
 ```bash
   make && ./minishell
 ```
