@@ -3,7 +3,7 @@
 
 # Minishell
 
-Minishell is a project that consists of creating your own basic shell. It is a project from the school [42](www.42.fr).
+Minishell is a project that consists of creating your own basic shell. It is a project from the school [42](https://42.fr).
 
 ## Screenshots
 
