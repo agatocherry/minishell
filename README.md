@@ -1,6 +1,7 @@
 # Minishell ⌨️
 
 Minishell is a simple shell implementation created for the 42 school project. It has been customized again in 2025 to further explore shell functionality and expand its features. 🖥️
+
 *This project only work on linux and wsl.*
 
 ## About the project 💻
