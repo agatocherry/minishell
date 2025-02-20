@@ -9,8 +9,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	(void)argc;
 	shell_init(&shell, env);
-	while (!shell.exit)
-	{
+	while (!shell.exit) {
 		sig_init();
 		parse_cmd(&shell);
 		if (shell.command != NULL && check_cmd(&shell, shell.command))
