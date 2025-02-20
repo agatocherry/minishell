@@ -1,18 +1,14 @@
-<!-- This README is create with https://readme.so/ -->
-
-
 # Minishell
 
-Minishell is a project that consists of creating your own basic shell. It is a project from the school [42](https://42.fr).
+This project is about a simple shell implementation. 
 
 ## Screenshots
 
-![App Screenshot](https://cdn.discordapp.com/attachments/457167978820141067/1142563627329658951/image.png)
-
+![Preview](./assets/images/preview.png)
 
 ## Deployment
 
-This project only work on linux.
+This project only work on linux and wsl.
 
 Before, you need to install theses command:
 ```bash
@@ -21,14 +17,13 @@ sudo apt-get install make gcc libreadline-dev
 
 After that, you can run with: 
 ```bash
-  make && ./minishell
+make && ./minishell
 ```
 For quiting the program, you need to use `Ctrl` + `D`.
 
 ## Related
 
-You can find [the official subject here](./subject.pdf).
-
+You can find [the official subject here](./assets/subject.pdf).
 
 ## Authors
 
