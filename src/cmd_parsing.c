@@ -86,7 +86,24 @@ int	parse_cmd(t_shell *shell)
 
 	signal(SIGINT, &sigint);
 	signal(SIGQUIT, &sigquit);
-	line = readline("minishell> ");
+    char *pwd = get_from_env(shell, "PWD");
+    int i = 0, j = 0;
+    char lastpwd[ft_strlen(pwd)];
+    while (pwd[i] != '\0') {
+        if (pwd[i] == '/') {
+            lastpwd[j] = '\0';
+            j = 0;
+        }
+        else{
+            lastpwd[j] = pwd[i];
+            j++;
+        }
+        i++;
+    }
+    lastpwd[j] = '\0';
+    char *prompt = ft_strjoin("\033[38;5;205m🌸 ", lastpwd);
+    prompt = ft_strjoin(prompt, " ➜ \x1b[0m");
+	line = readline(prompt);
 	if (!line)
 	{
 		shell->exit = 1;
