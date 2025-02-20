@@ -1,7 +1,6 @@
 #include "../include/minishell.h"
 
-char	*get_from_env(t_shell *shell, char *var)
-{
+char	*get_from_env(t_shell *shell, char *var) {
 	int		i;
 	char	*tmp;
 
